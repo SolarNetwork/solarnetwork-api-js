@@ -21,6 +21,7 @@ class Environment extends Configuration {
 	 * <dl>
 	 * <dt>host</dt><dd><code>data.solarnetwork.net</code></dd>
 	 * <dt>protocol</dt><dd><code>https</code></dd>
+	 * <dt>port</dt><dd><code>443</code></dd>
 	 * </dl>
 	 *
 	 * @param {Object} config an optional set of properties to start with
@@ -30,6 +31,7 @@ class Environment extends Configuration {
 		super(Object.assign({
 			protocol: 'https',
 			host: 'data.solarnetwork.net',
+			port: '443',
 		}, config));
 	}
 
