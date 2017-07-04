@@ -1,6 +1,17 @@
-import ascii from "rollup-plugin-ascii";
-import node from "rollup-plugin-node-resolve";
+import babel from 'rollup-plugin-babel';
 
 export default {
-  plugins: [node(), ascii()]
+  plugins: [
+    babel({
+      exclude: 'node_modules/**',
+      babelrc: false,
+      plugins: ['external-helpers'],
+      presets: [
+        ["latest", {
+          "es2015": {
+            "modules": false
+          }
+        }]
+      ]
+    })]
 };

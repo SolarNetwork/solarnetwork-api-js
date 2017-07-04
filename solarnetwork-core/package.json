@@ -28,36 +28,33 @@
     "babel": "inherit"
   },
   "babel": {
-    "presets": [
-      "@ava/stage-4"
-    ],
+    "presets": ["@ava/stage-4"],
     "plugins": [
-      [
-        "module-resolver",
-        {
-          "root": [
-            "./src"
-          ],
-          "cwd": "packagejson"
-        }
-      ]
+	  ["module-resolver", {
+	    "root": ["./src"],
+	    "cwd": "packagejson"
+	  }]
     ]
   },
   "scripts": {
-    "build": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -n solarnetwork -o build/solarnetwork-core.js -- index.js",
-    "postbuild": "uglifyjs --preamble \"$(preamble)\" build/solarnetwork-core.js -c -m -o build/solarnetwork-core.min.js",
-    "test": "ava && eslint index.js src"
+    "build": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -c -f umd -n solarnetwork -o build/solarnetwork-core.js -- index.js",
+    "postbuild": "eslint index.js src && uglifyjs --preamble \"$(preamble)\" build/solarnetwork-core.js -c -m -o build/solarnetwork-core.min.js",
+    "test": "ava"
   },
   "devDependencies": {
     "ava": "^0.20.0",
-    "babel-core": "~6.24.0",
+    "babel-core": "^6.24.1",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-module-resolver": "~3.0.0-beta.3",
-    "babel-register": "~6.24.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-register": "^6.24.1",
     "eslint": "3",
+    "global-object": "^1.0.0",
     "istanbul": "^0.4.5",
     "nyc": "^11.0.3",
     "package-preamble": "0.1",
     "rollup": "0.43",
+    "rollup-plugin-babel": "^2.7.1",
     "uglify-js": "^3.0.23"
   }
 }

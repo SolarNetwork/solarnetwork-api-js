@@ -1,0 +1,85 @@
+/**
+ * Parse the query portion of a URL string, and return a parameter object for the
+ * parsed key/value pairs.
+ *
+ * <p>Multiple parameters of the same name will be stored as an array on the returned object.</p>
+ *
+ * @param {String} search the query portion of the URL, which may optionally include
+ *                        the leading '?' character
+ * @return {Object} the parsed query parameters, as a parameter object
+ * @preserve
+ */
+function urlQueryParse(search) {
+	var params = {};
+	var pairs;
+	var pair;
+	var i, len, k, v;
+	if ( search !== undefined && search.length > 0 ) {
+		// remove any leading ? character
+		if ( search.match(/^\?/) ) {
+			search = search.substring(1);
+		}
+		pairs = search.split('&');
+		for ( i = 0, len = pairs.length; i < len; i++ ) {
+			pair = pairs[i].split('=', 2);
+			if ( pair.length === 2 ) {
+				k = decodeURIComponent(pair[0]);
+				v = decodeURIComponent(pair[1]);
+				if ( params[k] ) {
+					if ( !Array.isArray(params[k]) ) {
+						params[k] = [params[k]]; // turn into array;
+					}
+					params[k].push(v);
+				} else {
+					params[k] = v;
+				}
+			}
+		}
+	}
+	return params;
+}
+
+/**
+ * Encode the properties of an object as a URL query string.
+ *
+ * <p>If an object property has an array value, multiple URL parameters will be encoded for that property.</p>
+ *
+ * @param {Object} an object to encode as URL parameters
+ * @return {String} the encoded query parameters
+ * @preserve
+ */
+function urlQueryEncode(parameters) {
+	var result = '',
+		prop,
+		val,
+		i,
+		len;
+	function handleValue(k, v) {
+		if ( result.length ) {
+			result += '&';
+		}
+		result += encodeURIComponent(k) + '=' + encodeURIComponent(v);
+	}
+	if ( parameters ) {
+		for ( prop in parameters ) {
+			if ( parameters.hasOwnProperty(prop) ) {
+				val = parameters[prop];
+				if ( Array.isArray(val) ) {
+					for ( i = 0, len = val.length; i < len; i++ ) {
+						handleValue(prop, val[i]);
+					}
+				} else {
+					handleValue(prop, val);
+				}
+			}
+		}
+	}
+	return result;
+}
+
+export { urlQueryParse, urlQueryEncode };
+
+export default {
+	urlQueryParse : urlQueryParse,
+	urlQueryEncode : urlQueryEncode,
+}
