@@ -49,6 +49,15 @@ class MultiMap {
 	isEmpty() {
 		return this.size() < 1;
 	}
+
+	keySet() {
+		const result = [];
+		const len = this.size();
+		for ( let i = 0; i < len; i += 1 ) {
+			result.push(this.mappings[this.mappingNames[i]].key);
+		}
+		return result;
+	}
 }
 
 function addValue(map, key, value, replace) {

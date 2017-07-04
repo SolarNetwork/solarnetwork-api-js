@@ -32,6 +32,12 @@ test('core:multiMap:firstValue:single', t => {
 	t.is(map.firstValue('foo'), 'bar');
 });
 
+test('core:multiMap:firstValue:singleCaseInsensitive', t => {
+	const map = new MultiMap();
+	map.put('FOO', 'bar');
+	t.is(map.firstValue('foo'), 'bar');
+});
+
 test('core:multiMap:firstValue:array', t => {
 	const map = new MultiMap();
 	map.put('foo', ['bim', 'bam']);
@@ -99,5 +105,22 @@ test('core:multiMap:isEmpty:afterClear', t => {
 	t.false(map.isEmpty());
 	map.clear();
 	t.true(map.isEmpty());
+});
+
+test('core:multiMap:keySet:empty', t => {
+	const map = new MultiMap();
+	t.deepEqual(map.keySet(), []);
+});
+
+test('core:multiMap:keySet:single', t => {
+	const map = new MultiMap();
+	map.put('foo', 'bar');
+	t.deepEqual(map.keySet(), ['foo']);
+});
+
+test('core:multiMap:keySet:multi', t => {
+	const map = new MultiMap();
+	map.putAll({Foo:'bar', Bim:['bam', 'bum'], Baz:'done'});
+	t.deepEqual(map.keySet(), ['Foo', 'Bim', 'Baz']);
 });
 
