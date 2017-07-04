@@ -1,0 +1,38 @@
+import Configuration from 'configuration';
+
+/**
+ * An environment configuration utility object.
+ *
+ * This extends {@code Configuration} to add support for standard properties
+ * needed to access the SolarNetwork API, such as host and protocol values.
+ *
+ * @class
+ * @param {Object} initialMap the initial properties to store (optional)
+ * @preserve
+ */
+class Environment extends Configuration {
+
+	/**
+	 * Constructor.
+	 *
+	 * This will define the following default properties, if not supplied on the
+	 * {@code config} argument:
+	 *
+	 * <dl>
+	 * <dt>host</dt><dd><code>data.solarnetwork.net</code></dd>
+	 * <dt>protocol</dt><dd><code>https</code></dd>
+	 * </dl>
+	 *
+	 * @param {Object} config an optional set of properties to start with
+	 * @preserve
+	 */
+	constructor(config) {
+		super(Object.assign({
+			protocol: 'https',
+			host: 'data.solarnetwork.net',
+		}, config));
+	}
+
+}
+
+export default Environment;
