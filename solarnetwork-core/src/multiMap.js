@@ -50,6 +50,10 @@ class MultiMap {
 		return this.size() < 1;
 	}
 
+	containsKey(key) {
+		return (this.value(key) !== undefined);
+	}
+
 	keySet() {
 		const result = [];
 		const len = this.size();

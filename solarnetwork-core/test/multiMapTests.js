@@ -124,3 +124,11 @@ test('core:multiMap:keySet:multi', t => {
 	t.deepEqual(map.keySet(), ['Foo', 'Bim', 'Baz']);
 });
 
+test('core:multiMap:containsKey', t => {
+	const map = new MultiMap();
+	map.put('foo', 'bar');
+	t.true(map.containsKey('foo'), 'case match');
+	t.true(map.containsKey('FoO'), 'case insensitive match');
+	t.false(map.containsKey('bar'));
+});
+
