@@ -1,0 +1,63 @@
+{
+  "name": "solarnetwork-core",
+  "version": "0.0.1",
+  "description": "SolarNetwork Core",
+  "keywords": [
+    "solarnetwork"
+  ],
+  "homepage": "https://github.com/SolarNetwork/solarnetwork-api-js",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Matt Magoffin",
+    "email": "matt@solarnetwork.net"
+  },
+  "main": "build/solarnetwork-core.js",
+  "module": "index",
+  "jsnext:main": "index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SolarNetwork/solarnetwork-api-js.git"
+  },
+  "ava": {
+    "source": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  },
+  "babel": {
+    "presets": [
+      "@ava/stage-4"
+    ],
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src"
+          ],
+          "cwd": "packagejson"
+        }
+      ]
+    ]
+  },
+  "scripts": {
+    "build": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -n solarnetwork -o build/solarnetwork-core.js -- index.js",
+    "postbuild": "uglifyjs --preamble \"$(preamble)\" build/solarnetwork-core.js -c -m -o build/solarnetwork-core.min.js",
+    "test": "ava && eslint index.js src"
+  },
+  "devDependencies": {
+    "ava": "^0.20.0",
+    "babel-core": "~6.24.0",
+    "babel-plugin-module-resolver": "~3.0.0-beta.3",
+    "babel-register": "~6.24.0",
+    "eslint": "3",
+    "istanbul": "^0.4.5",
+    "nyc": "^11.0.3",
+    "package-preamble": "0.1",
+    "rollup": "0.43",
+    "uglify-js": "^3.0.23"
+  }
+}
