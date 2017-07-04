@@ -1,0 +1,103 @@
+'use strict';
+
+import test from 'ava';
+
+import MultiMap from 'multiMap';
+
+test('core:multiMap:create', t => {
+	const map = new MultiMap();
+	t.truthy(map);
+});
+
+test('core:multiMap:put', t => {
+	const map = new MultiMap();
+	t.is(map.put('foo', 'bar'), map);
+	t.deepEqual(map.value('foo'), ['bar']);
+});
+
+test('core:multiMap:putArray', t => {
+	const map = new MultiMap();
+	t.is(map.put('foo', ['bar', 'bam']), map);
+	t.deepEqual(map.value('foo'), ['bar', 'bam']);
+});
+
+test('core:multiMap:firstValue:undefined', t => {
+	const map = new MultiMap();
+	t.true(map.firstValue('foo') === undefined);
+});
+
+test('core:multiMap:firstValue:single', t => {
+	const map = new MultiMap();
+	map.put('foo', 'bar');
+	t.is(map.firstValue('foo'), 'bar');
+});
+
+test('core:multiMap:firstValue:array', t => {
+	const map = new MultiMap();
+	map.put('foo', ['bim', 'bam']);
+	t.is(map.firstValue('foo'), 'bim');
+});
+
+test('core:multiMap:putAll', t => {
+	const map = new MultiMap();
+	t.is(map.putAll({foo:'bar', bim:'bam'}), map);
+	t.deepEqual(map.value('foo'), ['bar']);
+	t.deepEqual(map.value('bim'), ['bam']);
+});
+
+test('core:multiMap:putAllWithArray', t => {
+	const map = new MultiMap();
+	t.is(map.putAll({foo:'bar', bim:['bam', 'bum']}), map);
+	t.deepEqual(map.value('foo'), ['bar']);
+	t.deepEqual(map.value('bim'), ['bam', 'bum']);
+});
+
+test('core:multiMap:size:empty', t => {
+	const map = new MultiMap();
+	t.is(map.size(), 0);
+});
+
+test('core:multiMap:size:single', t => {
+	const map = new MultiMap();
+	map.put('foo', 'bar');
+	t.is(map.size(), 1);
+});
+
+test('core:multiMap:size:multi', t => {
+	const map = new MultiMap();
+	map.putAll({foo:'bar', bim:['bam', 'bum']});
+	t.is(map.size(), 2);
+});
+
+test('core:multiMap:clear:empty', t => {
+	const map = new MultiMap();
+	t.is(map.clear(), map);
+	t.is(map.size(), 0);
+});
+
+test('core:multiMap:clear:multi', t => {
+	const map = new MultiMap();
+	map.putAll({foo:'bar', bim:['bam', 'bum']});
+	t.is(map.clear(), map);
+	t.is(map.size(), 0);
+});
+
+test('core:multiMap:isEmpty:empty', t => {
+	const map = new MultiMap();
+	t.true(map.isEmpty());
+});
+
+test('core:multiMap:isEmpty:not', t => {
+	const map = new MultiMap();
+	map.put('foo', 'bar');
+	t.false(map.isEmpty());
+});
+
+test('core:multiMap:isEmpty:afterClear', t => {
+	const map = new MultiMap();
+	map.put('foo', 'bar');
+	t.false(map.isEmpty());
+	map.clear();
+	t.true(map.isEmpty());
+});
+
