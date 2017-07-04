@@ -2,8 +2,8 @@
 
 import test from 'ava';
 
-import { urlQueryParse, urlQueryEncode } from 'urlQuery';
-import urlQuery from 'urlQuery';
+import { urlQueryParse, urlQueryEncode } from 'net/urlQuery';
+import urlQuery from 'net/urlQuery';
 
 test('core:urlQuery:encode:simple', t => {
 	t.is(urlQueryEncode({foo:'bar'}), 'foo=bar');

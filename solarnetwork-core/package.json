@@ -37,7 +37,7 @@
     ]
   },
   "scripts": {
-    "build": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -c -f umd -n solarnetwork -m -o build/solarnetwork-core.js -- index.js",
+    "build": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -c -f umd -n sn -m -o build/solarnetwork-core.js -- index.js",
     "postbuild": "eslint index.js src && uglifyjs --preamble \"$(preamble)\" build/solarnetwork-core.js --in-source-map build/solarnetwork-core.js.map --source-map build/solarnetwork-core.min.js.map -c -m -o build/solarnetwork-core.min.js",
     "test": "ava"
   },
