@@ -21,6 +21,10 @@ test('core:net:urlQuery:encode:escaped', t => {
 	t.is(urlQueryEncode({foo:'sn == crazy & cool!'}), 'foo=sn%20%3D%3D%20crazy%20%26%20cool!');
 });
 
+test('core:net:urlQuery:encode:custom', t => {
+	t.is(urlQueryEncode({foo:'bar'}, function(v) { return v.toUpperCase(); }), 'FOO=BAR');
+});
+
 test('core:net:urlQuery:parse:simple', t => {
 	t.deepEqual(urlQueryParse('foo=bar'), {foo:'bar'});
 });

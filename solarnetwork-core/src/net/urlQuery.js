@@ -44,21 +44,28 @@ function urlQueryParse(search) {
  *
  * <p>If an object property has an array value, multiple URL parameters will be encoded for that property.</p>
  *
- * @param {Object} an object to encode as URL parameters
+ * <p>The optional {@code encoderFn} argument is a function that accepts a string value
+ * and should return a URI-safe string for that value.</p>
+ *
+ * @param {Object} parameters an object to encode as URL parameters
+ * @param {Function} encoderFn an optional function to encode each URI component with;
+ *                             if not provided the built-in encodeURIComponent() function
+ *                             will be used
  * @return {String} the encoded query parameters
  * @preserve
  */
-function urlQueryEncode(parameters) {
+function urlQueryEncode(parameters, encoderFn) {
 	var result = '',
 		prop,
 		val,
 		i,
 		len;
+	const encoder = (encoderFn || encodeURIComponent);
 	function handleValue(k, v) {
 		if ( result.length ) {
 			result += '&';
 		}
-		result += encodeURIComponent(k) + '=' + encodeURIComponent(v);
+		result += encoder(k) + '=' + encoder(v);
 	}
 	if ( parameters ) {
 		for ( prop in parameters ) {
