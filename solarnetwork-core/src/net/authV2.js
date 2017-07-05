@@ -5,6 +5,13 @@ import SHA256 from 'crypto-js/sha256';
 import Environment from 'net/environment';
 import { HttpMethod, default as HttpHeaders } from 'net/httpHeaders';
 
+/**
+ * A builder object for the SNWS2 HTTP authorization scheme.
+ *
+
+ * @class
+ * @preserve
+ */
 class AuthorizationV2Builder {
 	constructor(token, environment) {
 		this.tokenId = token;
@@ -22,6 +29,23 @@ class AuthorizationV2Builder {
 			host += ':' +this.environment.port;
 		}
 		return this.method(HttpMethod.GET).host(host).path('/').date(new Date());
+	}
+
+	/**
+	 * Compute and cache the signing key.
+	 *
+	 * Signing keys are derived from the token secret and valid for 7 days, so
+	 * this method can be used to compute a signing key so that {@link #build()}
+	 * can be called later. The signing date will be set to whatever date is
+	 * currently configured via {@link #date(Date)}, which defaults to the
+	 * current time for newly created builder instances.
+	 *
+	 * @param {String} tokenSecret the secret to sign the digest with
+	 * @return this object
+	 */
+	saveSigningKey(tokenSecret) {
+		this.signingKey = this.computeSigningKey(tokenSecret);
+		return this;
 	}
 
 	/**
@@ -255,17 +279,43 @@ class AuthorizationV2Builder {
 				+ Hex.stringify(SHA256(canonicalRequestData));
 	}
 
+    buildWithKey(theSigningKey) {
+        const sortedHeaderNames = this.canonicalHeaderNames();
+        const canonicalReq = this.computeCanonicalRequestData(sortedHeaderNames);
+        const signatureData = this.computeSignatureData(canonicalReq);
+        const signature = Hex.stringify(HmacSHA256(signatureData, theSigningKey));
+        let result = 'SNWS2 Credential=' + this.tokenId
+            + ',SignedHeaders=' + sortedHeaderNames.join(';')
+            + ',Signature=' +signature;
+        return result;
+    }
+
+    /**
+     * Compute a HTTP {@code Authorization} header value from the configured
+     * properties on the builder, computing a new signing key based on the
+	 * configured {@link #date(Date)}.
+     *
+     * @return the SNWS2 HTTP Authorization header value.
+	 * @preserve
+     */
 	build(tokenSecret) {
-		const sortedHeaderNames = this.canonicalHeaderNames();
-		const theSigningKey = this.computeSigningKey(tokenSecret);
-		const canonicalReq = this.computeCanonicalRequestData(sortedHeaderNames);
-		const signatureData = this.computeSignatureData(canonicalReq);
-		const signature = Hex.stringify(HmacSHA256(signatureData, theSigningKey));
-		var result = 'SNWS2 Credential=' + this.tokenId
-			+ ',SignedHeaders=' + sortedHeaderNames.join(';')
-			+ ',Signature=' +signature;
-		return result;
+        const theSigningKey = this.computeSigningKey(tokenSecret);
+        return this.buildWithKey(theSigningKey);
 	}
+
+
+    /**
+     * Compute a HTTP {@code Authorization} header value from the configured
+     * properties on the builder, using a signing key configured from a previous
+     * call to {@link #saveSigningKey(String)}.
+     *
+     * @return the SNWS2 HTTP Authorization header value.
+	 * @preserve
+     */
+    buildWithSavedKey() {
+    	return this.buildWithKey(this.signingKey);
+	}
+
 }
 
 function lowercaseSortedArray(headerNames) {
