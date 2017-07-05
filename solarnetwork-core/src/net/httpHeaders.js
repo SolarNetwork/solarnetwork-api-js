@@ -19,8 +19,12 @@ class HttpHeaders extends MultiMap {
 }
 
 Object.defineProperties(HttpHeaders, {
+	'CONTENT_MD5':		{ value: 'Content-MD5' },
 	'CONTENT_TYPE': 	{ value: 'Content-Type' },
+	'DATE':				{ value: 'Date' },
+	'DIGEST':			{ value: 'Digest' },
 	'HOST': 			{ value: 'Host' },
+	'X_SN_DATE': 		{ value: 'X-SN-Date' },
 });
 
 export { HttpMethod };
