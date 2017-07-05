@@ -85,10 +85,10 @@ class Configuration {
 	 * Get or set a configuration value.
 	 *
 	 * @param {String} key The key to get or set the value for
-	 * @param [newValue] If defined, the new value to set for the given {@code key}.
-	 *                   If {@code null} then the value will be removed.
-	 * @returns If called as a getter, the associated value for the given {@code key},
-	 * otherwise this object.
+	 * @param {Object} [newValue] If defined, the new value to set for the given {@code key}.
+	 *                            If {@code null} then the value will be removed.
+	 * @returns {Object} If called as a getter, the associated value for the given {@code key},
+	 *                   otherwise this object.
 	 * @preserve
 	 */
 	value(key, newValue) {
