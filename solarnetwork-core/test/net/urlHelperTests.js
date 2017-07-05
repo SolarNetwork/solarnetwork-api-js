@@ -39,3 +39,18 @@ test('core:net:nodeUrlHelper:hostUrl:customPort', t => {
     t.is(helper.hostUrl(), 'https://data.solarnetwork.net:8443');
 });
 
+test('core:net:nodeUrlHelper:resolveTemplateUrl', t => {
+    const result = UrlHelper.resolveTemplateUrl('/some/{mode}/path?foo={foo}', {
+        mode: 'crazy',
+        foo: 'bar',
+    });
+    t.is(result, '/some/crazy/path?foo=bar');
+});
+
+test('core:net:nodeUrlHelper:resolveTemplateUrl:uirEncoded', t => {
+    const result = UrlHelper.resolveTemplateUrl('/some/{mode}/path?foo={foo}', {
+        mode: 'crazy/cool',
+        foo: 'bar&grille',
+    });
+    t.is(result, '/some/crazy%2Fcool/path?foo=bar%26grille');
+});

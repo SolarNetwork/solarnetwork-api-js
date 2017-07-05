@@ -34,6 +34,24 @@ class UrlHelper {
         return url;
 	}
 
+    /**
+     * Replace occurances of URL template variables with values from a parameter object.
+     * 
+     * URL template variables are specified as <code>{<em>name</em>}</code>. The variable
+     * will be replaced by the value associated with property <code>name</code> in the
+     * provided parameter object. The value will be URI encoded.
+     * 
+     * @param {String} template a URL template
+     * @param {Object} params an object whose properties should serve as tempalte variables
+     * @preserve
+     */
+    static resolveTemplateUrl(template, params) {
+        return template.replace(/\{([^}]+)\}/g, function(match, variableName) {
+            let variableValue = params[variableName];
+            return (variableValue !== undefined ? encodeURIComponent(variableValue) : '');
+        });
+    }
+
 }
 
 export default UrlHelper;
