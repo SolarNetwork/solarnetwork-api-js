@@ -92,7 +92,6 @@ class Configuration {
 	 * @preserve
 	 */
 	value(key, newValue) {
-		var me = this;
 		if ( arguments.length === 1 ) {
 			return this.map[key];
 		}

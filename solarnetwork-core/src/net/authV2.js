@@ -13,7 +13,7 @@ class AuthorizationV2Builder {
 	}
 
 	reset() {
-		this.contentSHA256 = null;
+		this.contentDigest = null;
 		this.httpHeaders = new HttpHeaders();
 		this.parameters = new MultiMap();
 		this.signedHeaderNames = [];
@@ -139,6 +139,23 @@ class AuthorizationV2Builder {
 		return this;
 	}
 
+	/**
+	 * Set the HTTP request body content SHA-256 digest value.
+	 *
+	 * @param {String|WordArray} digest the digest value to use; if a String it is assumed to be Hex encoded
+	 * @return this object
+	 */
+	contentSHA256(digest) {
+		var contentDigest;
+		if ( typeof digest === 'string' ) {
+			contentDigest = Hex.parse(digest);
+		} else {
+			contentDigest = digest;
+		}
+		this.contentDigest = contentDigest;
+		return this;
+	}
+
 	canonicalQueryParameters() {
 		const keys = this.parameters.keySet();
 		if ( keys.length < 1 ) {
@@ -186,8 +203,9 @@ class AuthorizationV2Builder {
 	}
 
 	canonicalContentSHA256() {
-		// TODO
-		return AuthorizationV2Builder.EMPTY_STRING_SHA256_HEX;
+		return (this.contentDigest
+			? Hex.stringify(this.contentDigest)
+			: AuthorizationV2Builder.EMPTY_STRING_SHA256_HEX);
 	}
 
 	canonicalHeaderNames() {
