@@ -28,12 +28,19 @@
     "babel": "inherit"
   },
   "babel": {
-    "presets": ["@ava/stage-4"],
+    "presets": [
+      "@ava/stage-4"
+    ],
     "plugins": [
-	  ["module-resolver", {
-	    "root": ["./src"],
-	    "cwd": "packagejson"
-	  }]
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src"
+          ],
+          "cwd": "packagejson"
+        }
+      ]
     ]
   },
   "scripts": {
@@ -56,5 +63,9 @@
     "rollup": "0.43",
     "rollup-plugin-babel": "^2.7.1",
     "uglify-js": "^3.0.23"
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "uri-js": "^3.0.2"
   }
 }
