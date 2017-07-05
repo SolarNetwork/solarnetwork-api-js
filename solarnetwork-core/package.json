@@ -62,6 +62,7 @@
     "package-preamble": "0.1",
     "rollup": "0.43",
     "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-includepaths": "^0.2.2",
     "uglify-js": "^3.0.23"
   },
   "dependencies": {
