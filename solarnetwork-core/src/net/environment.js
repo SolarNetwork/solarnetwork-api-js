@@ -24,7 +24,7 @@ class Environment extends Configuration {
 	 * <dt>port</dt><dd><code>443</code></dd>
 	 * </dl>
 	 *
-	 * @param {Object} config an optional set of properties to start with
+	 * @param {Object} [config] an optional set of properties to start with
 	 * @preserve
 	 */
 	constructor(config) {
