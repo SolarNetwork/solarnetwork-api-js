@@ -304,16 +304,16 @@ class AuthorizationV2Builder {
 	}
 
 
-    /**
-     * Compute a HTTP {@code Authorization} header value from the configured
-     * properties on the builder, using a signing key configured from a previous
-     * call to {@link #saveSigningKey(String)}.
-     *
-     * @return the SNWS2 HTTP Authorization header value.
+	/**
+	 * Compute a HTTP {@code Authorization} header value from the configured
+	 * properties on the builder, using a signing key configured from a previous
+	 * call to {@link #saveSigningKey(String)}.
+	 *
+	 * @return the SNWS2 HTTP Authorization header value.
 	 * @preserve
-     */
-    buildWithSavedKey() {
-    	return this.buildWithKey(this.signingKey);
+	 */
+	buildWithSavedKey() {
+		return this.buildWithKey(this.signingKey);
 	}
 
 }
