@@ -25,7 +25,13 @@ class UrlHelper {
 	 * @preserve
      */
     hostUrl() {
-		return ('http' +(this.environment.useTls() ? 's' : '') +'://' +this.environment.value('host'));
+        const tls = this.environment.useTls();
+        const port = +this.environment.value('port');
+		let url = 'http' +(tls ? 's' : '') +'://' +this.environment.value('host');
+        if ( (tls && port > 0 && port !== 443) || (!tls && port > 0 && port !== 80) ) {
+            url += ':' +port;
+        }
+        return url;
 	}
 
 }

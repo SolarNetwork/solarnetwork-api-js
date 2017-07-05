@@ -31,7 +31,7 @@ class Environment extends Configuration {
 		super(Object.assign({
 			protocol: 'https',
 			host: 'data.solarnetwork.net',
-			port: '443',
+			port: (config && config.port ? config.port : (config && config.protocol ? (config.protocol === 'https' ? 443 : 80) : 443)),
 		}, config));
 	}
 

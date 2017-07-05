@@ -9,6 +9,7 @@ test('core:net:environment:create', t => {
 	t.truthy(env);
 	t.is(env.protocol, 'https');
 	t.is(env.host, 'data.solarnetwork.net');
+	t.is(env.port, 443);
 });
 
 test('core:net:environment:createWithConfig', t => {
@@ -16,6 +17,7 @@ test('core:net:environment:createWithConfig', t => {
 	t.truthy(env);
 	t.is(env.protocol, 'http');
 	t.is(env.host, 'example.com');
+	t.is(env.port, 80);
 });
 
 test('core:net:environment:useTls', t => {
