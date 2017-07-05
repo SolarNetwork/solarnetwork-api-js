@@ -11,5 +11,5 @@ test('core:net:urlHelper:create', t => {
 
 test('core:net:urlHelper:hostURL', t => {
     const helper = new UrlHelper();
-    t.is(helper.hostURL(), 'https://data.solarnetwork.net');
+    t.is(helper.hostUrl(), 'https://data.solarnetwork.net');
 });

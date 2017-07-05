@@ -24,7 +24,7 @@ class UrlHelper {
      * @returns {String} the URL to the SolarNet host
 	 * @preserve
      */
-    hostURL() {
+    hostUrl() {
 		return ('http' +(this.environment.useTls() ? 's' : '') +'://' +this.environment.value('host'));
 	}
 
