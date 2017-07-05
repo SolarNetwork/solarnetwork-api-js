@@ -2,7 +2,7 @@
 
 import test from 'ava';
 
-import { dateTimeFormat, timestampFormat, dateFormat, dateTimeFormatURL, dateParser } from 'format/date';
+import { dateTimeFormat, timestampFormat, dateFormat, dateTimeUrlFormat, dateParser } from 'format/date';
 
 const kTestDate = new Date('2017-01-01T12:12:12.123Z');
 
@@ -17,7 +17,7 @@ test('core:format:dateTimeFormat', t => {
 });
 
 test('core:format:dateTimeFormatURL', t => {
-	const s = dateTimeFormatURL(kTestDate);
+	const s = dateTimeUrlFormat(kTestDate);
 	t.is(s, '2017-01-01T12:12');
 });
 
