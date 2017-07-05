@@ -21,6 +21,20 @@ test('core:multiMap:putArray', t => {
 	t.deepEqual(map.value('foo'), ['bar', 'bam']);
 });
 
+test('core:multiMap:add', t => {
+    const map = new MultiMap();
+    t.is(map.add('foo', 'bar'), map);
+    t.is(map.add('foo', 'bum'), map);
+    t.deepEqual(map.value('foo'), ['bar', 'bum']);
+});
+
+test('core:multiMap:addArray', t => {
+    const map = new MultiMap();
+    t.is(map.add('foo', 'bar'), map);
+    t.is(map.add('foo', ['bum', 'bum']), map);
+    t.deepEqual(map.value('foo'), ['bar', 'bum', 'bum']);
+});
+
 test('core:multiMap:firstValue:undefined', t => {
 	const map = new MultiMap();
 	t.true(map.firstValue('foo') === undefined);
