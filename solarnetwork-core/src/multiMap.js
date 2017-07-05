@@ -18,9 +18,10 @@ class MultiMap {
 	}
 
 	putAll(values) {
-		var key;
-		for ( key in values ) {
-			addValue(this, key, values[key], true);
+		for ( let key in values ) {
+			if ( values.hasOwnProperty(key) ) {
+                addValue(this, key, values[key], true);
+            }
 		}
 		return this;
 	}
@@ -66,7 +67,7 @@ class MultiMap {
 
 function addValue(map, key, value, replace) {
 	const keyLc = key.toLowerCase();
-	var mapping = map.mappings[keyLc];
+	let mapping = map.mappings[keyLc];
 	if ( !mapping ) {
 		mapping = {key:key, val:[]};
 		map.mappings[keyLc] = mapping;
