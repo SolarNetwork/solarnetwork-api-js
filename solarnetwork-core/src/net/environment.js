@@ -35,6 +35,15 @@ class Environment extends Configuration {
 		}, config));
 	}
 
+    /**
+	 * Check if TLS is in use via the {@code https} protocol.
+	 *
+     * @returns {boolean} {@code true} if the {@code protocol} is set to {@code https}
+     */
+	useTls() {
+		return (this.value('protocol') === 'https');
+	}
+
 }
 
 export default Environment;

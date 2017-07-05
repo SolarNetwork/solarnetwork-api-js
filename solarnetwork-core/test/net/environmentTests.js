@@ -17,3 +17,11 @@ test('core:net:environment:createWithConfig', t => {
 	t.is(env.protocol, 'http');
 	t.is(env.host, 'example.com');
 });
+
+test('core:net:environment:useTls', t => {
+    const env = new Environment();
+    t.true(env.useTls());
+    env.protocol = 'http';
+    t.false(env.useTls());
+});
+
