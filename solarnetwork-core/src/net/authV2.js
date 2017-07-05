@@ -83,9 +83,85 @@ class AuthorizationV2Builder {
 		return this;
 	}
 
+	/**
+	 * Set a HTTP header value.
+	 *
+	 * This is a shortcut for calling {@code HttpHeaders#put(headerName, val)}.
+	 *
+	 * @param {String} headerName the header name to set
+	 * @param {String} headerValue the header value to set
+	 * @return this object
+	 */
+	header(headerName, headerValue) {
+		this.httpHeaders.put(headerName, headerValue);
+		return this;
+	}
+
+	/**
+	 * Set the HTTP headers to use with the request.
+	 *
+	 * The headers object must include all headers necessary by the
+	 * authentication scheme, and any additional headers also configured via
+	 * {@link #signedHttpHeaders(signedHeaderNames)}.
+	 *
+	 * @param {HttpHeaders} headers the HTTP headers to use
+	 * @return this object
+	 */
+	headers(headers) {
+		this.httpHeaders = headers;
+		return this;
+	}
+
+	/**
+	 * Set the HTTP {@code GET} query parameters, or {@code POST} form-encoded
+	 * parameters.
+	 *
+	 * @param {Object} params the parameters to use, as either a {@code MultiMap} or simple {@code Object}
+	 * @return this object
+	 */
+	queryParams(params) {
+		if ( params instanceof MultiMap ) {
+			this.parameters = params;
+		} else {
+			this.parameters.putAll(params);
+		}
+		return this;
+	}
+
+	/**
+	 * Set additional HTTP header names to sign with the authentication.
+	 *
+	 * @param {Array} signedHeaderNames additional HTTP header names to include in the signature
+	 * @return this object
+	 */
+	signedHttpHeaders(signedHeaderNames) {
+		this.signedHeaderNames = signedHeaderNames;
+		return this;
+	}
+
 	canonicalQueryParameters() {
-		// TODO
-		return '';
+		const keys = this.parameters.keySet();
+		if ( keys.length < 1 ) {
+			return '';
+		}
+		keys.sort();
+		const len = keys.length;
+		var first = true,
+			result = '';
+		for ( let i = 0; i < len; i += 1 ) {
+			let key = keys[i];
+			let vals = this.parameters.value(key);
+			const valsLen = vals.length;
+			for ( let j = 0; j < valsLen; j += 1 ) {
+				if ( first ) {
+					first = false;
+				} else {
+					result += '&';
+				}
+				result += _encodeURIComponent(key) + '=' + _encodeURIComponent(vals[j]);
+			}
+		}
+		return result;
 	}
 
 	canonicalHeaders(sortedLowercaseHeaderNames) {
@@ -187,19 +263,19 @@ function lowercaseSortedArray(headerNames) {
 function sortedHeaderNames(httpHeaders, signedHeaderNames) {
 	var headerNames = [];
 	headerNames.push(HttpHeaders.HOST);
-	if ( httpHeaders.containsKey("X-SN-Date") ) {
-		headerNames.push("X-SN-Date");
+	if ( httpHeaders.containsKey(HttpHeaders.X_SN_DATE) ) {
+		headerNames.push(HttpHeaders.X_SN_DATE);
 	} else {
-		headerNames.push("Date");
+		headerNames.push(HttpHeaders.DATE);
 	}
-	if ( httpHeaders.containsKey("Content-MD5") ) {
-		headerNames.push("Content-MD5");
+	if ( httpHeaders.containsKey(HttpHeaders.CONTENT_MD5) ) {
+		headerNames.push(HttpHeaders.CONTENT_MD5);
 	}
 	if ( httpHeaders.containsKey(HttpHeaders.CONTENT_TYPE) ) {
 		headerNames.push(HttpHeaders.CONTENT_TYPE);
 	}
-	if ( httpHeaders.containsKey("Digest") ) {
-		headerNames.push("Digest");
+	if ( httpHeaders.containsKey(HttpHeaders.DIGEST) ) {
+		headerNames.push(HttpHeaders.DIGEST);
 	}
 	if ( signedHeaderNames ) {
 		headerNames = headerNames.concat(signedHeaderNames);
@@ -220,8 +296,17 @@ function iso8601Date(date, includeTime) {
 				: '');
 }
 
+function _hexEscapeChar(c) {
+	return '%' + c.charCodeAt(0).toString(16);
+}
+
+function _encodeURIComponent(str) {
+  return encodeURIComponent(str).replace(/[!'()*]/g, _hexEscapeChar);
+}
+
 Object.defineProperties(AuthorizationV2Builder, {
-	EMPTY_STRING_SHA256_HEX: { value: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+	EMPTY_STRING_SHA256_HEX: 	{ value: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+	SNWS2_AUTH_SCHEME: 			{ value: 'SNWS2' },
 });
 
 export default AuthorizationV2Builder;
