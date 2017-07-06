@@ -27,6 +27,18 @@ test('core:net:urlHelper:create', t => {
     t.truthy(helper.parameters);
 });
 
+test('core:net:urlHelper:create:environment', t => {
+    const env = new Environment();
+	const helper = new UrlHelper(env);
+	t.is(helper.environment, env);
+});
+
+test('core:net:urlHelper:create:environmentObject', t => {
+	const helper = new UrlHelper({foo:'bar'});
+    const env = helper.environment;
+    t.is(env.value('foo'), 'bar');
+});
+
 test('core:net:urlHelper:hostUrl', t => {
     const helper = new UrlHelper();
     t.is(helper.hostUrl(), 'https://data.solarnetwork.net');

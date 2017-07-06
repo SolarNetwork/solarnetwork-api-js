@@ -12,11 +12,15 @@ class UrlHelper {
     /**
      * Constructor.
      *
-     * @param {Environment} [environment] the optional initial environment to use
+     * @param {Environment|Object} [environment] the optional initial environment to use;
+     *        if a non-{@code Environment} object is passed then the properties of that object will
+     *        be used to construct a new {@code Environment} instance
      * @preserve
      */
     constructor(environment) {
-        this.environment = (environment || new Environment());
+        let env = (environment instanceof Environment ? environment
+            : new Environment(environment));
+        this.environment = env;
         this._parameters = new Configuration();
     }
 
