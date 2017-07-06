@@ -37,10 +37,7 @@ class Configuration {
 	constructor(initialMap) {
 		this.map = {};
 		if ( initialMap !== undefined ) {
-			var prop;
-			for ( prop in initialMap ) {
-				this.value(prop, initialMap[prop]);
-			}
+			this.values(initialMap);
 		}
 	}
 
@@ -107,6 +104,26 @@ class Configuration {
 			}
 		}
 		return this;
+	}
+
+	/**
+	 * Get or set multiple properties.
+	 * 
+	 * @param {Object} [newMap] a map of values to set
+	 * @returns {Object} if called as a getter, all properties of this object copied into a simple object;
+	 *                   otherwise this object
+	 * @preserve
+	 */
+	values(newMap) {
+		if ( newMap ) {
+			for ( let prop in newMap ) {
+				if ( newMap.hasOwnProperty(prop) ) {
+					this.value(prop, newMap[prop]);
+				}
+			}
+			return this;
+		}
+		return Object.assign({}, this.map);
 	}
 
 }

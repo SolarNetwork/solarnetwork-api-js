@@ -58,16 +58,14 @@ test('core:net:urlHelper:hostUrl:customPort', t => {
 
 test('core:net:urlHelper:resolveTemplateUrl', t => {
 	const helper = new UrlHelper();
-    helper.parameters.value('mode', 'crazy');
-    helper.parameters.value('foo', 'bar');
+    helper.parameters.values({mode:'crazy', foo:'bar'});
     const result = helper.resolveTemplateUrl('/some/{mode}/path?foo={foo}');
     t.is(result, '/some/crazy/path?foo=bar');
 });
 
 test('core:net:urlHelper:resolveTemplatePath', t => {
 	const helper = new UrlHelper();
-    helper.parameters.value('mode', 'crazy');
-    helper.parameters.value('foo', 'bar');
+    helper.parameters.values({mode:'crazy', foo:'bar'});
     const result = helper.resolveTemplatePath('/some/{mode}/path?foo={foo}');
     t.is(result, 'https://data.solarnetwork.net/some/crazy/path?foo=bar');
 });

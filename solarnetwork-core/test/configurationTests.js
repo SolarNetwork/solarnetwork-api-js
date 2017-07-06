@@ -44,3 +44,16 @@ test('core:configuration:enabled', t => {
 	t.false(conf.enabled('not'));
 	t.false(conf.enabled('no'));
 });
+
+test('core:configuration:values:get', t => {
+	const conf = new Configuration({some:'other', not:false, no:null});
+	const result = conf.values();
+	t.deepEqual(result, {some:'other', not:false});
+});
+
+test('core:configuration:values:set', t => {
+	const conf = new Configuration();
+	conf.values({some:'other', not:false, no:null});
+	const result = conf.values();
+	t.deepEqual(result, {some:'other', not:false});
+});
