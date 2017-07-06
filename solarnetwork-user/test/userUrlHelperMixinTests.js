@@ -19,3 +19,7 @@ test('user:userUrlHelperMixin:baseUrl', t => {
 	t.is(helper.baseUrl(), 'https://data.solarnetwork.net/solaruser/api/v1/sec');
 });
 
+test('user:userUrlHelperMixin:viewNodesUrl', t => {
+	const helper = new UserUrlHelper();
+	t.is(helper.viewNodesUrl(), 'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes');
+});
