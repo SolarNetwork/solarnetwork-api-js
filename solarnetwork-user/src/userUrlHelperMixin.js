@@ -8,6 +8,7 @@ export const SolarUserApiPathV1 = '/api/v1/sec';
  * A mixin class that adds SolarUser specific support to {@code UrlHelper}.
  * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
+ * @preserve
  */
 const UserUrlHelperMixin = (superclass) => class extends superclass {
 
@@ -20,6 +21,7 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 	 * {@code /solaruser}.
 	 * 
 	 * @returns {string} the base URL to SolarUser
+	 * @preserve
 	 */
 	baseUrl() {
 		const path = this.env(SolarUserPathKey) || DefaultSolarUserPath;
