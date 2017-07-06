@@ -1,3 +1,4 @@
+import Configuration from 'configuration';
 import Environment from 'net/environment';
 
 /**
@@ -16,6 +17,16 @@ class UrlHelper {
      */
     constructor(environment) {
         this.environment = (environment || new Environment());
+        this._parameters = new Configuration();
+    }
+
+    /**
+     * Get a parameters object that can be used to hold URL variables.
+     * 
+     * @returns {Configuration} a parameters object
+     */
+    get parameters() {
+        return this._parameters;
     }
 
     /**
@@ -33,6 +44,38 @@ class UrlHelper {
         }
         return url;
 	}
+
+    /**
+     * Replace occurances of URL template variables with values from the {@code parameters}
+     * property and append to the host URL.
+     * 
+     * This method provides a way to resolve an absolute URL based on the configured
+     * environment and parameters on this object.
+     * 
+     * @param {String} template a URL path template
+     * @returns {String} an absolute URL
+     * @see #resolveTemplateUrl
+     * @preserve
+     */
+    resolveTemplatePath(template) {
+        return this.hostUrl() + this.resolveTemplateUrl(template);
+    }
+
+     /**
+     * Replace occurances of URL template variables with values from the {@code parameters}
+     * property.
+     * 
+     * URL template variables are specified as <code>{<em>name</em>}</code>. The variable
+     * will be replaced by the value associated with property <code>name</code> in the
+     * {@code parameters} object. The value will be URI encoded.
+     * 
+     * @param {String} template a URL template
+     * @returns {String} the URL with template variables resolved
+     * @preserve
+     */
+   resolveTemplateUrl(template) {
+        return UrlHelper.resolveTemplateUrl(template, this._parameters);
+    }
 
     /**
      * Replace occurances of URL template variables with values from a parameter object.
