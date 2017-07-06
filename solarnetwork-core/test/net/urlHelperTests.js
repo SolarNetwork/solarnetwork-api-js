@@ -69,3 +69,10 @@ test('core:net:urlHelper:resolveTemplatePath', t => {
     const result = helper.resolveTemplatePath('/some/{mode}/path?foo={foo}');
     t.is(result, 'https://data.solarnetwork.net/some/crazy/path?foo=bar');
 });
+
+test('core:net:urlHelper:parameter', t => {
+	const helper = new UrlHelper();
+    t.is(helper.parameter('foo', 'bar'), helper.parameters);
+	t.is(helper.parameter('foo'), 'bar');
+    t.is(helper.parameters.value('foo'), 'bar');
+});

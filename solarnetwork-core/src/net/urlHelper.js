@@ -30,6 +30,21 @@ class UrlHelper {
     }
 
     /**
+     * Get a parameter.
+     * 
+     * This is a shortcut for calling {@link Configuration#value()} on the
+     * {@code parameters} object.
+     * 
+     * @param {String} key the parameter name to get
+     * @param {Object} [val] the optional value to set
+     * @returns {Object} when called as a getter, the parameter value;
+     *                   when called as a setter, the parameters object
+     */
+    parameter(...args) {
+        return this._parameters.value(...args);
+    }
+
+    /**
      * Get a URL for just the SolarNet host, without any path.
      *
      * @returns {String} the URL to the SolarNet host
