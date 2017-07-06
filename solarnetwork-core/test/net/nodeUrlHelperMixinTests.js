@@ -34,3 +34,24 @@ test('core:net:nodeUrlHelperMixin:nodeIds:resetNodeId', t => {
 	helper.nodeId = 456;
 	t.deepEqual(helper.nodeIds, [456], 'nodeIds array reset to just nodeId');
 });
+
+test('core:net:sourceUrlHelperMixin:sourceId', t => {
+	const helper = new NodeUrlHelper();
+	helper.sourceId = 'abc';
+	t.is(helper.sourceId, 'abc');
+});
+
+test('core:net:sourceUrlHelperMixin:sourceIds', t => {
+    const helper = new NodeUrlHelper();
+	helper.sourceIds = ['abc', '234'];
+	t.is(helper.sourceId, 'abc');
+	t.deepEqual(helper.sourceIds, ['abc', '234']);
+});
+
+test('core:net:sourceUrlHelperMixin:sourceIds:resetSourceId', t => {
+	const helper = new NodeUrlHelper();
+	helper.sourceIds = ['abc', '234'];
+	t.deepEqual(helper.sourceIds, ['abc', '234']);
+	helper.sourceId = 'def';
+	t.deepEqual(helper.sourceIds, ['def'], 'sourceIds array reset to just sourceId');
+});
