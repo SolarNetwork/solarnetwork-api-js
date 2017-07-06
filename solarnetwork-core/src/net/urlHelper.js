@@ -30,7 +30,22 @@ class UrlHelper {
     }
 
     /**
-     * Get a parameter.
+     * Get or set an environment parameter.
+     * 
+     * This is a shortcut for calling {@link Configuration#value()} on the
+     * {@code environment} object.
+     * 
+     * @param {String} key the environment parameter name to get
+     * @param {Object} [val] the optional value to set
+     * @returns {Object} when called as a getter, the environment parameter value;
+     *                   when called as a setter, the environment parameters object
+     */
+    env(...args) {
+        return this.environment.value(...args);
+    }
+
+    /**
+     * Get or set a parameter.
      * 
      * This is a shortcut for calling {@link Configuration#value()} on the
      * {@code parameters} object.

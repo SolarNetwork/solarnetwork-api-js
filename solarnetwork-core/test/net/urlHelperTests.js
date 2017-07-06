@@ -70,6 +70,14 @@ test('core:net:urlHelper:resolveTemplatePath', t => {
     t.is(result, 'https://data.solarnetwork.net/some/crazy/path?foo=bar');
 });
 
+test('core:net:urlHelper:env', t => {
+	const helper = new UrlHelper();
+	t.is(helper.env('host'), 'data.solarnetwork.net');
+    t.is(helper.env('fooPath', '/foo'), helper.environment);
+    t.is(helper.env('fooPath'), '/foo');
+    t.is(helper.environment.value('fooPath'), '/foo');
+});
+
 test('core:net:urlHelper:parameter', t => {
 	const helper = new UrlHelper();
     t.is(helper.parameter('foo', 'bar'), helper.parameters);
