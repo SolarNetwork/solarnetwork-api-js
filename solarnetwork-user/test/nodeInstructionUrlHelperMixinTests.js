@@ -2,7 +2,7 @@
 
 import test from 'ava';
 
-import { NodeInstructionUrlHelper, InstructionState } from 'nodeInstructionUrlHelperMixin'
+import { NodeInstructionUrlHelper, InstructionState, instructionParameter } from 'nodeInstructionUrlHelperMixin'
 
 test('user:nodeInstructionUrlHelperMixin:create', t => {
 	const helper = new NodeInstructionUrlHelper();
@@ -39,6 +39,16 @@ test('user:nodeInstructionUrlHelperMixin:viewPendingInstructionsUrl', t => {
 		'https://data.solarnetwork.net/solaruser/api/v1/sec/instr/viewPending?nodeId=234');
 });
 
+test('user:nodeInstructionUrlHelperMixin:instructionParameter', t => {
+	// static class access
+	let param = NodeInstructionUrlHelper.instructionParameter('foo', 'bar');
+	t.deepEqual(param, {name:'foo', value:'bar'});
+
+	// direct import access
+	param = instructionParameter('bim', 'bam');
+	t.deepEqual(param, {name:'bim', value:'bam'});
+});
+
 test('user:nodeInstructionUrlHelperMixin:queueInstructionUrl', t => {
 	const helper = new NodeInstructionUrlHelper();
 	helper.nodeId = 123;
@@ -46,5 +56,49 @@ test('user:nodeInstructionUrlHelperMixin:queueInstructionUrl', t => {
 		'https://data.solarnetwork.net/solaruser/api/v1/sec/instr/add?nodeId=123&topic=foo');
 });
 
-test.todo('queueInstructionUrl with parameters');
-test.todo('queueInstructionUrl with nodeId argument');
+test('user:nodeInstructionUrlHelperMixin:queueInstructionUrl:nodeId', t => {
+	const helper = new NodeInstructionUrlHelper();
+	helper.nodeId = 123;
+	t.is(helper.queueInstructionUrl('foo', null, 234),
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/instr/add?nodeId=234&topic=foo');
+});
+
+test('user:nodeInstructionUrlHelperMixin:queueInstructionUrl:parameter', t => {
+	const helper = new NodeInstructionUrlHelper();
+	helper.nodeId = 123;
+	t.is(helper.queueInstructionUrl('foo', [
+			{name:'bim', value:'bam'},
+		]),
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/instr/add?'
+			+'nodeId=123&topic=foo'
+			+'&parameters%5B0%5D.name=bim'
+			+'&parameters%5B0%5D.value=bam');
+});
+
+test('user:nodeInstructionUrlHelperMixin:queueInstructionUrl:parameters', t => {
+	const helper = new NodeInstructionUrlHelper();
+	helper.nodeId = 123;
+	t.is(helper.queueInstructionUrl('foo', [
+			{name:'bim', value:'bam'},
+			{name:'ding', value:'dong'},
+		]),
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/instr/add?'
+			+'nodeId=123&topic=foo'
+			+'&parameters%5B0%5D.name=bim'
+			+'&parameters%5B0%5D.value=bam'
+			+'&parameters%5B1%5D.name=ding'
+			+'&parameters%5B1%5D.value=dong');
+});
+
+test('user:nodeInstructionUrlHelperMixin:queueInstructionUrl:parameter:nodeId', t => {
+	const helper = new NodeInstructionUrlHelper();
+	helper.nodeId = 123;
+	t.is(helper.queueInstructionUrl('foo', [
+			{name:'bim', value:'bam'},
+		], 234),
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/instr/add?'
+			+'nodeId=234&topic=foo'
+			+'&parameters%5B0%5D.name=bim'
+			+'&parameters%5B0%5D.value=bam');
+});
+

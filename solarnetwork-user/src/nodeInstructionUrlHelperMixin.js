@@ -88,6 +88,17 @@ const NodeInstructionUrlHelperMixin = (superclass) => class extends UserUrlHelpe
 		return url;
 	}
 
+	/**
+	 * Create an instruction parameter suitable to passing to {@link #queueInstructionUrl}.
+	 * 
+	 * @param {string} name the parameter name 
+	 * @param {*} value the parameter value
+	 * @returns {object} with {@code name} and {@code value} properties
+	 * @preserve
+	 */
+	static instructionParameter(name, value) {
+		return {name:name, value:value};
+	}
 };
 
 export default NodeInstructionUrlHelperMixin;
@@ -101,3 +112,8 @@ export default NodeInstructionUrlHelperMixin;
 export class NodeInstructionUrlHelper extends NodeInstructionUrlHelperMixin(UrlHelper) {
 
 }
+
+/**
+ * The static {@link NodeInstructionUrlHelperMixin#instructionParameter} method so it can be imported directly.
+ */
+export const instructionParameter = NodeInstructionUrlHelper.instructionParameter;
