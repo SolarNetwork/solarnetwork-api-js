@@ -39,3 +39,12 @@ test('user:userNodeUrlHelperMixin:nodeId', t => {
 	helper.nodeId = 123;
 	t.deepEqual(helper.nodeIds, [123]);
 });
+
+test('user:userNodeUrlHelperMixin:viewNodeMetadataUrl', t => {
+	const helper = new UserNodeUrlHelper();
+	helper.nodeId = 123;
+	t.is(helper.viewNodeMetadataUrl(), 
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/123');
+	t.is(helper.viewNodeMetadataUrl(234), 
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/234');
+});
