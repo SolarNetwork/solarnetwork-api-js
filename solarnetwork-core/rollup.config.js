@@ -10,9 +10,10 @@ const includePathOptions = {
 
 export default {
   external: id => {
-    return /crypto-js/.test(id);
+    return /(crypto-js|d3-)/.test(id);
   },
   globals: {
+    'd3-time-format': 'd3',
     'crypto-js/enc-hex': 'CryptoJS.Hex',
     'crypto-js/hmac-sha256': 'CryptoJS.HmacSHA256',
     'crypto-js/sha256': 'CryptoJS.SHA256',
