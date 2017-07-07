@@ -1,0 +1,61 @@
+{
+  "name": "solarnetwork-api",
+  "version": "0.0.1",
+  "description": "SolarNetwork API",
+  "keywords": [
+    "solarnetwork"
+  ],
+  "homepage": "https://solarnetwork.github.io/",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Matt Magoffin",
+    "email": "matt@solarnetwork.net"
+  },
+  "main": "build/solarnetwork.node.js",
+  "browser": "build/solarnetwork.js",
+  "module": "index",
+  "jsnext:main": "index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SolarNetwork/solarnetwork-api-js.git"
+  },
+  "babel": {
+    "presets": [
+      "@ava/stage-4"
+    ],
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./*/src"
+          ]
+        }
+      ]
+    ]
+  },
+  "scripts": {
+    "prebuild": "rm -rf build && mkdir build && json2module package.json > build/package.js",
+    "build": "rollup --banner \"$(preamble)\" -c -f umd -n sn -m -o build/solarnetwork.js -- index.js",
+    "postbuild": "uglifyjs --preamble \"$(preamble)\" build/solarnetwork.js --source-map content=build/solarnetwork.js.map,filename=build/solarnetwork.min.js.map -c -m -o build/solarnetwork.min.js",
+    "test": "ava"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-module-resolver": "~3.0.0-beta.3",
+    "babel-preset-latest": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "json2module": "^0.0.3",
+    "package-preamble": "0.1",
+    "rollup": "0.43",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-includepaths": "^0.2.2",
+    "uglify-js": "^3.0.23"
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "d3-time-format": "^2.0.5",
+    "uri-js": "^3.0.2"
+  }
+}
