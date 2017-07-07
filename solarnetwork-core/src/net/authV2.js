@@ -4,6 +4,8 @@ import HmacSHA256 from 'crypto-js/hmac-sha256';
 import SHA256 from 'crypto-js/sha256';
 import Environment from 'net/environment';
 import { HttpMethod, default as HttpHeaders } from 'net/httpHeaders';
+import { urlQueryParse } from 'net/urlQuery';
+import { parse as uriParse } from 'uri-js';
 
 /**
  * A builder object for the SNWS2 HTTP authorization scheme.
@@ -81,6 +83,23 @@ class AuthorizationV2Builder {
 	path(val) {
 		this.requestPath = val;
 		return this;
+	}
+
+	/**
+	 * Set the host, path, and query parameters via a URL string.
+	 * 
+	 * @param {string} url the URL value to use
+	 */
+	url(url) {
+		const uri = uriParse(url);
+		let host = uri.host;
+		if ( uri.scheme === 'https' || (uri.port && uri.port !== 80) ) {
+			host += ':' + (uri.port || '443');
+		}
+		if ( uri.query ) {
+			this.queryParams(urlQueryParse(uri.query));
+		}
+		return this.host(host).path(uri.path);
 	}
 
 	/**

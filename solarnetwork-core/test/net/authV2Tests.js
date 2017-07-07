@@ -72,6 +72,38 @@ test('core:net:authV2:queryParams', t => {
 	t.is(result, "SNWS2 Credential=test-token-id,SignedHeaders=date;host,Signature=c597ed8061d9d12e12ead3d8d6fc03b28a877e8639548f31556b4760be09a4b8");
 });
 
+test('core:net:authV2:url', t => {
+	const reqDate = getTestDate();
+	const url = 'http://example.com/path';
+
+	const builder = new AuthV2(TEST_TOKEN_ID);
+	builder.date(reqDate).url(url);
+
+	const canonicalRequestData = builder.buildCanonicalRequestData();
+	t.is(canonicalRequestData,
+		"GET\n/path\n\ndate:Tue, 25 Apr 2017 14:30:00 GMT\nhost:example.com\ndate;host\n"
+		+ AuthV2.EMPTY_STRING_SHA256_HEX);
+
+	const result = builder.build(TEST_TOKEN_SECRET);
+	t.is(result, "SNWS2 Credential=test-token-id,SignedHeaders=date;host,Signature=0ba4f4469e9e0d48b7ca046e189032881c08e67a00c007fadb00242c4301fe31");
+});
+
+test('core:net:authV2:url:queryParams', t => {
+	const reqDate = getTestDate();
+	const url = 'https://example.com:8443/path?foo=bar&bim=bam';
+
+	const builder = new AuthV2(TEST_TOKEN_ID);
+	builder.date(reqDate).url(url);
+
+	const canonicalRequestData = builder.buildCanonicalRequestData();
+	t.is(canonicalRequestData,
+		"GET\n/path\nbim=bam&foo=bar\ndate:Tue, 25 Apr 2017 14:30:00 GMT\nhost:example.com:8443\ndate;host\n"
+		+ AuthV2.EMPTY_STRING_SHA256_HEX);
+
+	const result = builder.build(TEST_TOKEN_SECRET);
+	t.is(result, "SNWS2 Credential=test-token-id,SignedHeaders=date;host,Signature=c3a429e748d2ecd1f734c5a9f562e0c353f4a0d9a48a9492c0637178bb1f15dc");
+});
+
 test('core:net:authV2:simplePost', t => {
 	const reqDate = getTestDate();
 	const reqBodySha256Hex = "226e49e13d16e5e8aa0d62e58cd63361bf097d3e2b2444aa3044334628a2e8de";
