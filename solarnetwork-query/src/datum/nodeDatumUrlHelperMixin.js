@@ -1,6 +1,6 @@
 import UrlHelper from 'net/urlHelper';
 import NodeUrlHelperMixin from 'net/nodeUrlHelperMixin';
-import QueryUrlHelperMixin from '../queryUrlHelperMixin';
+import QueryUrlHelperMixin from 'queryUrlHelperMixin';
 
 /**
  * A mixin class that adds SolarNode datum query support to {@code UrlHelper}.
