@@ -10,7 +10,7 @@ const includePathOptions = {
 
 export default {
   external: id => {
-    return /(crypto-js|net\/)/.test(id);
+    return /(crypto-js|net\/|uri-js)/.test(id);
   },
   globals: {
     'net/urlHelper': 'sn.NetUrlHelper',
@@ -18,6 +18,7 @@ export default {
     'crypto-js/enc-hex': 'CryptoJS.Hex',
     'crypto-js/hmac-sha256': 'CryptoJS.HmacSHA256',
     'crypto-js/sha256': 'CryptoJS.SHA256',
+    'uri-js': 'URI',
   },
   plugins: [
   	includePaths(includePathOptions),
