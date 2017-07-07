@@ -16,6 +16,14 @@ function getTestDate() {
 	return new Date('Tue, 25 Apr 2017 14:30:00 GMT');
 }
 
+test('core:net:authV2:requestDateHeaderValue', t => {
+	const builder = new AuthV2(TEST_TOKEN_ID);
+	builder.date(getTestDate());
+
+	const headerDate = builder.requestDateHeaderValue;
+	t.is(headerDate, 'Tue, 25 Apr 2017 14:30:00 GMT');
+});
+
 test('core:net:authV2:simpleGet', t => {
 	const builder = new AuthV2(TEST_TOKEN_ID);
 	builder.date(getTestDate()).host('localhost').path('/api/test');

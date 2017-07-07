@@ -116,7 +116,7 @@ class AuthorizationV2Builder {
 	}
 
 	/**
-	 * Set the authorization date.
+	 * Set the authorization request date.
 	 *
 	 * @param val {Date} the date to use; typically the current time, e.g. {@code new Date()}
 	 * @return this object
@@ -124,6 +124,15 @@ class AuthorizationV2Builder {
 	date(val) {
 		this.requestDate = (val ? val : new Date());
 		return this;
+	}
+
+	/**
+	 * Get the authorization request date as a HTTP header value.
+	 * 
+	 * @returns {string} the request date as a string
+	 */
+	get requestDateHeaderValue() {
+		return this.requestDate.toUTCString();
 	}
 
 	/**
