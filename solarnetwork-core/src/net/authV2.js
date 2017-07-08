@@ -136,6 +136,50 @@ class AuthorizationV2Builder {
 	}
 
 	/**
+	 * Get the preference to use the <code>X-SN-Date</code> HTTP header versus the <code>Date</code> header.
+	 * 
+	 * <p>This will return <code>true</code> if <code>X-SN-Date</code> has been added
+	 * to the <code>signedHeaderNames</code> property or has been added to the <code>httpHeaders</code>
+	 * property. 
+	 * 
+	 * @returns {boolean} <code>true</code> to use the <code>X-SN-Date</code> header, <code>false</code> to use <code>Date</code>
+	 */
+	get useSnDate() {
+		let signedHeaders = this.signedHeaderNames;
+		let existingIndex = (Array.isArray(signedHeaders)
+			? signedHeaders.findIndex(caseInsensitiveEqualsFn(HttpHeaders.X_SN_DATE))
+			: -1);
+		return existingIndex >= 0 || this.httpHeaders.containsKey(HttpHeaders.X_SN_DATE);
+	}
+
+	/**
+	 * Set preference to use the <code>X-SN-Date</code> HTTP header versus the <code>Date</code> header.
+	 * 
+	 * This is a shortcut for adding or removing <code>X-SN-Date</code> from the
+	 * <code>signedHeaderNames</code> property.
+	 * 
+	 * @param {boolean} enabled <code>true</code> to use the <code>X-SN-Date</code> header, <code>false</code> to use <code>Date</code>
+	 */
+	set useSnDate(enabled) {
+		let signedHeaders = this.signedHeaderNames;
+		let existingIndex = (Array.isArray(signedHeaders)
+			? signedHeaders.findIndex(caseInsensitiveEqualsFn(HttpHeaders.X_SN_DATE))
+			: -1);
+		if ( enabled && existingIndex < 0 ) {
+			signedHeaders = (signedHeaders 
+				? signedHeaders.concat(HttpHeaders.X_SN_DATE)
+				: [HttpHeaders.X_SN_DATE]);
+			this.signedHeaderNames = signedHeaders;
+		} else if ( !enabled && existingIndex >= 0 ) {
+			signedHeaders.splice(existingIndex, 1);
+			this.signedHeaderNames = signedHeaders;
+		}
+
+		// also clear from httpHeaders
+		this.httpHeaders.remove(HttpHeaders.X_SN_DATE);
+	}
+
+	/**
 	 * Set a HTTP header value.
 	 *
 	 * This is a shortcut for calling {@code HttpHeaders#put(headerName, val)}.
@@ -261,7 +305,31 @@ class AuthorizationV2Builder {
 	}
 
 	canonicalHeaderNames() {
-		return sortedHeaderNames(this.httpHeaders, this.signedHeaderNames);
+		const httpHeaders = this.httpHeaders;
+		const signedHeaderNames = this.signedHeaderNames;
+
+		// use a MultiMap to take advantage of case-insensitive keys
+		const map = new MultiMap();
+
+		map.put(HttpHeaders.HOST, true);
+		if ( this.useSnDate ) {
+			map.put(HttpHeaders.X_SN_DATE, true);
+		} else {
+			map.put(HttpHeaders.DATE, true);
+		}
+		if ( httpHeaders.containsKey(HttpHeaders.CONTENT_MD5) ) {
+			map.put(HttpHeaders.CONTENT_MD5, true);
+		}
+		if ( httpHeaders.containsKey(HttpHeaders.CONTENT_TYPE) ) {
+			map.put(HttpHeaders.CONTENT_TYPE, true);
+		}
+		if ( httpHeaders.containsKey(HttpHeaders.DIGEST) ) {
+			map.put(HttpHeaders.DIGEST, true);
+		}
+		if ( signedHeaderNames && signedHeaderNames.length > 0 ) {
+			signedHeaderNames.forEach(e => map.put(e, true));
+		}
+		return lowercaseSortedArray(map.keySet());
 	}
 
 	buildCanonicalRequestData() {
@@ -346,6 +414,11 @@ class AuthorizationV2Builder {
 
 }
 
+function caseInsensitiveEqualsFn(value) {
+	const valueLc = value.toLowerCase();
+	return e => valueLc === e.toString().toLowerCase();
+}
+
 function lowercaseSortedArray(headerNames) {
 	const sortedHeaderNames = [];
 	const len = headerNames.length;
@@ -354,29 +427,6 @@ function lowercaseSortedArray(headerNames) {
 	}
 	sortedHeaderNames.sort();
 	return sortedHeaderNames;
-}
-
-function sortedHeaderNames(httpHeaders, signedHeaderNames) {
-	var headerNames = [];
-	headerNames.push(HttpHeaders.HOST);
-	if ( httpHeaders.containsKey(HttpHeaders.X_SN_DATE) ) {
-		headerNames.push(HttpHeaders.X_SN_DATE);
-	} else {
-		headerNames.push(HttpHeaders.DATE);
-	}
-	if ( httpHeaders.containsKey(HttpHeaders.CONTENT_MD5) ) {
-		headerNames.push(HttpHeaders.CONTENT_MD5);
-	}
-	if ( httpHeaders.containsKey(HttpHeaders.CONTENT_TYPE) ) {
-		headerNames.push(HttpHeaders.CONTENT_TYPE);
-	}
-	if ( httpHeaders.containsKey(HttpHeaders.DIGEST) ) {
-		headerNames.push(HttpHeaders.DIGEST);
-	}
-	if ( signedHeaderNames ) {
-		headerNames = headerNames.concat(signedHeaderNames);
-	}
-	return lowercaseSortedArray(headerNames);
 }
 
 function iso8601Date(date, includeTime) {

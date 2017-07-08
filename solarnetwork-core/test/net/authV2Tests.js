@@ -50,10 +50,12 @@ test('core:net:authV2:simpleGetWithSavedKey', t => {
     t.is(result, "SNWS2 Credential=test-token-id,SignedHeaders=date;host,Signature=4739139d3d370f147b6585795c309b1c6d7d7f59943081f7dd943f689cfa59a3");
 });
 
-test('core:net:authV2:xSnDate', t => {
+test('core:net:authV2:xSnDate:header', t => {
 	const reqDate = getTestDate();
 	const builder = new AuthV2(TEST_TOKEN_ID);
 	builder.date(reqDate).host('localhost').path('/api/test').header('X-SN-Date', reqDate.toUTCString());
+
+	t.is(builder.useSnDate, true);
 
 	const canonicalRequestData = builder.buildCanonicalRequestData();
 	t.is(canonicalRequestData,
@@ -62,6 +64,65 @@ test('core:net:authV2:xSnDate', t => {
 
 	const result = builder.build(TEST_TOKEN_SECRET);
 	t.is(result, "SNWS2 Credential=test-token-id,SignedHeaders=host;x-sn-date,Signature=c14fe9f67560fb9a37d2aa7c40b40c260a5936f999877e2469b8ddb1da7c0eb9");
+});
+
+test('core:net:authV2:xSnDate:signedHeader', t => {
+	const reqDate = getTestDate();
+	const builder = new AuthV2(TEST_TOKEN_ID);
+	builder.date(reqDate).host('localhost').path('/api/test')
+		.signedHttpHeaders(['X-SN-Date']);
+
+	t.is(builder.useSnDate, true);
+
+	const canonicalRequestData = builder.buildCanonicalRequestData();
+	t.is(canonicalRequestData,
+		"GET\n/api/test\n\nhost:localhost\nx-sn-date:Tue, 25 Apr 2017 14:30:00 GMT\nhost;x-sn-date\n"
+		+ AuthV2.EMPTY_STRING_SHA256_HEX);
+
+	const result = builder.build(TEST_TOKEN_SECRET);
+	t.is(result, "SNWS2 Credential=test-token-id,SignedHeaders=host;x-sn-date,Signature=c14fe9f67560fb9a37d2aa7c40b40c260a5936f999877e2469b8ddb1da7c0eb9");
+});
+
+test('core:net:authV2:useSnDate', t => {
+	const reqDate = getTestDate();
+	const builder = new AuthV2(TEST_TOKEN_ID);
+	builder.useSnDate = true;
+	builder.date(reqDate).host('localhost').path('/api/test');
+
+	t.is(builder.useSnDate, true);
+
+	const canonicalRequestData = builder.buildCanonicalRequestData();
+	t.is(canonicalRequestData,
+		"GET\n/api/test\n\nhost:localhost\nx-sn-date:Tue, 25 Apr 2017 14:30:00 GMT\nhost;x-sn-date\n"
+		+ AuthV2.EMPTY_STRING_SHA256_HEX);
+
+	const result = builder.build(TEST_TOKEN_SECRET);
+	t.is(result, "SNWS2 Credential=test-token-id,SignedHeaders=host;x-sn-date,Signature=c14fe9f67560fb9a37d2aa7c40b40c260a5936f999877e2469b8ddb1da7c0eb9");
+});
+
+test('core:net:authV2:useSnDate:disableSignedHeaderName', t => {
+	const builder = new AuthV2(TEST_TOKEN_ID);
+	builder.date(getTestDate()).host('localhost').path('/api/test')
+		.signedHttpHeaders(['X-SN-Date']);
+
+	t.is(builder.useSnDate, true);
+
+	builder.useSnDate = false;
+
+	t.deepEqual(builder.signedHeaderNames, []);
+});
+
+test('core:net:authV2:useSnDate:disableHeader', t => {
+	const builder = new AuthV2(TEST_TOKEN_ID);
+	const reqDate = getTestDate();
+	builder.date(reqDate).host('localhost').path('/api/test')
+		.header('X-SN-Date', reqDate.toUTCString());
+
+	t.is(builder.useSnDate, true);
+
+	builder.useSnDate = false;
+
+	t.is(builder.httpHeaders.containsKey('X-SN-Date'), false);
 });
 
 test('core:net:authV2:queryParams', t => {
