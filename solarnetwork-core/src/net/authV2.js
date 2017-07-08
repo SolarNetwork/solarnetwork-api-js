@@ -21,6 +21,11 @@ class AuthorizationV2Builder {
 		this.reset();
 	}
 
+	/**
+	 * Reset to defalut property values.
+	 * 
+	 * @returns {AuthorizationV2Builder} this object
+	 */
 	reset() {
 		this.contentDigest = null;
 		this.httpHeaders = new HttpHeaders();
@@ -43,7 +48,7 @@ class AuthorizationV2Builder {
 	 * current time for newly created builder instances.
 	 *
 	 * @param {String} tokenSecret the secret to sign the digest with
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	saveSigningKey(tokenSecret) {
 		this.signingKey = this.computeSigningKey(tokenSecret);
@@ -54,7 +59,7 @@ class AuthorizationV2Builder {
 	 * Set the HTTP method (verb) to use.
 	 *
 	 * @param val {String} the method to use; see the {@code HttpMethod} enum for possible values
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	method(val) {
 		this.httpMethod = val;
@@ -67,7 +72,7 @@ class AuthorizationV2Builder {
 	 * This is a shortcut for calling {@code HttpHeaders#put(HttpHeaders.HOST, val)}.
 	 *
 	 * @param val {String} the HTTP host value to use
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	host(val) {
 		this.httpHeaders.put(HttpHeaders.HOST, val);
@@ -78,7 +83,7 @@ class AuthorizationV2Builder {
 	 * Set the HTTP request path to use.
 	 *
 	 * @param val {String} the request path to use
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	path(val) {
 		this.requestPath = val;
@@ -89,6 +94,7 @@ class AuthorizationV2Builder {
 	 * Set the host, path, and query parameters via a URL string.
 	 * 
 	 * @param {string} url the URL value to use
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	url(url) {
 		const uri = uriParse(url);
@@ -108,7 +114,7 @@ class AuthorizationV2Builder {
 	 * This is a shortcut for calling {@code HttpHeaders#put(HttpHeaders.CONTENT_TYPE, val)}.
 	 *
 	 * @param val {String} the HTTP content type value to use
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	contentType(val) {
 		this.httpHeaders.put(HttpHeaders.CONTENT_TYPE, val);
@@ -119,7 +125,7 @@ class AuthorizationV2Builder {
 	 * Set the authorization request date.
 	 *
 	 * @param val {Date} the date to use; typically the current time, e.g. {@code new Date()}
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	date(val) {
 		this.requestDate = (val ? val : new Date());
@@ -180,13 +186,24 @@ class AuthorizationV2Builder {
 	}
 
 	/**
+	 * Set the <code>useSnDate</code> property.
+	 * 
+	 * @param {boolean} enabled <code>true</code> to use the <code>X-SN-Date</code> header, <code>false</code> to use <code>Date</code>
+	 * @returns {AuthorizationV2Builder} this object
+	 */
+	snDate(enabled) {
+		this.useSnDate = enabled;
+		return this;
+	}
+
+	/**
 	 * Set a HTTP header value.
 	 *
 	 * This is a shortcut for calling {@code HttpHeaders#put(headerName, val)}.
 	 *
 	 * @param {String} headerName the header name to set
 	 * @param {String} headerValue the header value to set
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	header(headerName, headerValue) {
 		this.httpHeaders.put(headerName, headerValue);
@@ -201,7 +218,7 @@ class AuthorizationV2Builder {
 	 * {@link #signedHttpHeaders(signedHeaderNames)}.
 	 *
 	 * @param {HttpHeaders} headers the HTTP headers to use
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	headers(headers) {
 		this.httpHeaders = headers;
@@ -213,7 +230,7 @@ class AuthorizationV2Builder {
 	 * parameters.
 	 *
 	 * @param {MultiMap|Object} params the parameters to use, as either a {@code MultiMap} or simple {@code Object}
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	queryParams(params) {
 		if ( params instanceof MultiMap ) {
@@ -228,7 +245,7 @@ class AuthorizationV2Builder {
 	 * Set additional HTTP header names to sign with the authentication.
 	 *
 	 * @param {sring[]} signedHeaderNames additional HTTP header names to include in the signature
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	signedHttpHeaders(signedHeaderNames) {
 		this.signedHeaderNames = signedHeaderNames;
@@ -239,7 +256,7 @@ class AuthorizationV2Builder {
 	 * Set the HTTP request body content SHA-256 digest value.
 	 *
 	 * @param {String|WordArray} digest the digest value to use; if a String it is assumed to be Hex encoded
-	 * @return this object
+	 * @returns {AuthorizationV2Builder} this object
 	 */
 	contentSHA256(digest) {
 		var contentDigest;
