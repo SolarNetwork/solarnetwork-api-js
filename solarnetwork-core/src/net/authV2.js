@@ -168,7 +168,7 @@ class AuthorizationV2Builder {
 	 * Set the HTTP {@code GET} query parameters, or {@code POST} form-encoded
 	 * parameters.
 	 *
-	 * @param {Object} params the parameters to use, as either a {@code MultiMap} or simple {@code Object}
+	 * @param {MultiMap|Object} params the parameters to use, as either a {@code MultiMap} or simple {@code Object}
 	 * @return this object
 	 */
 	queryParams(params) {
@@ -183,7 +183,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set additional HTTP header names to sign with the authentication.
 	 *
-	 * @param {Array} signedHeaderNames additional HTTP header names to include in the signature
+	 * @param {sring[]} signedHeaderNames additional HTTP header names to include in the signature
 	 * @return this object
 	 */
 	signedHttpHeaders(signedHeaderNames) {
