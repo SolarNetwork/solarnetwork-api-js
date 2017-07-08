@@ -10,7 +10,6 @@ import { parse as uriParse } from 'uri-js';
 /**
  * A builder object for the SNWS2 HTTP authorization scheme.
  *
-
  * @class
  * @preserve
  */
