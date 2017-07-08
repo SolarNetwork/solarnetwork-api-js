@@ -10,7 +10,45 @@ import { parse as uriParse } from 'uri-js';
 /**
  * A builder object for the SNWS2 HTTP authorization scheme.
  *
- * @class
+ * This builder can be used to calculate a one-off header value, for example:
+ *
+ * <pre>
+ * <code>
+ * let authHeader = new AuthorizationV2Builder("my-token")
+ *     .path("/solarquery/api/v1/pub/...")
+ *     .build("my-token-secret");
+ * </code>
+ * </pre>
+ *
+ * Or the builder can be re-used for a given token:
+ *
+ * <pre>
+ * <code>
+ * // create a builder for a token
+ * let builder = new AuthorizationV2Builder("my-token");
+ *
+ * // elsewhere, re-use the builder for repeated requests
+ * builder.reset()
+ *     .path("/solarquery/api/v1/pub/...")
+ *     .build("my-token-secret");
+ * </code>
+ * </pre>
+ *
+ * Additionally, a signing key can be generated and re-used for up to 7 days:
+ *
+ * <pre>
+ * <code>
+ * // create a builder for a token
+ * let builder = new AuthorizationV2Builder("my-token")
+ *   .saveSigningKey("my-token-secret");
+ *
+ * // elsewhere, re-use the builder for repeated requests
+ * builder.reset()
+ *     .path("/solarquery/api/v1/pub/...")
+ *     .buildWithSavedKey(); // note previously generated key used
+ * </code>
+ * </pre>
+ *
  * @preserve
  */
 class AuthorizationV2Builder {
@@ -22,7 +60,7 @@ class AuthorizationV2Builder {
 
 	/**
 	 * Reset to defalut property values.
-	 * 
+	 *
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	reset() {
@@ -57,7 +95,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set the HTTP method (verb) to use.
 	 *
-	 * @param val {String} the method to use; see the {@code HttpMethod} enum for possible values
+	 * @param val {String} the method to use; see the {@link HttpMethod} enum for possible values
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	method(val) {
@@ -68,7 +106,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set the HTTP host.
 	 *
-	 * This is a shortcut for calling {@code HttpHeaders#put(HttpHeaders.HOST, val)}.
+	 * This is a shortcut for calling <code>HttpHeaders#put(HttpHeaders.HOST, val)</code>.
 	 *
 	 * @param val {String} the HTTP host value to use
 	 * @returns {AuthorizationV2Builder} this object
@@ -91,7 +129,7 @@ class AuthorizationV2Builder {
 
 	/**
 	 * Set the host, path, and query parameters via a URL string.
-	 * 
+	 *
 	 * @param {string} url the URL value to use
 	 * @returns {AuthorizationV2Builder} this object
 	 */
@@ -110,7 +148,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set the HTTP content type.
 	 *
-	 * This is a shortcut for calling {@code HttpHeaders#put(HttpHeaders.CONTENT_TYPE, val)}.
+	 * This is a shortcut for calling <code>HttpHeaders#put(HttpHeaders.CONTENT_TYPE, val)</code>.
 	 *
 	 * @param val {String} the HTTP content type value to use
 	 * @returns {AuthorizationV2Builder} this object
@@ -123,7 +161,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set the authorization request date.
 	 *
-	 * @param val {Date} the date to use; typically the current time, e.g. {@code new Date()}
+	 * @param val {Date} the date to use; typically the current time, e.g. <code>new Date()</code>
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	date(val) {
@@ -133,7 +171,7 @@ class AuthorizationV2Builder {
 
 	/**
 	 * Get the authorization request date as a HTTP header value.
-	 * 
+	 *
 	 * @returns {string} the request date as a string
 	 */
 	get requestDateHeaderValue() {
@@ -142,11 +180,11 @@ class AuthorizationV2Builder {
 
 	/**
 	 * Get the preference to use the <code>X-SN-Date</code> HTTP header versus the <code>Date</code> header.
-	 * 
+	 *
 	 * <p>This will return <code>true</code> if <code>X-SN-Date</code> has been added
 	 * to the <code>signedHeaderNames</code> property or has been added to the <code>httpHeaders</code>
-	 * property. 
-	 * 
+	 * property.
+	 *
 	 * @returns {boolean} <code>true</code> to use the <code>X-SN-Date</code> header, <code>false</code> to use <code>Date</code>
 	 */
 	get useSnDate() {
@@ -159,10 +197,10 @@ class AuthorizationV2Builder {
 
 	/**
 	 * Set preference to use the <code>X-SN-Date</code> HTTP header versus the <code>Date</code> header.
-	 * 
+	 *
 	 * This is a shortcut for adding or removing <code>X-SN-Date</code> from the
 	 * <code>signedHeaderNames</code> property.
-	 * 
+	 *
 	 * @param {boolean} enabled <code>true</code> to use the <code>X-SN-Date</code> header, <code>false</code> to use <code>Date</code>
 	 */
 	set useSnDate(enabled) {
@@ -171,7 +209,7 @@ class AuthorizationV2Builder {
 			? signedHeaders.findIndex(caseInsensitiveEqualsFn(HttpHeaders.X_SN_DATE))
 			: -1);
 		if ( enabled && existingIndex < 0 ) {
-			signedHeaders = (signedHeaders 
+			signedHeaders = (signedHeaders
 				? signedHeaders.concat(HttpHeaders.X_SN_DATE)
 				: [HttpHeaders.X_SN_DATE]);
 			this.signedHeaderNames = signedHeaders;
@@ -186,7 +224,7 @@ class AuthorizationV2Builder {
 
 	/**
 	 * Set the <code>useSnDate</code> property.
-	 * 
+	 *
 	 * @param {boolean} enabled <code>true</code> to use the <code>X-SN-Date</code> header, <code>false</code> to use <code>Date</code>
 	 * @returns {AuthorizationV2Builder} this object
 	 */
@@ -198,7 +236,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set a HTTP header value.
 	 *
-	 * This is a shortcut for calling {@code HttpHeaders#put(headerName, val)}.
+	 * This is a shortcut for calling <code>HttpHeaders#put(headerName, val)</code>.
 	 *
 	 * @param {String} headerName the header name to set
 	 * @param {String} headerValue the header value to set
@@ -225,10 +263,10 @@ class AuthorizationV2Builder {
 	}
 
 	/**
-	 * Set the HTTP {@code GET} query parameters, or {@code POST} form-encoded
+	 * Set the HTTP <code>GET</code> query parameters, or <code>POST</code> form-encoded
 	 * parameters.
 	 *
-	 * @param {MultiMap|Object} params the parameters to use, as either a {@code MultiMap} or simple {@code Object}
+	 * @param {MultiMap|Object} params the parameters to use, as either a {@link MultiMap} or simple <code>Object</code>
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	queryParams(params) {
@@ -403,7 +441,7 @@ class AuthorizationV2Builder {
     }
 
     /**
-     * Compute a HTTP {@code Authorization} header value from the configured
+     * Compute a HTTP <code>Authorization</code> header value from the configured
      * properties on the builder, computing a new signing key based on the
 	 * configured {@link #date(Date)}.
      *
@@ -417,7 +455,7 @@ class AuthorizationV2Builder {
 
 
 	/**
-	 * Compute a HTTP {@code Authorization} header value from the configured
+	 * Compute a HTTP <code>Authorization</code> header value from the configured
 	 * properties on the builder, using a signing key configured from a previous
 	 * call to {@link #saveSigningKey(String)}.
 	 *
