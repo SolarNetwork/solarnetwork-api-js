@@ -43,6 +43,17 @@ class MultiMap {
 		return this;
 	}
 
+	remove(key) {
+		const keyLc = key.toLowerCase();
+		const index = this.mappingNames.indexOf(keyLc);
+		const result = this.mappings[keyLc];
+		if ( result ) {
+			delete this.mappings[keyLc];
+			this.mappingNames.splice(index, 1);
+		}
+		return (result ? result.val : undefined);
+	}
+
 	size() {
 		return this.mappingNames.length;
 	}
