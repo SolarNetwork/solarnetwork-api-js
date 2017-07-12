@@ -14,12 +14,10 @@ export const InstructionState = Object.freeze({
 /**
  * A mixin class that adds SolarNode instruction support to {@code UrlHelper}.
  * 
- * This mixin extends the {@link UserUrlHelperMixin} and {@link #NodeUrlHelperMixin} mixins.
- * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
  * @preserve
  */
-const NodeInstructionUrlHelperMixin = (superclass) => class extends UserUrlHelperMixin(NodeUrlHelperMixin(superclass)) {
+const NodeInstructionUrlHelperMixin = (superclass) => class extends superclass {
 
 	/**
 	 * Generate a URL to get all details for a specific instruction.
@@ -104,12 +102,13 @@ const NodeInstructionUrlHelperMixin = (superclass) => class extends UserUrlHelpe
 export default NodeInstructionUrlHelperMixin;
 
 /**
- * A concrete {@link UrlHelper} with the {@link NodeInstructionUrlHelperMixin}.
+ * A concrete {@link UrlHelper} with the {@link NodeInstructionUrlHelperMixin},  {@link UserUrlHelperMixin}, and
+ * {@link #NodeUrlHelperMixin} mixins.
  * 
  * @class
  * @preserve
  */
-export class NodeInstructionUrlHelper extends NodeInstructionUrlHelperMixin(UrlHelper) {
+export class NodeInstructionUrlHelper extends NodeInstructionUrlHelperMixin(UserUrlHelperMixin(NodeUrlHelperMixin(UrlHelper))) {
 
 }
 

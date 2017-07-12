@@ -25,7 +25,7 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 	 */
 	baseUrl() {
 		const path = this.env(SolarUserPathKey) || DefaultSolarUserPath;
-		return this.hostUrl() + path + SolarUserApiPathV1;
+		return super.baseUrl() + path + SolarUserApiPathV1;
 	}
 
 	/**
@@ -36,17 +36,6 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 	 */
 	viewNodesUrl() {
 		return this.baseUrl() + '/nodes';
-	}
-
-	/**
-	 * Generate a URL for viewing the configured node's metadata.
-	 *
-	 * @param {number} [nodeId] a specific node ID to use; if not provided the {@code nodeId} property of this class will be used
-	 * @returns {string} the URL
-	 */
-	viewNodeMetadataUrl(nodeId) {
-		return (this.baseUrl() +'/nodes/meta/' 
-			+(nodeId || this.nodeId));
 	}
 
 };
