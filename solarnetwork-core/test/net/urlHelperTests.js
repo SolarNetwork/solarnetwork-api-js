@@ -68,6 +68,11 @@ test('core:net:urlHelper:hostUrl:customPort', t => {
     t.is(helper.hostUrl(), 'https://data.solarnetwork.net:8443');
 });
 
+test('core:net:urlHelper:baseUrl', t => {
+    const helper = new UrlHelper();
+    t.is(helper.baseUrl(), 'https://data.solarnetwork.net');
+});
+
 test('core:net:urlHelper:resolveTemplateUrl', t => {
 	const helper = new UrlHelper();
     helper.parameters.values({mode:'crazy', foo:'bar'});

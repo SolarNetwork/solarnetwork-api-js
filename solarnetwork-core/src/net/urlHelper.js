@@ -79,6 +79,19 @@ class UrlHelper {
         return url;
 	}
 
+	/**
+	 * Get the base URL to the REST API.
+	 * 
+	 * This implementation is a stub, meant for subclasses to override. This implementation
+     * simply returns {@link #hostUrl()}.
+	 * 
+	 * @returns {string} the base URL to the REST API
+	 * @preserve
+	 */
+	baseUrl() {
+		return this.hostUrl();
+	}
+
     /**
      * Replace occurances of URL template variables with values from the {@code parameters}
      * property and append to the host URL.
