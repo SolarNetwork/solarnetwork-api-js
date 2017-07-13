@@ -29,26 +29,28 @@ export class LocationPrecision extends ComparableEnum {
         return this.value;
     }
 
+	/**
+	 * Get the {@link LocationPrecisions} values.
+	 * 
+	 * @inheritdoc
+	 */
+	static enumValues() {
+		return LocationPrecisionValues;
+	}
 }
 
-const LocationPrecisions = Object.freeze({
-	LAT_LONG: new LocationPrecision('LatLong', 1),
+const LocationPrecisionValues = Object.freeze([
+    new LocationPrecision('LatLong', 1),
+    new LocationPrecision('Block', 5),
+    new LocationPrecision('Street', 10),
+    new LocationPrecision('PostalCode', 20),
+    new LocationPrecision('Locality', 30),
+    new LocationPrecision('StateOrProvince', 40),
+    new LocationPrecision('Region', 50),
+    new LocationPrecision('TimeZone', 60),
+    new LocationPrecision('Country', 70),
+]);
 
-	BLOCK: new LocationPrecision('Block', 5),
-
-	STREET: new LocationPrecision('Street', 10),
-
-	POSTAL_CODE: new LocationPrecision('PostalCode', 20),
-
-	LOCALITY: new LocationPrecision('Locality', 30),
-
-	STATE: new LocationPrecision('StateOrProvince', 40),
-
-	REGION: new LocationPrecision('Region', 50),
-
-	TIME_ZONE: new LocationPrecision('TimeZone', 60),
-
-	COUNTRY: new LocationPrecision('Country', 70),
-});
+const LocationPrecisions = LocationPrecision.enumsValue(LocationPrecisionValues);
 
 export default LocationPrecisions;

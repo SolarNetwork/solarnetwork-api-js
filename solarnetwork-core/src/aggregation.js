@@ -25,29 +25,37 @@ export class Aggregation extends ComparableEnum {
      */
     get level() {
         return this.value;
-    }
+	}
+	
+	/**
+	 * Get the {@link Aggregations} values.
+	 * 
+	 * @inheritdoc
+	 */
+	static enumValues() {
+		return AggregationValues;
+	}
 
 }
 
-/**
- * Enum of SolarQuery aggregation levels.
- */
-const Aggregations = Object.freeze({
-	MINUTE: new Aggregation('Minute', 60),
-	FIVE_MINUTE: new Aggregation('FiveMinute', 60 * 5),
-	TEN_MINUTE: new Aggregation('TenMinute', 60 * 10),
-	FIFTEEN_MINUTE: new Aggregation('FifteenMinute', 60 * 15),
-	THIRTY_MINUTE: new Aggregation('ThirtyMinute', 60 * 30),
-	HOUR: new Aggregation('Hour', 3600),
-	HOUR_OF_DAY: new Aggregation('HourOfDay', 3600),
-	SEASONAL_HOUR_OF_DAY: new Aggregation('SeasonalHourOfDay', 3600),
-	DAY: new Aggregation('Day', 86400),
-	DAY_OF_WEEK: new Aggregation('DayOfWeek', 86400),
-	SEASONAL_DAY_OF_WEEK: new Aggregation('SeasonalDayOfWeek', 86400),
-	WEEK: new Aggregation('Week', 604800),
-	WEEK_OF_YEAR: new Aggregation('WeekOfYear', 604800),
-	MONTH: new Aggregation('Month', 2419200),
-	RUNNING_TOTAL: new Aggregation('RunningTotal', Number.MAX_SAFE_INTEGER),
-});
+const AggregationValues = Object.freeze([
+	new Aggregation('Minute', 60),
+	new Aggregation('FiveMinute', 60 * 5),
+	new Aggregation('TenMinute', 60 * 10),
+	new Aggregation('FifteenMinute', 60 * 15),
+	new Aggregation('ThirtyMinute', 60 * 30),
+	new Aggregation('Hour', 3600),
+	new Aggregation('HourOfDay', 3600),
+	new Aggregation('SeasonalHourOfDay', 3600),
+	new Aggregation('Day', 86400),
+	new Aggregation('DayOfWeek', 86400),
+	new Aggregation('SeasonalDayOfWeek', 86400),
+	new Aggregation('Week', 604800),
+	new Aggregation('WeekOfYear', 604800),
+	new Aggregation('Month', 2419200),
+	new Aggregation('RunningTotal', Number.MAX_SAFE_INTEGER),
+]);
+
+const Aggregations = Aggregation.enumsValue(AggregationValues);
 
 export default Aggregations;

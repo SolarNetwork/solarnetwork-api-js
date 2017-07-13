@@ -1,5 +1,3 @@
-'use strict';
-
 import test from 'ava';
 
 import {default as Aggregations, Aggregation } from 'aggregation';
@@ -30,19 +28,32 @@ test('core:aggregation:compare:eq', t => {
 });
 
 test('core:aggregation:aggregations', t => {
-	t.is(Aggregations.MINUTE.name, 'Minute');
-	t.is(Aggregations.FIVE_MINUTE.name, 'FiveMinute');
-	t.is(Aggregations.TEN_MINUTE.name, 'TenMinute');
-	t.is(Aggregations.FIFTEEN_MINUTE.name, 'FifteenMinute');
-	t.is(Aggregations.THIRTY_MINUTE.name, 'ThirtyMinute');
-	t.is(Aggregations.HOUR.name, 'Hour');
-	t.is(Aggregations.HOUR_OF_DAY.name, 'HourOfDay');
-	t.is(Aggregations.SEASONAL_HOUR_OF_DAY.name, 'SeasonalHourOfDay');
-	t.is(Aggregations.DAY.name, 'Day');
-	t.is(Aggregations.DAY_OF_WEEK.name, 'DayOfWeek');
-	t.is(Aggregations.SEASONAL_DAY_OF_WEEK.name, 'SeasonalDayOfWeek');
-	t.is(Aggregations.WEEK.name, 'Week');
-	t.is(Aggregations.WEEK_OF_YEAR.name, 'WeekOfYear');
-	t.is(Aggregations.MONTH.name, 'Month');
-	t.is(Aggregations.RUNNING_TOTAL.name, 'RunningTotal');
+	t.is(Aggregations.Minute.name, 'Minute');
+	t.is(Aggregations.FiveMinute.name, 'FiveMinute');
+	t.is(Aggregations.TenMinute.name, 'TenMinute');
+	t.is(Aggregations.FifteenMinute.name, 'FifteenMinute');
+	t.is(Aggregations.ThirtyMinute.name, 'ThirtyMinute');
+	t.is(Aggregations.Hour.name, 'Hour');
+	t.is(Aggregations.HourOfDay.name, 'HourOfDay');
+	t.is(Aggregations.SeasonalHourOfDay.name, 'SeasonalHourOfDay');
+	t.is(Aggregations.Day.name, 'Day');
+	t.is(Aggregations.DayOfWeek.name, 'DayOfWeek');
+	t.is(Aggregations.SeasonalDayOfWeek.name, 'SeasonalDayOfWeek');
+	t.is(Aggregations.Week.name, 'Week');
+	t.is(Aggregations.WeekOfYear.name, 'WeekOfYear');
+	t.is(Aggregations.Month.name, 'Month');
+	t.is(Aggregations.RunningTotal.name, 'RunningTotal');
+});
+
+test('core:aggregation:minimumEnumSet', t => {
+    const cache = new Map();
+    let result = Aggregation.minimumEnumSet(Aggregations.Month, cache);
+    t.deepEqual(result, new Set([Aggregations.Month, Aggregations.RunningTotal]));
+
+    result = Aggregation.minimumEnumSet(Aggregations.Week);
+	t.deepEqual(result, new Set([Aggregations.Week, Aggregations.WeekOfYear, 
+		Aggregations.Month, Aggregations.RunningTotal]));
+
+    result = Aggregation.minimumEnumSet(new Aggregation('foo', Number.MAX_VALUE));
+    t.is(result, null);
 });
