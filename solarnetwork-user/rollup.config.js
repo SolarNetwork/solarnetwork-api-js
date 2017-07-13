@@ -10,9 +10,11 @@ const includePathOptions = {
 
 export default {
   external: id => {
-    return /(crypto-js|net\/)/.test(id);
+    return /(crypto-js|pagination|sortDescriptor|net\/urlHelper|net\/nodeUrlHelperMixin)/.test(id);
   },
   globals: {
+    'pagination': 'sn.Pagination',
+    'sortDescriptor': 'sn.SortDescriptor',
     'net/urlHelper': 'sn.NetUrlHelper',
     'net/nodeUrlHelperMixin': 'sn.NetNodeUrlHelperMixin',
     'crypto-js/enc-hex': 'CryptoJS.Hex',

@@ -10,7 +10,7 @@ export { default as NetNodeMetadataUrlHelperMixin,
 
 export { default as NetUserAuthTokenUrlHelperMixin, 
     UserAuthTokenUrlHelper as NetUserAuthTokenUrlHelper }
-    from './src/net/nodeMetadataUrlHelperMixin';
+    from './src/net/userAuthTokenUrlHelperMixin';
 
 export { default as NetUserUrlHelperMixin,
     DefaultSolarUserPath as NetDefaultSolarUserPath, 
