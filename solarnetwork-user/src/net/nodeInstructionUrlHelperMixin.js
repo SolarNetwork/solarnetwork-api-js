@@ -1,6 +1,6 @@
 import UrlHelper from 'net/urlHelper';
 import NodeUrlHelperMixin from 'net/nodeUrlHelperMixin';
-import UserUrlHelperMixin from 'userUrlHelperMixin'
+import UserUrlHelperMixin from 'net/userUrlHelperMixin'
 
 export const InstructionState = Object.freeze({
 	UNKNOWN: '',

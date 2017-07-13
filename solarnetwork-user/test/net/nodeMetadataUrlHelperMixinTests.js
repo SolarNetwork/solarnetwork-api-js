@@ -5,7 +5,7 @@ import test from 'ava';
 import Pagination from 'pagination';
 import SortDescriptor from 'sortDescriptor';
 
-import { NodeMetadataUrlHelper } from 'nodeMetadataUrlHelperMixin'
+import { NodeMetadataUrlHelper } from 'net/nodeMetadataUrlHelperMixin'
 
 test('user:nodeMetadataUrlHelperMixin:create', t => {
 	const helper = new NodeMetadataUrlHelper();

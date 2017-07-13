@@ -2,7 +2,7 @@
 
 import test from 'ava';
 
-import { NodeInstructionUrlHelper, InstructionState, instructionParameter } from 'nodeInstructionUrlHelperMixin'
+import { NodeInstructionUrlHelper, InstructionState, instructionParameter } from 'net/nodeInstructionUrlHelperMixin'
 
 test('user:nodeInstructionUrlHelperMixin:create', t => {
 	const helper = new NodeInstructionUrlHelper();

@@ -2,7 +2,7 @@ import Pagination from 'pagination';
 import SortDescriptor from 'sortDescriptor';
 import UrlHelper from 'net/urlHelper';
 import NodeUrlHelperMixin from 'net/nodeUrlHelperMixin';
-import UserUrlHelperMixin from 'userUrlHelperMixin'
+import UserUrlHelperMixin from 'net/userUrlHelperMixin'
 
 /**
  * A mixin class that adds SolarNode metadata support to <code>UrlHelper</code>.

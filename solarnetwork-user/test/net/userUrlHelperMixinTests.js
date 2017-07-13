@@ -4,7 +4,7 @@ import test from 'ava';
 
 import UrlHelper from 'net/urlHelper';
 import NodeUrlHelperMixin from 'net/nodeUrlHelperMixin'
-import UserUrlHelperMixin from 'userUrlHelperMixin'
+import UserUrlHelperMixin from 'net/userUrlHelperMixin'
 
 class UserUrlHelper extends UserUrlHelperMixin(UrlHelper) {
 
