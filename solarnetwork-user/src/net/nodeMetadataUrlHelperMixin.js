@@ -66,6 +66,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *                                   node metadata objects will be returned
 	 * @param {SortDescriptor[]} [sorts] optional sort settings to use
 	 * @param {Pagination} [pagination] optional pagination settings to use
+	 * @returns {string} the URL
 	 * @preserve
 	 */
 	findNodeMetadataUrl(nodeId, sorts, pagination) {
