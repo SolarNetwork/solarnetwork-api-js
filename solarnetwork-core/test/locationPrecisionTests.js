@@ -12,19 +12,19 @@ test('core:locationPrecision:create', t => {
 test('core:locationPrecision:compare:lt', t => {
 	const left = new LocationPrecision('foo', 1);
 	const right = new LocationPrecision('bar', 2);
-    t.is(left.comparePrecision(right), -1);
+    t.is(left.compareTo(right), -1);
 });
 
 test('core:locationPrecision:compare:lt', t => {
 	const left = new LocationPrecision('foo', 2);
 	const right = new LocationPrecision('bar', 1);
-    t.is(left.comparePrecision(right), 1);
+    t.is(left.compareTo(right), 1);
 });
 
 test('core:locationPrecision:compare:eq', t => {
 	const left = new LocationPrecision('foo', 1);
 	const right = new LocationPrecision('bar', 1);
-    t.is(left.comparePrecision(right), 0);
+    t.is(left.compareTo(right), 0);
 });
 
 test('core:locationPrecisions', t => {
