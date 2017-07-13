@@ -23,6 +23,15 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
         return this.baseUrl() + '/user/auth-tokens';
     }
 
+    /**
+     * 
+     * @param {string} type the auth token type to generate
+     * @param {SecurityPolicy} [policy] the security policy to attach to the generated token 
+     */
+    generateAuthTokenUrl(type) {
+        // TODO
+    }
+
 };
 
 export default UserAuthTokenUrlHelperMixin;
