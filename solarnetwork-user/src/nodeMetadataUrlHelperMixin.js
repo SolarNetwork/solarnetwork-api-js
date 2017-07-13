@@ -1,3 +1,5 @@
+import Pagination from 'pagination';
+import SortDescriptor from 'sortDescriptor';
 import UrlHelper from 'net/urlHelper';
 import NodeUrlHelperMixin from 'net/nodeUrlHelperMixin';
 import UserUrlHelperMixin from 'userUrlHelperMixin'
@@ -15,10 +17,51 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
+	 * @preserve
 	 */
 	viewNodeMetadataUrl(nodeId) {
 		return (this.baseUrl() +'/nodes/meta/' 
 			+(nodeId || this.nodeId));
+	}
+
+	/**
+	 * Generate a URL for searching for node metadata.
+	 * 
+	 * @param {number|number[]} [nodeId] a specific node ID, or array of node IDs, to use; if not provided the 
+	 *                                   <code>nodeIds</code> property of this class will be used, unless <code>null</code>
+	 *                                   is passed in which case no node IDs will be added to the URL so that all available
+	 *                                   node metadata objects will be returned
+	 * @param {SortDescriptor[]} [sorts] optional sort settings to use
+	 * @param {Pagination} [pagination] optional pagination settings to use
+	 * @preserve
+	 */
+	findNodeMetadataUrl(nodeId, sorts, pagination) {
+		const nodeIds = (Array.isArray(nodeId) ? nodeId : nodeId ? [nodeId] : nodeId !== null ? this.nodeIds : undefined);
+		let result = this.baseUrl() + '/nodes/meta';
+		let params = '';
+		if ( Array.isArray(nodeIds) ) {
+			params += 'nodeIds=' +nodeIds.join(',');
+		}
+		if ( Array.isArray(sorts) ) {
+			sorts.forEach((sort, i) => {
+				if ( sort instanceof SortDescriptor ) {
+					if ( params.length > 0 ) {
+						params += '&';
+					}
+					params += sort.toUriEncoding(i);
+				}
+			});
+		}
+		if ( pagination instanceof Pagination ) {
+			if ( params.length > 0 ) {
+				params += '&';
+			}
+			params += pagination.toUriEncoding();
+		}
+		if ( params.length > 0 ) {
+			result += '?' + params;
+		}
+		return result;
 	}
 
 };
