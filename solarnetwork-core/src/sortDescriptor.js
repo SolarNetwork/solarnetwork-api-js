@@ -31,6 +31,37 @@ class SortDescriptor {
         return this._descending;
     }
 
+    /**
+     * Get this object as a standard URI encoded (query parameters) string value.
+     * 
+     * If <code>index</code> is provided and non-negative, then the query parameters will
+     * be encoded as an array property named <code>sortDescriptors</code>. Otherwise just
+     * bare <code>key</code> and <code>descending</code> properties will be used. The 
+     * <code>descending</code> property is only added if it is <code>true</code>.
+     * 
+     * @param {number} [index] an optional array property index
+     * @param {string} [propertyName=sortDescriptors] an optional array property name, only used if <code>index</index> is also provided
+     * @return {string} the URI encoded string
+     */
+    toUriEncoding(index, propertyName) {
+        let result,
+            propName = (propertyName || 'sortDescriptors');
+        if ( index !== undefined && index >= 0 ) {
+            result = encodeURIComponent(propName +'[' +index +'].key') + '=';
+        } else {
+            result = 'key=';
+        }
+        result += encodeURIComponent(this.key);
+        if ( this.descending ) {
+            if ( index !== undefined && index >= 0 ) {
+                result += '&' +encodeURIComponent(propName +'[' +index +'].descending') + '=true';
+            } else {
+                result += '&descending=true';
+            }
+        }
+        return result;
+    }
+
 }
 
 export default SortDescriptor;

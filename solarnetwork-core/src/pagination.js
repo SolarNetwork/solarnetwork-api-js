@@ -45,6 +45,24 @@ class Pagination {
         return new Pagination(this.max, offset);
     }
 
+    /**
+     * Get this object as a standard URI encoded (query parameters) string value.
+     * 
+     * @return {string} the URI encoded string
+     */
+    toUriEncoding() {
+        let result = '';
+        if ( this.max > 0 ) {
+            result += 'max=' +this.max;
+        }
+        if ( this.offset > 0 ) {
+            if ( result.length > 0 ) {
+                result += '&';
+            }
+            result += 'offset=' +this.offset;
+        }
+        return result;
+    }
 }
 
 export default Pagination;
