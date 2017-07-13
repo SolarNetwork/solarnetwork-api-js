@@ -1,3 +1,4 @@
+export { default as Aggregation }     from './src/aggregation';
 export { default as Configuration }   from './src/configuration';
 export { default as MultiMap }        from './src/multiMap';
 export { default as Pagination }      from './src/pagination';

@@ -1,4 +1,3 @@
-export { default as Aggregation } from './src/aggregation';
 export { default as QueryUrlHelperMixin,
 	DefaultSolarQueryPath,
 	SolarQueryPathKey,
