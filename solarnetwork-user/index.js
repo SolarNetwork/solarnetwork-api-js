@@ -9,7 +9,8 @@ export { default as NetNodeMetadataUrlHelperMixin,
     from './src/net/nodeMetadataUrlHelperMixin';
 
 export { default as NetUserAuthTokenUrlHelperMixin, 
-    UserAuthTokenUrlHelper as NetUserAuthTokenUrlHelper }
+    UserAuthTokenUrlHelper as NetUserAuthTokenUrlHelper,
+    AuthTokenType as NetAuthTokenType }
     from './src/net/userAuthTokenUrlHelperMixin';
 
 export { default as NetUserUrlHelperMixin,

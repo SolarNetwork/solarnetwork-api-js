@@ -1,6 +1,11 @@
 import UrlHelper from 'net/urlHelper';
 import UserUrlHelperMixin from 'net/userUrlHelperMixin'
 
+export const AuthTokenType = Object.freeze({
+	USER: 'User',
+	READ_NODE_DATA: 'ReadNodeData',
+});
+
 /**
  * A mixin class that adds security token support to a SolarUser <code>UrlHelper</code>.
  * 
