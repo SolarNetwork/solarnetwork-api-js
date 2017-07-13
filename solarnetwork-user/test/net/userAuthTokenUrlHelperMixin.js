@@ -14,3 +14,9 @@ test('user:userAuthTokenUrlHelperMixin:create', t => {
 	const helper = new UserAuthTokenUrlHelper();
 	t.truthy(helper);
 });
+
+test('user:userAuthTokenUrlHelperMixin:listAllTokensUrl', t => {
+	const helper = new UserAuthTokenUrlHelper();
+	t.is(helper.listAllAuthTokensUrl(), 
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/user/auth-tokens');
+});

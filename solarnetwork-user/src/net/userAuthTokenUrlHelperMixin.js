@@ -9,6 +9,15 @@ import UserUrlHelperMixin from 'net/userUrlHelperMixin'
  */
 const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
 
+    /**
+     * Generate a URL for listing all available auth tokens.
+     * 
+	 * @returns {string} the URL
+     */
+    listAllAuthTokensUrl() {
+        return this.baseUrl() + '/user/auth-tokens';
+    }
+
 };
 
 export default UserAuthTokenUrlHelperMixin;
@@ -21,4 +30,4 @@ export default UserAuthTokenUrlHelperMixin;
  */
 export class UserAuthTokenUrlHelper extends UserAuthTokenUrlHelperMixin(UserUrlHelperMixin(UrlHelper)) {
 
-}
+ }
