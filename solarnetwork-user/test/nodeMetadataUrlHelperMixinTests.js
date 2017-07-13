@@ -21,6 +21,33 @@ test('user:userNodeUrlHelperMixin:viewNodeMetadataUrl', t => {
 		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/234');
 });
 
+test('user:userNodeUrlHelperMixin:addNodeMetadataUrl', t => {
+	const helper = new NodeMetadataUrlHelper();
+	helper.nodeId = 123;
+	t.is(helper.addNodeMetadataUrl(), 
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/123');
+	t.is(helper.addNodeMetadataUrl(234), 
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/234');
+});
+
+test('user:userNodeUrlHelperMixin:replaceNodeMetadataUrl', t => {
+	const helper = new NodeMetadataUrlHelper();
+	helper.nodeId = 123;
+	t.is(helper.replaceNodeMetadataUrl(), 
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/123');
+	t.is(helper.replaceNodeMetadataUrl(234), 
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/234');
+});
+
+test('user:userNodeUrlHelperMixin:deleteNodeMetadataUrl', t => {
+	const helper = new NodeMetadataUrlHelper();
+	helper.nodeId = 123;
+	t.is(helper.deleteNodeMetadataUrl(), 
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/123');
+	t.is(helper.deleteNodeMetadataUrl(234), 
+		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/234');
+});
+
 test('user:uesrNodeUrlHelperMixin:findNodeMetadataUrl', t => {
 	const helper = new NodeMetadataUrlHelper();
 	helper.nodeId = 123;

@@ -25,6 +25,39 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	}
 
 	/**
+	 * Generate a URL for adding metadata to a node via a <code>POST</code> request.
+	 *
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
+	 * @returns {string} the URL
+	 * @preserve
+	 */
+	addNodeMetadataUrl(nodeId) {
+		return this.viewNodeMetadataUrl(nodeId);
+	}
+
+	/**
+	 * Generate a URL for setting the metadata of a node via a <code>PUT</code> request.
+	 *
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
+	 * @returns {string} the URL
+	 * @preserve
+	 */
+	replaceNodeMetadataUrl(nodeId) {
+		return this.viewNodeMetadataUrl(nodeId);
+	}
+
+	/**
+	 * Generate a URL for deleting the metadata of a node via a <code>DELETE</code> request.
+	 *
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
+	 * @returns {string} the URL
+	 * @preserve
+	 */
+	deleteNodeMetadataUrl(nodeId) {
+		return this.viewNodeMetadataUrl(nodeId);
+	}
+
+	/**
 	 * Generate a URL for searching for node metadata.
 	 * 
 	 * @param {number|number[]} [nodeId] a specific node ID, or array of node IDs, to use; if not provided the 
