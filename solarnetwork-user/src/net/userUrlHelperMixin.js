@@ -1,4 +1,4 @@
-export const DefaultSolarUserPath = '/solaruser';
+export const SolarUserDefaultPath = '/solaruser';
 
 export const SolarUserPathKey = 'solarUserPath';
 
@@ -24,7 +24,7 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 	 * @preserve
 	 */
 	baseUrl() {
-		const path = this.env(SolarUserPathKey) || DefaultSolarUserPath;
+		const path = this.env(SolarUserPathKey) || SolarUserDefaultPath;
 		return super.baseUrl() + path + SolarUserApiPathV1;
 	}
 

@@ -14,7 +14,7 @@ export { default as NetUserAuthTokenUrlHelperMixin,
     from './src/net/userAuthTokenUrlHelperMixin';
 
 export { default as NetUserUrlHelperMixin,
-    DefaultSolarUserPath as NetDefaultSolarUserPath, 
+    SolarUserDefaultPath as NetSolarUserDefaultPath, 
     SolarUserPathKey as NetSolarUserPathKey, 
     SolarUserApiPathV1 as NetSolarUserApiPathV1 }
     from './src/net/userUrlHelperMixin';
