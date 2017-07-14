@@ -6,9 +6,7 @@ import Configuration from 'configuration';
  * This extends <code>Configuration</code> to add support for standard properties
  * needed to access the SolarNetwork API, such as host and protocol values.
  *
- * @class
- * @param {Object} initialMap the initial properties to store (optional)
- * @preserve
+ * @extends Configuration
  */
 class Environment extends Configuration {
 

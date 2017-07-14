@@ -1,6 +1,6 @@
 import MultiMap from 'multiMap';
 
-const HttpMethod = Object.freeze({
+export const HttpMethod = Object.freeze({
 	GET: 'GET',
 	HEAD: 'HEAD',
 	POST: 'POST',
@@ -11,6 +11,11 @@ const HttpMethod = Object.freeze({
 	TRACE: 'TRACE',
 });
 
+/**
+ * Support for HTTP headers.
+ * 
+ * @extends MultiMap
+ */
 class HttpHeaders extends MultiMap {
 	constructor() {
 		super();
@@ -27,5 +32,4 @@ Object.defineProperties(HttpHeaders, {
 	'X_SN_DATE': 		{ value: 'X-SN-Date' },
 });
 
-export { HttpMethod };
 export default HttpHeaders;

@@ -4,7 +4,7 @@ import { LocationPrecision } from 'locationPrecision';
 /**
  * Get a Set from a Set or array or object, returning <code>null</code> if the set would be empty.
  * 
- * @param {*[]|Set<*>} obj the array, Set, or singleton object to get as a Set
+ * @param {Object[]|Set<*>} obj the array, Set, or singleton object to get as a Set
  * @returns {Set<*>} the Set, or <code>null</code>
  * @private
  */
@@ -23,8 +23,8 @@ function setOrNull(obj) {
 /**
  * Merge two sets.
  * 
- * @param {*[]|Set<*>} [set1] the first set 
- * @param {*[]|Set<*>} [set2] the second set 
+ * @param {Object[]|Set<*>} [set1] the first set 
+ * @param {Object[]|Set<*>} [set2] the second set 
  * @returns {Set<*>} the merged Set, or <code>null</code> if neither arguments are sets or 
  *                   neither argument have any values
  * @private
