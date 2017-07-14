@@ -1,7 +1,12 @@
+import Enum from 'enum';
+
 /**
  * An immutable enum-like object with an associated comparable value.
+ *
+ * This class is essentially abstract, and must be extended by another
+ * class that overrides the inerited {@link #enumValues()} method.
  */
-class ComparableEnum {
+class ComparableEnum extends Enum {
 
     /**
      * Constructor.
@@ -10,20 +15,11 @@ class ComparableEnum {
      * @param {number} value the comparable value
      */
     constructor(name, value) {
-        this._name = name;
+        super(name);
         this._value = value;
         if ( this.constructor === ComparableEnum ) {
             Object.freeze(this);
         }
-    }
-
-    /**
-     * Get the enum name.
-     * 
-     * @returns {string} the  name
-     */
-    get name() {
-        return this._name;
     }
 
     /**
@@ -45,18 +41,6 @@ class ComparableEnum {
      */
     compareTo(other) {
         return this.value < other.value ? -1 : this.value > other.value ? 1 : 0;
-    }
-
-    /**
-     * Get all enum values.
-     * 
-     * This method must be overridden by subclasses to return something meaningful.
-     * This implementation returns an empty array.
-     * 
-     * @returns {ComparableEnum[]} get all enum values
-     */
-    static enumValues() {
-        return [];
     }
 
     /**
@@ -89,19 +73,6 @@ class ComparableEnum {
         return (result.size > 0 ? result : null);
     }
 
-    /**
-     * This method takes an array of enums and turns them into a mapped object, using the enum
-     * <code>name</code> as object property names.
-     * 
-     * @param {ComparableEnum[]} enums the enum list to turn into a value object
-     * @returns {Object} an object with enum <code>name</code> properties with associated enum values 
-     */
-    static enumsValue(enums) {
-        return Object.freeze(enums.reduce((obj, e) => {
-            obj[e.name] = e;
-            return obj;
-        }, {}));
-    }
 }
 
 export default ComparableEnum;
