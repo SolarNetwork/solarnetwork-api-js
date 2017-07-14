@@ -13,7 +13,7 @@ export class Aggregation extends ComparableEnum {
      */
     constructor(name, level) {
 		super(name, level);
-		if ( new.target === Aggregation ) {
+		if ( this.constructor === Aggregation ) {
 			Object.freeze(this);
 		}
     }

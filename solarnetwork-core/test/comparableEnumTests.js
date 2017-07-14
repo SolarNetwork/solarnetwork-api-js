@@ -3,6 +3,13 @@ import test from 'ava';
 import ComparableEnum from 'comparableEnum';
 
 class TestEnum extends ComparableEnum {
+    constructor(name, value) {
+        super(name, value);
+        if ( this.constructor === TestEnum ) {
+            Object.freeze(this);
+        }
+    }
+    
 	static enumValues() {
 		return TestEnumValues;
 	}

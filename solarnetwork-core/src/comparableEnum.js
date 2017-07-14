@@ -12,7 +12,7 @@ class ComparableEnum {
     constructor(name, value) {
         this._name = name;
         this._value = value;
-        if ( new.target === ComparableEnum ) {
+        if ( this.constructor === ComparableEnum ) {
             Object.freeze(this);
         }
     }

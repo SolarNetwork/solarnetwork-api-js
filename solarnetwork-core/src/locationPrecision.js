@@ -13,7 +13,7 @@ export class LocationPrecision extends ComparableEnum {
      */
     constructor(name, precision) {
         super(name, precision);
-        if ( new.target === LocationPrecision ) {
+        if ( this.constructor === LocationPrecision ) {
             Object.freeze(this);
         }
     }
