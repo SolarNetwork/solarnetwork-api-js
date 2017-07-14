@@ -75,7 +75,7 @@ class SecurityPolicy {
 		this._minLocationPrecision = (minLocationPrecision instanceof LocationPrecision ? minLocationPrecision : null);
 		this._nodeMetadataPaths = setOrNull(nodeMetadataPaths);
         this._userMetadataPaths = setOrNull(userMetadataPaths);
-        if ( new.target === SecurityPolicy ) {
+        if ( this.constructor === SecurityPolicy ) {
             Object.freeze(this);
         }
 	}
