@@ -26,7 +26,7 @@ class Pagination {
     /**
      * Get the results starting offset.
      * 
-     * The first available result starts at offset {@code 0}. Note this is 
+     * The first available result starts at offset <code>0</code>. Note this is 
      * a raw offset value, not a "page" offset.
      * 
      * @returns {number} the starting result offset
@@ -36,7 +36,7 @@ class Pagination {
     }
 
     /**
-     * Copy constructor with a new {@code offset} value.
+     * Copy constructor with a new <code>offset</code> value.
      * 
      * @param {number} offset the new offset to use
      * @return {Pagination} a new instance

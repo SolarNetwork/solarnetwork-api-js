@@ -3,7 +3,7 @@ import Configuration from 'configuration';
 /**
  * An environment configuration utility object.
  *
- * This extends {@code Configuration} to add support for standard properties
+ * This extends <code>Configuration</code> to add support for standard properties
  * needed to access the SolarNetwork API, such as host and protocol values.
  *
  * @class
@@ -16,7 +16,7 @@ class Environment extends Configuration {
 	 * Constructor.
 	 *
 	 * This will define the following default properties, if not supplied on the
-	 * {@code config} argument:
+	 * <code>config</code> argument:
 	 *
 	 * <dl>
 	 * <dt>host</dt><dd><code>data.solarnetwork.net</code></dd>
@@ -36,9 +36,9 @@ class Environment extends Configuration {
 	}
 
     /**
-	 * Check if TLS is in use via the {@code https} protocol.
+	 * Check if TLS is in use via the <code>https</code> protocol.
 	 *
-     * @returns {boolean} {@code true} if the {@code protocol} is set to {@code https}
+     * @returns {boolean} <code>true</code> if the <code>protocol</code> is set to <code>https</code>
      */
 	useTls() {
 		return (this.value('protocol') === 'https');

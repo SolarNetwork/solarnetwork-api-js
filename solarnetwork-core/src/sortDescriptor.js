@@ -6,7 +6,7 @@ class SortDescriptor {
     /**
      * 
      * @param {string} key the property to sort on
-     * @param {boolean} [descending] {@code true} to sort in descending order, {@code false} for ascending
+     * @param {boolean} [descending] <code>true</code> to sort in descending order, <code>false</code> for ascending
      */
     constructor(key, descending) {
         this._key = key;
@@ -25,7 +25,7 @@ class SortDescriptor {
     /**
      * Get the sorting direction.
      * 
-     * @returns {boolean} {@code true} if descending order, {@code false} for ascending
+     * @returns {boolean} <code>true</code> if descending order, <code>false</code> for ascending
      */
     get descending() {
         return this._descending;

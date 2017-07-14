@@ -3,7 +3,7 @@ import NodeUrlHelperMixin from 'net/nodeUrlHelperMixin';
 import UserUrlHelperMixin from 'net/userUrlHelperMixin'
 
 /**
- * A mixin class that adds SolarNode instruction support to {@code UrlHelper}.
+ * A mixin class that adds SolarNode instruction support to <code>UrlHelper</code>.
  * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
  * @preserve
@@ -22,7 +22,7 @@ const NodeInstructionUrlHelperMixin = (superclass) => class extends superclass {
 	/**
 	 * Generate a URL for viewing active instructions.
 	 * 
-	 * @param {number} [nodeId] a specific node ID to use; if not provided the {@code nodeId} property of this class will be used
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 */
 	viewActiveInstructionsUrl(nodeId) {
 		return (this.baseUrl() +'/instr/viewActive?nodeId=' 
@@ -32,7 +32,7 @@ const NodeInstructionUrlHelperMixin = (superclass) => class extends superclass {
 	/**
 	 * Generate a URL for viewing pending instructions.
 	 * 
-	 * @param {number} [nodeId] a specific node ID to use; if not provided the {@code nodeId} property of this class will be used
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
 	 */
 	viewPendingInstructionsUrl(nodeId) {
@@ -59,7 +59,7 @@ const NodeInstructionUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {string} topic the instruction topic.
 	 * @param {Object[]} [parameters] an array of parameter objects in the form <code>{name:n1, value:v1}</code>.
-	 * @param {number} [nodeId] a specific node ID to use; if not provided the {@code nodeId} property of this class will be used
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
 	 * @preserve
 	 */
@@ -82,7 +82,7 @@ const NodeInstructionUrlHelperMixin = (superclass) => class extends superclass {
 	 * 
 	 * @param {string} name the parameter name 
 	 * @param {*} value the parameter value
-	 * @returns {object} with {@code name} and {@code value} properties
+	 * @returns {object} with <code>name</code> and <code>value</code> properties
 	 * @preserve
 	 */
 	static instructionParameter(name, value) {

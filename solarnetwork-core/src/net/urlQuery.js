@@ -44,7 +44,7 @@ function urlQueryParse(search) {
  *
  * <p>If an object property has an array value, multiple URL parameters will be encoded for that property.</p>
  *
- * <p>The optional {@code encoderFn} argument is a function that accepts a string value
+ * <p>The optional <code>encoderFn</code> argument is a function that accepts a string value
  * and should return a URI-safe string for that value.</p>
  *
  * @param {Object} parameters an object to encode as URL parameters

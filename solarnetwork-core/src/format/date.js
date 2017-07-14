@@ -18,7 +18,7 @@ export { isoParse as dateTimeUrlParse, isoParse as dateParse } from 'd3-time-for
  * Parse a UTC date string, from a variety of supported formats.
  *
  * @param {String} str the string to parse into a date
- * @returns {Date} the parsed {@code Date}, or {@code null} if the date can't be parsed
+ * @returns {Date} the parsed <code>Date</code>, or <code>null</code> if the date can't be parsed
  */
 export function dateParser(str) {
 	var date = isoParse(str)

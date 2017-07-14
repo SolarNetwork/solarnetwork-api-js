@@ -13,8 +13,8 @@ class UrlHelper {
      * Constructor.
      *
      * @param {Environment|Object} [environment] the optional initial environment to use;
-     *        if a non-{@code Environment} object is passed then the properties of that object will
-     *        be used to construct a new {@code Environment} instance
+     *        if a non-<code>Environment</code> object is passed then the properties of that object will
+     *        be used to construct a new <code>Environment</code> instance
      * @preserve
      */
     constructor(environment) {
@@ -37,7 +37,7 @@ class UrlHelper {
      * Get or set an environment parameter.
      * 
      * This is a shortcut for calling {@link Configuration#value()} on the
-     * {@code environment} object.
+     * <code>environment</code> object.
      * 
      * @param {String} key the environment parameter name to get
      * @param {Object} [val] the optional value to set
@@ -52,7 +52,7 @@ class UrlHelper {
      * Get or set a parameter.
      * 
      * This is a shortcut for calling {@link Configuration#value()} on the
-     * {@code parameters} object.
+     * <code>parameters</code> object.
      * 
      * @param {String} key the parameter name to get
      * @param {Object} [val] the optional value to set
@@ -93,7 +93,7 @@ class UrlHelper {
 	}
 
     /**
-     * Replace occurances of URL template variables with values from the {@code parameters}
+     * Replace occurances of URL template variables with values from the <code>parameters</code>
      * property and append to the host URL.
      * 
      * This method provides a way to resolve an absolute URL based on the configured
@@ -109,12 +109,12 @@ class UrlHelper {
     }
 
      /**
-     * Replace occurances of URL template variables with values from the {@code parameters}
+     * Replace occurances of URL template variables with values from the <code>parameters</code>
      * property.
      * 
      * URL template variables are specified as <code>{<em>name</em>}</code>. The variable
      * will be replaced by the value associated with property <code>name</code> in the
-     * {@code parameters} object. The value will be URI encoded.
+     * <code>parameters</code> object. The value will be URI encoded.
      * 
      * @param {String} template a URL template
      * @returns {String} the URL with template variables resolved

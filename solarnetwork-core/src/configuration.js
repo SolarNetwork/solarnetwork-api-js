@@ -28,7 +28,7 @@ class Configuration {
 	/**
 	 * Constructor.
 	 *
-	 * For any properties passed on {@code initialMap}, {@link #value(key, newValue)} will
+	 * For any properties passed on <code>initialMap</code>, {@link #value(key, newValue)} will
 	 * be called so those properties are defined on this instance.
 	 *
 	 * @param {Object} initialMap the optional initial properties to store
@@ -45,7 +45,7 @@ class Configuration {
 	 * Test if a key is truthy.
 	 *
 	 * @param {String} key the key to test
-	 * @returns {Boolean} {@code true} if the key is enabled
+	 * @returns {Boolean} <code>true</code> if the key is enabled
 	 * @preserve
 	 */
 	enabled(key) {
@@ -82,9 +82,9 @@ class Configuration {
 	 * Get or set a configuration value.
 	 *
 	 * @param {String} key The key to get or set the value for
-	 * @param {Object} [newValue] If defined, the new value to set for the given {@code key}.
-	 *                            If {@code null} then the value will be removed.
-	 * @returns {Object} If called as a getter, the associated value for the given {@code key},
+	 * @param {Object} [newValue] If defined, the new value to set for the given <code>key</code>.
+	 *                            If <code>null</code> then the value will be removed.
+	 * @returns {Object} If called as a getter, the associated value for the given <code>key</code>,
 	 *                   otherwise this object.
 	 * @preserve
 	 */
