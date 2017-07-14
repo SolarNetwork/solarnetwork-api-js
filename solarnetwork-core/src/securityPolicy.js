@@ -160,6 +160,58 @@ class SecurityPolicy {
 		return this._userMetadataPaths;
 	}
 
+    /**
+     * Get this object as a standard JSON encoded string value.
+     * 
+     * @return {string} the JSON encoded string
+     */
+    toJsonEncoding() {
+		let result = {};
+		let val = this.nodeIds;
+		if ( val ) {
+			result.nodeIds = Array.from(val);
+		}
+		
+		val = this.sourceIds;
+		if ( val ) {
+			result.sourceIds = Array.from(val);
+		}
+
+		val = this.aggregations;
+		if ( val ) {
+			result.aggregations = Array.from(val).map(e => encodeURIComponent(e.name));
+		}
+
+		val = this.locationPrecisions;
+		if ( val ) {
+			result.locationPrecisions = Array.from(val).map(e => encodeURIComponent(e.name));
+		}
+
+		val = this.minAggregation;
+		if ( val ) {
+			if ( result.length > 0 ) {
+				result += '&';
+			}
+			result.minAggregation = val.name;
+		}
+
+		val = this.minLocationPrecision;
+		if ( val ) {
+			result.minLocationPrecision = val.name;
+		}
+
+		val = this.nodeMetadataPaths;
+		if ( val ) {
+			result.nodeMetadataPaths = Array.from(val);
+		}
+
+		val = this.userMetadataPaths;
+		if ( val ) {
+			result.userMetadataPaths = Array.from(val);
+		}
+
+		return JSON.stringify(result);
+    }
 }
 
 const MIN_AGGREGATION_CACHE = new Map(); // Map<string, Set<Aggregation>>

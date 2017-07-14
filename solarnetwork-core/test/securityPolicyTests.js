@@ -730,3 +730,24 @@ test('core:securityPolicy:build:withPolicy', t => {
     t.deepEqual(result.nodeMetadataPaths, new Set(['c', 'd']));
     t.deepEqual(result.userMetadataPaths, new Set(['e', 'f']));
 });
+
+test('core:securityPolicy:toJsonEncoding', t => {
+    const result = new SecurityPolicyBuilder()
+        .withNodeIds([1, 2])
+        .withSourceIds(['a', 'b'])
+        .withMinAggregation(Aggregations.Week)
+        .withMinLocationPrecision(LocationPrecisions.TimeZone)
+        .withNodeMetadataPaths(['c', 'd'])
+        .withUserMetadataPaths(['e', 'f'])
+        .build().toJsonEncoding();
+    t.deepEqual(JSON.parse(result), {
+        nodeIds: [1, 2],
+        sourceIds: ['a', 'b'],
+        minAggregation: 'Week',
+        aggregations: ['Week', 'WeekOfYear', 'Month', 'RunningTotal'],
+        minLocationPrecision: 'TimeZone',
+        locationPrecisions: ['TimeZone', 'Country'],
+        nodeMetadataPaths: ['c', 'd'],
+        userMetadataPaths: ['e', 'f'],
+    });
+});
