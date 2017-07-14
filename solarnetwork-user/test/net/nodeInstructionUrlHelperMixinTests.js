@@ -2,7 +2,8 @@
 
 import test from 'ava';
 
-import { NodeInstructionUrlHelper, InstructionState, instructionParameter } from 'net/nodeInstructionUrlHelperMixin'
+import InstructionStates from 'instructionState';
+import { NodeInstructionUrlHelper, instructionParameter } from 'net/nodeInstructionUrlHelperMixin'
 
 test('user:nodeInstructionUrlHelperMixin:create', t => {
 	const helper = new NodeInstructionUrlHelper();
@@ -17,7 +18,7 @@ test('user:nodeInstructionUrlHelperMixin:viewInstructionUrl', t => {
 
 test('user:nodeInstructionUrlHelperMixin:updateInstructionStateUrl', t => {
 	const helper = new NodeInstructionUrlHelper();
-	t.is(helper.updateInstructionStateUrl(123, InstructionState.QUEUED),
+	t.is(helper.updateInstructionStateUrl(123, InstructionStates.Queued),
 		'https://data.solarnetwork.net/solaruser/api/v1/sec/instr/updateState?id=123&state=Queued');
 });
 

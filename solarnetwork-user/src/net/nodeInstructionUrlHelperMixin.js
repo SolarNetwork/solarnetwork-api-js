@@ -2,15 +2,6 @@ import UrlHelper from 'net/urlHelper';
 import NodeUrlHelperMixin from 'net/nodeUrlHelperMixin';
 import UserUrlHelperMixin from 'net/userUrlHelperMixin'
 
-export const InstructionState = Object.freeze({
-	UNKNOWN: '',
-	QUEUED: 'Queued',
-	RECEIVED: 'Received',
-	EXECUTING: 'Executing',
-	DECLINED: 'Declined',
-	COMPLETED: 'Completed',
-});
-
 /**
  * A mixin class that adds SolarNode instruction support to {@code UrlHelper}.
  * 
@@ -53,14 +44,14 @@ const NodeInstructionUrlHelperMixin = (superclass) => class extends superclass {
 	 * Generate a URL for changing the state of an instruction.
 	 * 
 	 * @param {number} instructionId the instruction ID to update
-	 * @param {string} state the instruction state to set
+	 * @param {InstructionState} state the instruction state to set
 	 * @returns {string} the URL
 	 * @see the {@link #InstructionState} enum for possible state values
 	 */
 	updateInstructionStateUrl(instructionId, state) {
 		return (this.baseUrl()
 			+'/instr/updateState?id=' +encodeURIComponent(instructionId)
-			+'&state=' +encodeURIComponent(state));
+			+'&state=' +encodeURIComponent(state.name));
 	}
 
 	/**

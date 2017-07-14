@@ -1,11 +1,6 @@
 import UrlHelper from 'net/urlHelper';
 import UserUrlHelperMixin from 'net/userUrlHelperMixin'
 
-export const AuthTokenType = Object.freeze({
-	USER: 'User',
-	READ_NODE_DATA: 'ReadNodeData',
-});
-
 /**
  * A mixin class that adds security token support to a SolarUser <code>UrlHelper</code>.
  * 
@@ -24,13 +19,14 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
     }
 
     /**
+     * Generate a URL for creating a new auth token via a <code>POST</code> request.
      * 
-     * @param {string} type the auth token type to generate
-     * @param {SecurityPolicy} [policy] the security policy to attach to the generated token 
+     * The request body accepts a {@link SecurityPolicy} JSON document.
+     * 
+     * @param {AuthTokenType} type the auth token type to generate
      */
     generateAuthTokenUrl(type) {
-        // TODO
-        return type;
+        return this.baseUrl() + '/usr/auth-tokens/generate/' +type.name;
     }
 
 };
