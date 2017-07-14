@@ -30,6 +30,7 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
      */
     generateAuthTokenUrl(type) {
         // TODO
+        return type;
     }
 
 };
