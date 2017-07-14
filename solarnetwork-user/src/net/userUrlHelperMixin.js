@@ -4,13 +4,56 @@ export const SolarUserPathKey = 'solarUserPath';
 
 export const SolarUserApiPathV1 = '/api/v1/sec';
 
+export const UserIdsKey = 'userIds';
+
 /**
  * A mixin class that adds SolarUser specific support to <code>UrlHelper</code>.
  * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
- * @preserve
+ * @mixin
  */
 const UserUrlHelperMixin = (superclass) => class extends superclass {
+
+    /**
+     * Get the default user ID.
+     * 
+     * This gets the first available user ID from the <code>userIds</code> property.
+     * 
+     * @returns {number} the default user ID, or <code>null</code>
+     */
+    get userId() {
+        const userIds = this.parameter(UserIdsKey);
+        return (Array.isArray(userIds) && userIds.length > 0 ? userIds[0] : null);
+    }
+
+    /**
+     * Set the user ID.
+     * 
+     * This will set the <code>userIds</code> property to a new array of just the given value.
+     * 
+     * @param {number} userId the user ID to set
+     */
+    set userId(userId) {
+        this.parameter(UserIdsKey, [userId]);
+    }
+
+    /**
+     * Get the user IDs.
+     * 
+     * @returns {number[]} the user IDs
+     */
+    get userIds() {
+        return this.parameter(UserIdsKey);
+    }
+
+    /**
+     * Set the user IDs.
+     * 
+     * @param {number[]} userIds the user IDs to set
+     */
+    set userIds(userIds) {
+        this.parameter(UserIdsKey, userIds);
+    }
 
 	/**
 	 * Get the base URL to the SolarUser v1 REST API.
