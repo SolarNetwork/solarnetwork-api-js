@@ -1,4 +1,4 @@
-export const DefaultSolarQueryPath = '/solarquery';
+export const SolarQueryDefaultPath = '/solarquery';
 
 export const SolarQueryPathKey = 'solarQueryPath';
 
@@ -26,7 +26,7 @@ const QueryUrlHelperMixin = (superclass) => class extends superclass {
 	 * @preserve
 	 */
 	baseUrl() {
-		const path = this.env(SolarQueryPathKey) || DefaultSolarQueryPath;
+		const path = this.env(SolarQueryPathKey) || SolarQueryDefaultPath;
         const isPubPath = !!this.env(SolarQueryPublicPathKey);
 		return this.hostUrl() + path + SolarQueryApiPathV1
             +(isPubPath ? '/pub' : '/sec');

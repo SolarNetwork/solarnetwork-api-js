@@ -1,5 +1,5 @@
 export { default as QueryUrlHelperMixin,
-	DefaultSolarQueryPath,
+	SolarQueryDefaultPath,
 	SolarQueryPathKey,
 	SolarQueryApiPathV1,
 	SolarQueryPublicPathKey } from './src/queryUrlHelperMixin';
