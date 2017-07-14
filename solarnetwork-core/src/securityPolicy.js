@@ -439,9 +439,10 @@ export class SecurityPolicyBuilder {
 	 * @preserve
 	 */
 	build() {
-		return new SecurityPolicy(nodeIds, sourceIds, buildAggregations(), minAggregation,
-				buildLocationPrecisions(), minLocationPrecision, nodeMetadataPaths,
-				userMetadataPaths);
+		return new SecurityPolicy(this.nodeIds, this.sourceIds, 
+				this.buildAggregations(), this.minAggregation,
+				this.buildLocationPrecisions(), this.minLocationPrecision,
+				this.nodeMetadataPaths, this.userMetadataPaths);
 	}
 }
 

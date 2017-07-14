@@ -690,4 +690,21 @@ test('core:securityPolicy:build:buildAggregations:minTrumpsAggs', t => {
     t.deepEqual(b.buildLocationPrecisions(), new Set([LocationPrecisions.TimeZone, LocationPrecisions.Country]));
 });
 
-todo('SecurityPolicyTests for build');
+test('core:securityPolicy:build:typical', t => {
+    const result = new SecurityPolicyBuilder()
+        .withNodeIds([1, 2])
+        .withSourceIds(['a', 'b'])
+        .withMinAggregation(Aggregations.Week)
+        .withMinLocationPrecision(LocationPrecisions.TimeZone)
+        .withNodeMetadataPaths(['c', 'd'])
+        .withUserMetadataPaths(['e', 'f'])
+        .build();
+    t.deepEqual(result.nodeIds, new Set([1, 2]));
+    t.deepEqual(result.sourceIds, new Set(['a', 'b']));
+    t.is(result.minAggregation, Aggregations.Week);
+    t.deepEqual(result.aggregations, new Set([Aggregations.Week, Aggregations.WeekOfYear, Aggregations.Month, Aggregations.RunningTotal]));
+    t.is(result.minLocationPrecision, LocationPrecisions.TimeZone);
+    t.deepEqual(result.locationPrecisions, new Set([LocationPrecisions.TimeZone, LocationPrecisions.Country]));
+    t.deepEqual(result.nodeMetadataPaths, new Set(['c', 'd']));
+    t.deepEqual(result.userMetadataPaths, new Set(['e', 'f']));
+});
