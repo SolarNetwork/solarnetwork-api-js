@@ -26,10 +26,12 @@ export default {
       babelrc: false,
       plugins: ['external-helpers'],
       presets: [
-        ["latest", {
-          "es2015": {
-            "modules": false
-          }
+        ['env', {
+          targets: {
+            browsers: ['last 2 versions'],
+            node: 'current',
+          },
+          modules: false,
         }]
       ]
     })]
