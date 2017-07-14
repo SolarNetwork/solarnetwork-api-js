@@ -436,6 +436,7 @@ export class SecurityPolicyBuilder {
 	 * Create a new {@link SecurityPolicy} out of the properties configured on this builder.
 	 * 
 	 * @returns {SecurityPolicy} the new policy instance
+	 * @preserve
 	 */
 	build() {
 		return new SecurityPolicy(nodeIds, sourceIds, buildAggregations(), minAggregation,
