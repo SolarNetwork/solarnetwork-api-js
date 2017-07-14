@@ -5,7 +5,8 @@ export const SourceIdsKey = 'sourceIds';
 /**
  * A mixin class that adds support for SolarNode properties to a {@code UrlHelper}.
  * 
- * @param {UrlHelper} superclass the UrlHelper class to mix onto 
+ * @param {UrlHelper} superclass the UrlHelper class to mix onto
+ * @mixin
  */
 const NodeUrlHelperMixin = (superclass) => class extends superclass {
 
