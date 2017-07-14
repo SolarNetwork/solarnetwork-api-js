@@ -14,7 +14,7 @@ function setOrNull(obj) {
 	} else if ( Array.isArray(obj) ) {
 		result = (obj.length > 0 ? new Set(obj) : null);
 	} else if ( obj ) {
-		result = new Set(obj);
+		result = new Set([obj]);
 	}
 	return result;
 }
@@ -170,7 +170,7 @@ const MIN_LOCATION_PRECISION_CACHE = new Map(); // Map<string, Set<LocationPreci
  * 
  * @preserve
  */
-class SecurityPolicyBuilder {
+export class SecurityPolicyBuilder {
 
 	/**
 	 * Apply all properties from another SecurityPolicy.
@@ -341,7 +341,7 @@ class SecurityPolicyBuilder {
 	 * @preserve
 	 */
 	withLocationPrecisions(locationPrecisions) {
-		this.locationPrecisions = locationPrecisions;
+		this.locationPrecisions = setOrNull(locationPrecisions);
 		return this;
 	}
 
