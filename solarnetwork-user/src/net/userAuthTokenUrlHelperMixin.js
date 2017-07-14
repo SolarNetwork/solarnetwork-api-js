@@ -5,7 +5,7 @@ import UserUrlHelperMixin from 'net/userUrlHelperMixin'
  * A mixin class that adds security token support to a SolarUser <code>UrlHelper</code>.
  * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
- * @preserve
+ * @mixin
  */
 const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
 
@@ -19,25 +19,75 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
     }
 
     /**
-     * Generate a URL for creating a new auth token via a <code>POST</code> request.
+     * Generate a URL for creating a new auth token, via a <code>POST</code> request.
      * 
      * The request body accepts a {@link SecurityPolicy} JSON document.
      * 
      * @param {AuthTokenType} type the auth token type to generate
      */
     generateAuthTokenUrl(type) {
-        return this.baseUrl() + '/usr/auth-tokens/generate/' +type.name;
+        return this.baseUrl() + '/user/auth-tokens/generate/' +type.name;
     }
 
-};
+    /**
+     * Generate a URL for accessing an auth token.
+     * 
+     * @param {string} tokenId the token ID
+     * @private
+     */
+    authTokenUrl(tokenId) {
+        return this.baseUrl() + '/user/auth-tokens/' +encodeURIComponent(tokenId);
+    }
+
+    /**
+     * Generate a URL for deleting an auth token, via a <code>DELETE</code> request.
+     * 
+     * @param {string} tokenId the token ID to delete
+     */
+    deleteAuthTokenUrl(tokenId) {
+        return this.authTokenUrl(tokenId);
+    }
+
+    /**
+     * Generate a URL for updating (merging) a security policy on an auth token,
+     * via a <code>PATCH</code> request.
+     * 
+     * The request body accepts a {@link SecurityPolicy} JSON document.
+     * 
+     * @param {string} tokenId the ID of the token to update
+     */
+    updateAuthTokenSecurityPolicyUrl(tokenId) {
+        return this.authTokenUrl(tokenId);
+    }
+
+    /**
+     * Generate a URL for replacing a security policy on an auth token,
+     * via a <code>PUT</code> request.
+     * 
+     * The request body accepts a {@link SecurityPolicy} JSON document.
+     * 
+     * @param {string} tokenId the ID of the token to update
+     */
+    replaceAuthTokenSecurityPolicyUrl(tokenId) {
+        return this.authTokenUrl(tokenId);
+    }
+
+    /**
+     * Generate a URL for updating the status of an auth token,
+     * via a <code>POST</code> request.
+     * 
+     * @param {string} tokenId the ID of the token to update
+     * @param {AuthTokenStatus} status the status to change to
+     */
+    updateAuthTokenStatusUrl(tokenId, status) {
+        return this.authTokenUrl(tokenId) + '?status=' +encodeURIComponent(status.name);
+    }
+}
 
 export default UserAuthTokenUrlHelperMixin;
 
 /**
  * A concrete {@link UrlHelper} with the {@link UserAuthTokenUrlHelperMixin} and {@link UserUrlHelperMixin} mixins.
- * 
- * @class
- * @preserve
  */
 export class UserAuthTokenUrlHelper extends UserAuthTokenUrlHelperMixin(UserUrlHelperMixin(UrlHelper)) {
 
