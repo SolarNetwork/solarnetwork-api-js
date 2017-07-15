@@ -12,6 +12,9 @@
     },
     "templates": {
         "cleverLinks": true,
-        "monospaceLinks": false
+        "monospaceLinks": false,
+        "systemName": "SolarNetwork Core",
+        "theme": "spacelab",
+        "linenums": true
     }
 }
