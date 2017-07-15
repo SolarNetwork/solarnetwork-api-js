@@ -1,5 +1,10 @@
 import Enum from 'enum';
 
+/**
+ * A named auth token type.
+ * 
+ * @extends Enum
+ */
 export class AuthTokenType extends Enum {
     /**
      * Constructor.
@@ -29,6 +34,14 @@ const AuthTokenTypeValues = Object.freeze([
     new AuthTokenType('User'),
 ]);
 
+/**
+ * The enumeration of supported AuthTokenType values.
+ * 
+ * @readonly
+ * @enum {AuthTokenType}
+ * @property {AuthTokenType} ReadNodeData a read-only token for reading SolarNode data
+ * @property {AuthTokenType} User full access as the user that owns the token
+ */
 const AuthTokenTypes = AuthTokenType.enumsValue(AuthTokenTypeValues);
 
 export default AuthTokenTypes;

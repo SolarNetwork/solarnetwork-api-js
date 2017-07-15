@@ -12,18 +12,15 @@ import { parse as uriParse } from 'uri-js';
  *
  * This builder can be used to calculate a one-off header value, for example:
  *
- * <pre>
- * <code>
+ * ```
  * let authHeader = new AuthorizationV2Builder("my-token")
  *     .path("/solarquery/api/v1/pub/...")
  *     .build("my-token-secret");
- * </code>
- * </pre>
- *
+ * ```
+ * 
  * Or the builder can be re-used for a given token:
  *
- * <pre>
- * <code>
+ * ```
  * // create a builder for a token
  * let builder = new AuthorizationV2Builder("my-token");
  *
@@ -31,13 +28,11 @@ import { parse as uriParse } from 'uri-js';
  * builder.reset()
  *     .path("/solarquery/api/v1/pub/...")
  *     .build("my-token-secret");
- * </code>
- * </pre>
+ * ```
  *
  * Additionally, a signing key can be generated and re-used for up to 7 days:
  *
- * <pre>
- * <code>
+ * ```
  * // create a builder for a token
  * let builder = new AuthorizationV2Builder("my-token")
  *   .saveSigningKey("my-token-secret");
@@ -46,10 +41,7 @@ import { parse as uriParse } from 'uri-js';
  * builder.reset()
  *     .path("/solarquery/api/v1/pub/...")
  *     .buildWithSavedKey(); // note previously generated key used
- * </code>
- * </pre>
- *
- * @preserve
+ * ```
  */
 class AuthorizationV2Builder {
 	constructor(token, environment) {
@@ -79,9 +71,9 @@ class AuthorizationV2Builder {
 	 * Compute and cache the signing key.
 	 *
 	 * Signing keys are derived from the token secret and valid for 7 days, so
-	 * this method can be used to compute a signing key so that {@link #build()}
+	 * this method can be used to compute a signing key so that {@link AuthorizationV2Builder#build}
 	 * can be called later. The signing date will be set to whatever date is
-	 * currently configured via {@link #date(Date)}, which defaults to the
+	 * currently configured via {@link AuthorizationV2Builder#date}, which defaults to the
 	 * current time for newly created builder instances.
 	 *
 	 * @param {String} tokenSecret the secret to sign the digest with
@@ -252,7 +244,7 @@ class AuthorizationV2Builder {
 	 *
 	 * The headers object must include all headers necessary by the
 	 * authentication scheme, and any additional headers also configured via
-	 * {@link #signedHttpHeaders(signedHeaderNames)}.
+	 * {@link AuthorizationV2Builder#signedHttpHeaders}.
 	 *
 	 * @param {HttpHeaders} headers the HTTP headers to use
 	 * @returns {AuthorizationV2Builder} this object
@@ -443,7 +435,7 @@ class AuthorizationV2Builder {
     /**
      * Compute a HTTP <code>Authorization</code> header value from the configured
      * properties on the builder, computing a new signing key based on the
-	 * configured {@link #date(Date)}.
+	 * configured {@link AuthorizationV2Builder#date}.
      *
      * @return {string} the SNWS2 HTTP Authorization header value.
      */
@@ -456,7 +448,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Compute a HTTP <code>Authorization</code> header value from the configured
 	 * properties on the builder, using a signing key configured from a previous
-	 * call to {@link #saveSigningKey(String)}.
+	 * call to {@link AuthorizationV2Builder#saveSigningKey}.
 	 *
 	 * @return {string} the SNWS2 HTTP Authorization header value.
 	 */

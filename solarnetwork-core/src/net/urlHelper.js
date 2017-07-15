@@ -36,7 +36,7 @@ class UrlHelper {
     /**
      * Get or set an environment parameter.
      * 
-     * This is a shortcut for calling {@link Configuration#value()} on the
+     * This is a shortcut for calling {@link Configuration#value} on the
      * <code>environment</code> object.
      * 
      * @param {String} key the environment parameter name to get
@@ -51,7 +51,7 @@ class UrlHelper {
     /**
      * Get or set a parameter.
      * 
-     * This is a shortcut for calling {@link Configuration#value()} on the
+     * This is a shortcut for calling {@link Configuration#value} on the
      * <code>parameters</code> object.
      * 
      * @param {String} key the parameter name to get
@@ -83,7 +83,7 @@ class UrlHelper {
 	 * Get the base URL to the REST API.
 	 * 
 	 * This implementation is a stub, meant for subclasses to override. This implementation
-     * simply returns {@link #hostUrl()}.
+     * simply returns {@link UrlHelper#hostUrl}.
 	 * 
 	 * @returns {string} the base URL to the REST API
 	 * @preserve

@@ -13,7 +13,7 @@
     "templates": {
         "cleverLinks": true,
         "monospaceLinks": false,
-        "systemName": "SolarNetwork Core",
+        "systemName": "SolarNetwork User",
         "theme": "spacelab",
         "linenums": true
     }

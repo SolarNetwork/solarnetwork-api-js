@@ -35,6 +35,7 @@
     ]
   },
   "scripts": {
+    "apidoc": "jsdoc --configure jsdoc.config.json --template ./node_modules/ink-docstrap/template --package package.json --recurse --destination build/apidoc */src",
     "prebuild": "rm -rf build && mkdir build && json2module package.json > build/package.js",
     "build": "rollup --banner \"$(preamble)\" -c -f umd -n sn -m -o build/solarnetwork.js -- index.js",
     "postbuild": "uglifyjs --preamble \"$(preamble)\" build/solarnetwork.js --source-map content=build/solarnetwork.js.map,filename=build/solarnetwork.min.js.map -c -m -o build/solarnetwork.min.js",
@@ -46,6 +47,8 @@
     "babel-plugin-module-resolver": "~3.0.0-beta.3",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.24.1",
+    "ink-docstrap": "^1.3.0",
+    "jsdoc": "^3.5.3",
     "json2module": "^0.0.3",
     "package-preamble": "0.1",
     "rollup": "0.43",

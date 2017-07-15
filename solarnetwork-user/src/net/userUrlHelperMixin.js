@@ -1,9 +1,13 @@
+/** The SolarUser default path. */
 export const SolarUserDefaultPath = '/solaruser';
 
+/** The {@link UrlHelper} parameters key for the SolarUser path. */
 export const SolarUserPathKey = 'solarUserPath';
 
+/** The SolarUser REST API path. */
 export const SolarUserApiPathV1 = '/api/v1/sec';
 
+/** The {@link UrlHelper} parameters key that holds the <code>userId</code>. */
 export const UserIdsKey = 'userIds';
 
 /**
@@ -11,6 +15,9 @@ export const UserIdsKey = 'userIds';
  * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
  * @mixin
+ * @property {number} userId the first available user ID from the <code>userIds</code> property;
+ *                           setting this replaces any existing user IDs with an array of just that value
+ * @property {number[]} userIds an array of user IDs, set on the <code>userIds</code> parameter
  */
 const UserUrlHelperMixin = (superclass) => class extends superclass {
 
@@ -20,6 +27,7 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
      * This gets the first available user ID from the <code>userIds</code> property.
      * 
      * @returns {number} the default user ID, or <code>null</code>
+	 * @memberof UserUrlHelperMixin#
      */
     get userId() {
         const userIds = this.parameter(UserIdsKey);
@@ -32,25 +40,16 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
      * This will set the <code>userIds</code> property to a new array of just the given value.
      * 
      * @param {number} userId the user ID to set
+	 * @memberof UserUrlHelperMixin#
      */
     set userId(userId) {
         this.parameter(UserIdsKey, [userId]);
     }
 
-    /**
-     * Get the user IDs.
-     * 
-     * @returns {number[]} the user IDs
-     */
     get userIds() {
         return this.parameter(UserIdsKey);
     }
 
-    /**
-     * Set the user IDs.
-     * 
-     * @param {number[]} userIds the user IDs to set
-     */
     set userIds(userIds) {
         this.parameter(UserIdsKey, userIds);
     }
@@ -64,7 +63,7 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 	 * <code>/solaruser</code>.
 	 * 
 	 * @returns {string} the base URL to SolarUser
-	 * @preserve
+	 * @memberof UserUrlHelperMixin#
 	 */
 	baseUrl() {
 		const path = this.env(SolarUserPathKey) || SolarUserDefaultPath;
@@ -75,7 +74,7 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 	 * Generate a URL to get a list of all active nodes for the user account.
 	 *
 	 * @return {string} the URL to access the user's active nodes
-	 * @preserve
+	 * @memberof UserUrlHelperMixin#
 	 */
 	viewNodesUrl() {
 		return this.baseUrl() + '/nodes';
@@ -85,7 +84,7 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 	 * Generate a URL to get a list of all pending nodes for the user account.
 	 *
 	 * @return {string} the URL to access the user's pending nodes
-	 * @preserve
+	 * @memberof UserUrlHelperMixin#
 	 */
 	viewPendingNodesUrl() {
 		return this.baseUrl() + '/nodes/pending';
@@ -95,7 +94,7 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 	 * Generate a URL to get a list of all archived nodes for the user account.
 	 *
 	 * @return {string} the URL to access the user's archived nodes
-	 * @preserve
+	 * @memberof UserUrlHelperMixin#
 	 */
 	viewArchivedNodesUrl() {
 		return this.baseUrl() + '/nodes/archived';
@@ -104,12 +103,12 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 	/**
 	 * Generate a URL to update the archived status of a set of nodes via a <code>POST</code> request.
 	 *
-	 * @param {number|number[]} nodeId a specific node ID, or array of node IDs, to update; if not provided the 
-	 *                                   <code>nodeIds</code> property of this class will be used
+	 * @param {number|number[]|null} nodeId a specific node ID, or array of node IDs, to update; if not provided the 
+	 *                                      <code>nodeIds</code> property of this class will be used
 	 * @param {boolean} archived <code>true</code> to mark the nodes as archived; <code>false</code> to un-mark
 	 *                           and return to normal status
 	 * @return {string} the URL to update the nodes archived status
-	 * @preserve
+	 * @memberof UserUrlHelperMixin#
 	 */
 	updateNodeArchivedStatusUrl(nodeId, archived) {
 		const nodeIds = Array.isArray(nodeId) ? nodeId : nodeId ? [nodeId] : this.nodeIds;
@@ -119,6 +118,6 @@ const UserUrlHelperMixin = (superclass) => class extends superclass {
 		return result;
 	}
 
-};
+}
 
 export default UserUrlHelperMixin;

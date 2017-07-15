@@ -39,6 +39,18 @@ const InstructionStateValues = Object.freeze([
     new InstructionState('Completed'),
 ]);
 
+/**
+ * The enumeration of supported InstructionState values.
+ * 
+ * @readonly
+ * @enum {InstructionState}
+ * @property {InstructionState} Unknown an unknown state
+ * @property {InstructionState} Queued the instruction has been received by SolarNet but not yet delivered to its destination
+ * @property {InstructionState} Received the instruction has been delivered to its destination but not yet acted upon
+ * @property {InstructionState} Executed the instruction is currently being acted upon
+ * @property {InstructionState} Declined the destination has declined to execute the instruction, or the execution failed
+ * @property {InstructionState} Completed the destination has executed successfully
+ */
 const InstructionStates = InstructionState.enumsValue(InstructionStateValues);
 
 export default InstructionStates;

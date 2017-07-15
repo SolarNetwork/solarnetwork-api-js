@@ -48,7 +48,9 @@ function mergedSets(set1, set2) {
 
 
 /**
- * A set of security restrictions that can be attached to other objects, like auth tokens.
+ * An immutable set of security restrictions that can be attached to other objects, like auth tokens.
+ * 
+ * Use the {@link SecurityPolicyBuilder} to create instances of this class with a fluent API.
  */
 class SecurityPolicy {
 

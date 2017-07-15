@@ -1,5 +1,10 @@
 import Enum from 'enum';
 
+/**
+ * An auth token status.
+ * 
+ * @extends Enum
+ */
 export class AuthTokenStatus extends Enum {
     /**
      * Constructor.
@@ -29,6 +34,14 @@ const AuthTokenStatusValues = Object.freeze([
     new AuthTokenStatus('Disabled'),
 ]);
 
+/**
+ * The enumeration of supported AuthTokenStatus values.
+ * 
+ * @readonly
+ * @enum {AuthTokenStatus}
+ * @property {AuthTokenStatus} Active the token is active and usable
+ * @property {AuthTokenStatus} Disabled the token is disabled and not usable
+ */
 const AuthTokenStatuses = AuthTokenStatus.enumsValue(AuthTokenStatusValues);
 
 export default AuthTokenStatuses;
