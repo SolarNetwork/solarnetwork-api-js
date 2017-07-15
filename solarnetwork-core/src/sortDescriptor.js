@@ -40,7 +40,7 @@ class SortDescriptor {
      * <code>descending</code> property is only added if it is <code>true</code>.
      * 
      * @param {number} [index] an optional array property index
-     * @param {string} [propertyName=sortDescriptors] an optional array property name, only used if <code>index</index> is also provided
+     * @param {string} [propertyName=sortDescriptors] an optional array property name, only used if <code>index</code> is also provided
      * @return {string} the URI encoded string
      */
     toUriEncoding(index, propertyName) {
