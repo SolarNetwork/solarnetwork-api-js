@@ -1,4 +1,0 @@
-*.sublime-*
-build/*.zip
-test/
-yarn.lock
