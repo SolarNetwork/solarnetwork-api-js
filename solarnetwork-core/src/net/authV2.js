@@ -445,8 +445,7 @@ class AuthorizationV2Builder {
      * properties on the builder, computing a new signing key based on the
 	 * configured {@link #date(Date)}.
      *
-     * @return the SNWS2 HTTP Authorization header value.
-	 * @preserve
+     * @return {string} the SNWS2 HTTP Authorization header value.
      */
 	build(tokenSecret) {
         const theSigningKey = this.computeSigningKey(tokenSecret);
@@ -459,8 +458,7 @@ class AuthorizationV2Builder {
 	 * properties on the builder, using a signing key configured from a previous
 	 * call to {@link #saveSigningKey(String)}.
 	 *
-	 * @return the SNWS2 HTTP Authorization header value.
-	 * @preserve
+	 * @return {string} the SNWS2 HTTP Authorization header value.
 	 */
 	buildWithSavedKey() {
 		return this.buildWithKey(this.signingKey);
@@ -505,7 +503,22 @@ function _encodeURIComponent(str) {
 }
 
 Object.defineProperties(AuthorizationV2Builder, {
+	/**
+	 * The hex-encoded value for an empty SHA256 digest value.
+	 * 
+	 * @memberof AuthorizationV2Builder
+	 * @readonly
+	 * @type {string}
+	 */
 	EMPTY_STRING_SHA256_HEX: 	{ value: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+
+	/**
+	 * The hex-encoded value for an empty SHA256 digest value.
+	 * 
+	 * @memberof AuthorizationV2Builder
+	 * @readonly
+	 * @type {string}
+	 */
 	SNWS2_AUTH_SCHEME: 			{ value: 'SNWS2' },
 });
 

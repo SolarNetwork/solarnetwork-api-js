@@ -18,17 +18,14 @@ function createProperty(me, prop) {
 /**
  * A configuration utility object.
  *
- * Properties can be get/set by using the {@link #value(key, newValue)} function.
- *
- * @class
- * @preserve
+ * Properties can be get/set by using the {@link Configuration#value} function.
  */
 class Configuration {
 
 	/**
 	 * Constructor.
 	 *
-	 * For any properties passed on <code>initialMap</code>, {@link #value(key, newValue)} will
+	 * For any properties passed on <code>initialMap</code>, {@link Configutration#value} will
 	 * be called so those properties are defined on this instance.
 	 *
 	 * @param {Object} initialMap the optional initial properties to store

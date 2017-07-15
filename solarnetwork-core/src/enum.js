@@ -2,7 +2,7 @@
  * An enumerated object base class.
  * 
  * This class is essentially abstract, and must be extended by another
- * class that overrides the {@link #enumValues()} method.
+ * class that overrides the {@link Enum.enumValues} method.
  */
 class Enum {
 

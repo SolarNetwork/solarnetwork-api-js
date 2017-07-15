@@ -4,8 +4,7 @@ import Environment from 'net/environment';
 /**
  * A utility class for helping to compose SolarNet URLs for the REST API.
  *
- * @class
- * @preserve
+ * This class is essentially abstract and meant to have mixin helper objects extend it.
  */
 class UrlHelper {
 
@@ -27,7 +26,8 @@ class UrlHelper {
     /**
      * Get a parameters object that can be used to hold URL variables.
      * 
-     * @returns {Configuration} a parameters object
+     * @readonly
+     * @type {Configuration}
      */
     get parameters() {
         return this._parameters;

@@ -4,7 +4,9 @@ import Enum from 'enum';
  * An immutable enum-like object with an associated comparable value.
  *
  * This class is essentially abstract, and must be extended by another
- * class that overrides the inerited {@link #enumValues()} method.
+ * class that overrides the inerited {@link Enum.enumValues} method.
+ * 
+ * @extends Enum
  */
 class ComparableEnum extends Enum {
 
