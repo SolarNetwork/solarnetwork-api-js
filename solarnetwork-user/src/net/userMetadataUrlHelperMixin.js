@@ -33,8 +33,56 @@ const UserMetadataUrlHelperMixin = (superclass) => class extends superclass {
             }
         }
         return result;
+    }
+    
+    userMetadataUrl(userId) {
+        let result = this.baseUrl() +'/users/meta';
+        let userParam = (userId || this.userId);
+        if ( userParam && userId !== null ) {
+            result += '/' +userParam;
+        }
+        return result;
+    }
+
+    /**
+	 * Generate a URL for adding user metadata via a <code>POST</code> request.
+	 *
+	 * @param {number|null} [userId] a specific user ID;
+     *                               if not provided the <code>userId</code> property of this class will be used;
+     *                               if <code>null</code> then add metadata to the requesting user
+	 * @returns {string} the URL
+     * @memberof UserMetadataUrlHelperMixin#
+	 */
+	addUserMetadataUrl(userId) {
+        return this.userMetadataUrl(userId);
+    }
+    
+    /**
+	 * Generate a URL for replacing user metadata via a <code>PUT</code> request.
+	 *
+	 * @param {number|null} [userId] a specific user ID;
+     *                               if not provided the <code>userId</code> property of this class will be used;
+     *                               if <code>null</code> then add metadata to the requesting user
+	 * @returns {string} the URL
+     * @memberof UserMetadataUrlHelperMixin#
+	 */
+	replaceUserMetadataUrl(userId) {
+        return this.userMetadataUrl(userId);
 	}
-}
+    
+    /**
+	 * Generate a URL for deleting user metadata via a <code>DELETE</code> request.
+	 *
+	 * @param {number|null} [userId] a specific user ID;
+     *                               if not provided the <code>userId</code> property of this class will be used;
+     *                               if <code>null</code> then add metadata to the requesting user
+	 * @returns {string} the URL
+     * @memberof UserMetadataUrlHelperMixin#
+	 */
+	deleteUserMetadataUrl(userId) {
+        return this.userMetadataUrl(userId);
+	}
+};
 
 export default UserMetadataUrlHelperMixin;
 

@@ -12,7 +12,7 @@ test('user:nodeMetadataUrlHelperMixin:create', t => {
 	t.truthy(helper);
 });
 
-test('user:userNodeUrlHelperMixin:viewNodeMetadataUrl', t => {
+test('user:nodeUrlHelperMixin:viewNodeMetadataUrl', t => {
 	const helper = new NodeMetadataUrlHelper();
 	helper.nodeId = 123;
 	t.is(helper.viewNodeMetadataUrl(), 
@@ -21,7 +21,7 @@ test('user:userNodeUrlHelperMixin:viewNodeMetadataUrl', t => {
 		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/234');
 });
 
-test('user:userNodeUrlHelperMixin:addNodeMetadataUrl', t => {
+test('user:nodeUrlHelperMixin:addNodeMetadataUrl', t => {
 	const helper = new NodeMetadataUrlHelper();
 	helper.nodeId = 123;
 	t.is(helper.addNodeMetadataUrl(), 
@@ -30,7 +30,7 @@ test('user:userNodeUrlHelperMixin:addNodeMetadataUrl', t => {
 		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/234');
 });
 
-test('user:userNodeUrlHelperMixin:replaceNodeMetadataUrl', t => {
+test('user:nodeUrlHelperMixin:replaceNodeMetadataUrl', t => {
 	const helper = new NodeMetadataUrlHelper();
 	helper.nodeId = 123;
 	t.is(helper.replaceNodeMetadataUrl(), 
@@ -39,7 +39,7 @@ test('user:userNodeUrlHelperMixin:replaceNodeMetadataUrl', t => {
 		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/234');
 });
 
-test('user:userNodeUrlHelperMixin:deleteNodeMetadataUrl', t => {
+test('user:nodeUrlHelperMixin:deleteNodeMetadataUrl', t => {
 	const helper = new NodeMetadataUrlHelper();
 	helper.nodeId = 123;
 	t.is(helper.deleteNodeMetadataUrl(), 
@@ -48,7 +48,7 @@ test('user:userNodeUrlHelperMixin:deleteNodeMetadataUrl', t => {
 		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta/234');
 });
 
-test('user:uesrNodeUrlHelperMixin:findNodeMetadataUrl', t => {
+test('user:nodeUrlHelperMixin:findNodeMetadataUrl', t => {
 	const helper = new NodeMetadataUrlHelper();
 	helper.nodeId = 123;
 	t.is(helper.findNodeMetadataUrl(),
@@ -61,7 +61,7 @@ test('user:uesrNodeUrlHelperMixin:findNodeMetadataUrl', t => {
 		'https://data.solarnetwork.net/solaruser/api/v1/sec/nodes/meta');
 });
 
-test('user:uesrNodeUrlHelperMixin:findNodeMetadataUrl:sorted', t => {
+test('user:nodeUrlHelperMixin:findNodeMetadataUrl:sorted', t => {
 	const helper = new NodeMetadataUrlHelper();
 	helper.nodeId = 123;
 	t.is(helper.findNodeMetadataUrl(234, [new SortDescriptor('foo')]),
@@ -72,7 +72,7 @@ test('user:uesrNodeUrlHelperMixin:findNodeMetadataUrl:sorted', t => {
 		+'nodeIds=234&sortDescriptors%5B0%5D.key=foo&sortDescriptors%5B0%5D.descending=true');
 });
 
-test('user:uesrNodeUrlHelperMixin:findNodeMetadataUrl:paginated', t => {
+test('user:nodeUrlHelperMixin:findNodeMetadataUrl:paginated', t => {
 	const helper = new NodeMetadataUrlHelper();
 	helper.nodeId = 123;
 	t.is(helper.findNodeMetadataUrl(234, null, new Pagination(1, 2)),
@@ -80,7 +80,7 @@ test('user:uesrNodeUrlHelperMixin:findNodeMetadataUrl:paginated', t => {
 		+'nodeIds=234&max=1&offset=2');
 });
 
-test('user:uesrNodeUrlHelperMixin:findNodeMetadataUrl:sortedAndPaginated', t => {
+test('user:nodeUrlHelperMixin:findNodeMetadataUrl:sortedAndPaginated', t => {
 	const helper = new NodeMetadataUrlHelper();
 	helper.nodeId = 123;
 	t.is(helper.findNodeMetadataUrl(234, [new SortDescriptor('foo')], new Pagination(1, 2)),
