@@ -65,7 +65,6 @@ class SecurityPolicy {
 	 * @param {LocationPrecision} [minLocationPrecision] if specified, a minimum location precision that is allowed
 	 * @param {Set<string>} [nodeMetadataPaths] the <code>SolarNodeMetadata</code> paths to restrict to, or <code>null</code> for no restriction
 	 * @param {Set<string>} [userMetadataPaths] the <code>UserNodeMetadata</code> paths to restrict to, or <code>null</code> for no restriction
-	 * @preserve
 	 */
     constructor(nodeIds, sourceIds, aggregations, minAggregation, locationPrecisions,
 			minLocationPrecision, nodeMetadataPaths, userMetadataPaths) {

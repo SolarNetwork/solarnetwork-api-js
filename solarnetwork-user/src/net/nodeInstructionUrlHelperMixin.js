@@ -6,7 +6,6 @@ import UserUrlHelperMixin from 'net/userUrlHelperMixin'
  * A mixin class that adds SolarNode instruction support to <code>UrlHelper</code>.
  * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
- * @preserve
  */
 const NodeInstructionUrlHelperMixin = (superclass) => class extends superclass {
 
@@ -61,7 +60,6 @@ const NodeInstructionUrlHelperMixin = (superclass) => class extends superclass {
 	 * @param {Object[]} [parameters] an array of parameter objects in the form <code>{name:n1, value:v1}</code>.
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
-	 * @preserve
 	 */
 	queueInstructionUrl(topic, parameters, nodeId) {
 		var url = (this.baseUrl()
@@ -83,7 +81,6 @@ const NodeInstructionUrlHelperMixin = (superclass) => class extends superclass {
 	 * @param {string} name the parameter name 
 	 * @param {*} value the parameter value
 	 * @returns {object} with <code>name</code> and <code>value</code> properties
-	 * @preserve
 	 */
 	static instructionParameter(name, value) {
 		return {name:name, value:value};
@@ -95,9 +92,6 @@ export default NodeInstructionUrlHelperMixin;
 /**
  * A concrete {@link UrlHelper} with the {@link NodeInstructionUrlHelperMixin},  {@link UserUrlHelperMixin}, and
  * {@link #NodeUrlHelperMixin} mixins.
- * 
- * @class
- * @preserve
  */
 export class NodeInstructionUrlHelper extends NodeInstructionUrlHelperMixin(UserUrlHelperMixin(NodeUrlHelperMixin(UrlHelper))) {
 

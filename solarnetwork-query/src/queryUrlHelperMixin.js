@@ -10,7 +10,6 @@ export const SolarQueryPublicPathKey = 'publicQuery';
  * A mixin class that adds SolarQuery specific support to <code>UrlHelper</code>.
  * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
- * @preserve
  */
 const QueryUrlHelperMixin = (superclass) => class extends superclass {
 
@@ -23,7 +22,6 @@ const QueryUrlHelperMixin = (superclass) => class extends superclass {
      * available, it will default to <code>/solarquery</code>.
 	 * 
 	 * @returns {string} the base URL to SolarQuery
-	 * @preserve
 	 */
 	baseUrl() {
 		const path = this.env(SolarQueryPathKey) || SolarQueryDefaultPath;

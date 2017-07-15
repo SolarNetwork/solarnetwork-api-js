@@ -29,7 +29,6 @@ class Configuration {
 	 * be called so those properties are defined on this instance.
 	 *
 	 * @param {Object} initialMap the optional initial properties to store
-	 * @preserve
 	 */
 	constructor(initialMap) {
 		this.map = {};
@@ -43,7 +42,6 @@ class Configuration {
 	 *
 	 * @param {String} key the key to test
 	 * @returns {Boolean} <code>true</code> if the key is enabled
-	 * @preserve
 	 */
 	enabled(key) {
 		if ( key === undefined ) {
@@ -60,8 +58,7 @@ class Configuration {
 	 *
 	 * @param {String} key they key to set
 	 * @param {Boolean} enabled the optional enabled value to set
-	 * @returns {sn.Configuration} this object to allow method chaining
-	 * @preserve
+	 * @returns {Configuration} this object to allow method chaining
 	 */
 	toggle(key, enabled) {
 		var val = enabled;
@@ -83,7 +80,6 @@ class Configuration {
 	 *                            If <code>null</code> then the value will be removed.
 	 * @returns {Object} If called as a getter, the associated value for the given <code>key</code>,
 	 *                   otherwise this object.
-	 * @preserve
 	 */
 	value(key, newValue) {
 		if ( arguments.length === 1 ) {
@@ -109,7 +105,6 @@ class Configuration {
 	 * @param {Object} [newMap] a map of values to set
 	 * @returns {Object} if called as a getter, all properties of this object copied into a simple object;
 	 *                   otherwise this object
-	 * @preserve
 	 */
 	values(newMap) {
 		if ( newMap ) {

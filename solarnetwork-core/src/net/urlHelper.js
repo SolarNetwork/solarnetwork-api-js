@@ -14,7 +14,6 @@ class UrlHelper {
      * @param {Environment|Object} [environment] the optional initial environment to use;
      *        if a non-<code>Environment</code> object is passed then the properties of that object will
      *        be used to construct a new <code>Environment</code> instance
-     * @preserve
      */
     constructor(environment) {
         let env = (environment instanceof Environment ? environment
@@ -67,7 +66,6 @@ class UrlHelper {
      * Get a URL for just the SolarNet host, without any path.
      *
      * @returns {String} the URL to the SolarNet host
-	 * @preserve
      */
     hostUrl() {
         const tls = this.environment.useTls();
@@ -86,7 +84,6 @@ class UrlHelper {
      * simply returns {@link UrlHelper#hostUrl}.
 	 * 
 	 * @returns {string} the base URL to the REST API
-	 * @preserve
 	 */
 	baseUrl() {
 		return this.hostUrl();
@@ -101,8 +98,7 @@ class UrlHelper {
      * 
      * @param {String} template a URL path template
      * @returns {String} an absolute URL
-     * @see #resolveTemplateUrl
-     * @preserve
+     * @see UrlHelper#resolveTemplateUrl
      */
     resolveTemplatePath(template) {
         return this.hostUrl() + this.resolveTemplateUrl(template);
@@ -118,7 +114,6 @@ class UrlHelper {
      * 
      * @param {String} template a URL template
      * @returns {String} the URL with template variables resolved
-     * @preserve
      */
    resolveTemplateUrl(template) {
         return UrlHelper.resolveTemplateUrl(template, this._parameters);
@@ -133,7 +128,6 @@ class UrlHelper {
      * 
      * @param {String} template a URL template
      * @param {Object} params an object whose properties should serve as tempalte variables
-     * @preserve
      */
     static resolveTemplateUrl(template, params) {
         return template.replace(/\{([^}]+)\}/g, function(match, variableName) {

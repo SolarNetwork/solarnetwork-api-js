@@ -1,9 +1,7 @@
 import Enum from 'enum';
 
 /**
- * An enumeration of instruction states.
- * 
- * @preserve
+ * A named instruction state.
  */
 export class InstructionState extends Enum {
 

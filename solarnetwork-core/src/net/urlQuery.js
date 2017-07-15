@@ -7,7 +7,6 @@
  * @param {String} search the query portion of the URL, which may optionally include
  *                        the leading '?' character
  * @return {Object} the parsed query parameters, as a parameter object
- * @preserve
  */
 function urlQueryParse(search) {
 	var params = {};
@@ -52,7 +51,6 @@ function urlQueryParse(search) {
  *                             if not provided the built-in encodeURIComponent() function
  *                             will be used
  * @return {String} the encoded query parameters
- * @preserve
  */
 function urlQueryEncode(parameters, encoderFn) {
 	var result = '',

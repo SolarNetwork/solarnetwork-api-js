@@ -8,7 +8,6 @@ import QueryUrlHelperMixin from 'queryUrlHelperMixin';
  * This mixin extends the {@link QueryUrlHelperMixin} and {@link NodeUrlHelperMixin} mixins.
  *
  * @param {UrlHelper} superclass the UrlHelper class to mix onto
- * @preserve
  */
 const NodeDatumUrlHelperMixin = (superclass) => class extends QueryUrlHelperMixin(NodeUrlHelperMixin(superclass)) {
 
@@ -21,7 +20,6 @@ const NodeDatumUrlHelperMixin = (superclass) => class extends QueryUrlHelperMixi
 	 * @param {string[]} sourceIds an array of source IDs to limit query to; if not provided the <code>sourceIds</code> property of this class will be used
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
-     * @preserve
 	 */
 	reportableIntervalUrl(sourceIds, nodeId) {
 		let url = (this.baseUrl() +'/range/interval?nodeId=' +(nodeId || this.nodeId));
@@ -36,9 +34,6 @@ const NodeDatumUrlHelperMixin = (superclass) => class extends QueryUrlHelperMixi
 
 /**
  * A concrete {@link UrlHelper} with the {@link NodeDatumUrlHelperMixin}.
- *
- * @class
- * @preserve
  */
 export class NodeDatumUrlHelper extends NodeDatumUrlHelperMixin(UrlHelper) {
 

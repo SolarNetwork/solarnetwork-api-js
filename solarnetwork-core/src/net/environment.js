@@ -23,7 +23,6 @@ class Environment extends Configuration {
 	 * </dl>
 	 *
 	 * @param {Object} [config] an optional set of properties to start with
-	 * @preserve
 	 */
 	constructor(config) {
 		super(Object.assign({
