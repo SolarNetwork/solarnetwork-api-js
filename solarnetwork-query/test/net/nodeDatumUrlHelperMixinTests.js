@@ -51,6 +51,25 @@ test('query:net:nodeDatumUrlHelperMixin:reportableintervalUrl:sources', t => {
         'source IDs URI escaped');        
 });
 
+test('query:net:nodeDatumUrlHelperMixin:availableSources:empty', t => {
+    const helper = new NodeDatumUrlHelper();
+    t.is(helper.availableSourcesUrl(),
+        'https://data.solarnetwork.net/solarquery/api/v1/sec/range/sources');
+});
+
+test('query:net:nodeDatumUrlHelperMixin:availableSources:emptyAndNullArgNodeId', t => {
+    const helper = new NodeDatumUrlHelper();
+    t.is(helper.availableSourcesUrl(null),
+        'https://data.solarnetwork.net/solarquery/api/v1/sec/range/sources');
+});
+
+test('query:net:nodeDatumUrlHelperMixin:availableSources:emptyAndNullArgNodeId', t => {
+    const helper = new NodeDatumUrlHelper();
+    t.is(helper.availableSourcesUrl(null, '(foo=bar)'),
+        'https://data.solarnetwork.net/solarquery/api/v1/sec/range/sources'
+            +'?metadataFilter=(foo%3Dbar)');
+});
+
 test('query:net:nodeDatumUrlHelperMixin:availableSources:default', t => {
     const helper = new NodeDatumUrlHelper();
     helper.nodeId = 123;
