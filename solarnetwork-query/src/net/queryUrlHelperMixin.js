@@ -1,15 +1,24 @@
+/** The SolarQuery default path. */
 export const SolarQueryDefaultPath = '/solarquery';
 
+/** The {@link UrlHelper} parameters key for the SolarQuery path. */
 export const SolarQueryPathKey = 'solarQueryPath';
 
+/** The SolarUser REST API path. */
 export const SolarQueryApiPathV1 = '/api/v1';
 
+/** 
+ * The {@link UrlHelper} parameters key that holds a <code>boolean</code> flag to
+ * use the public path scheme (<code>/pub</code>) when constructing URLs.
+ */
 export const SolarQueryPublicPathKey = 'publicQuery';
 
 /**
- * A mixin class that adds SolarQuery specific support to <code>UrlHelper</code>.
+ * A mixin class that adds SolarQuery specific support to {@link UrlHelper}.
  * 
- * @param {UrlHelper} superclass the UrlHelper class to mix onto 
+ * @param {UrlHelper} superclass the UrlHelper class to mix onto
+ * @mixin
+ * @returns {*} the mixin
  */
 const QueryUrlHelperMixin = (superclass) => class extends superclass {
 
@@ -22,6 +31,7 @@ const QueryUrlHelperMixin = (superclass) => class extends superclass {
      * available, it will default to <code>/solarquery</code>.
 	 * 
 	 * @returns {string} the base URL to SolarQuery
+	 * @memberof QueryUrlHelperMixin#
 	 */
 	baseUrl() {
 		const path = this.env(SolarQueryPathKey) || SolarQueryDefaultPath;

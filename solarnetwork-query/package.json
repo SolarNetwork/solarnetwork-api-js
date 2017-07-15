@@ -47,7 +47,8 @@
   },
   "scripts": {
     "build": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -c -f umd -n sn -m -o build/solarnetwork-query.js -- index.js",
-    "postbuild": "eslint index.js src && uglifyjs --preamble \"$(preamble)\" build/solarnetwork-query.js --in-source-map build/solarnetwork-query.js.map --source-map build/solarnetwork-query.min.js.map -c -m -o build/solarnetwork-query.min.js",
+    "prebuild": "eslint index.js src",
+    "postbuild": "uglifyjs --preamble \"$(preamble)\" build/solarnetwork-query.js --in-source-map build/solarnetwork-query.js.map --source-map build/solarnetwork-query.min.js.map -c -m -o build/solarnetwork-query.min.js",
     "prepublish": "npm run test && npm run build",
     "test": "ava"
   },

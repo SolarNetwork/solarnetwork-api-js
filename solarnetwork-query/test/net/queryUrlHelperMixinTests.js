@@ -1,24 +1,24 @@
 import test from 'ava';
 
 import UrlHelper from 'net/urlHelper';
-import QueryUrlHelperMixin  from 'queryUrlHelperMixin';
-import { SolarQueryPathKey, SolarQueryPublicPathKey } from 'queryUrlHelperMixin';
+import QueryUrlHelperMixin  from 'net/queryUrlHelperMixin';
+import { SolarQueryPathKey, SolarQueryPublicPathKey } from 'net/queryUrlHelperMixin';
 
 class QueryUrlHelper extends QueryUrlHelperMixin(UrlHelper) {
 
 }
 
-test('query:queryUrlHelperMixin:create', t => {
+test('query:net:queryUrlHelperMixin:create', t => {
 	const helper = new QueryUrlHelper();
 	t.truthy(helper);
 });
 
-test('query:queryUrlHelperMixin:baseUrl', t => {
+test('query:net:queryUrlHelperMixin:baseUrl', t => {
 	const helper = new QueryUrlHelper();
 	t.is(helper.baseUrl(), 'https://data.solarnetwork.net/solarquery/api/v1/sec');
 });
 
-test('query:queryUrlHelperMixin:baseUrl:customEnvironment', t => {
+test('query:net:queryUrlHelperMixin:baseUrl:customEnvironment', t => {
     const env = {};
     env[SolarQueryPathKey] = '/fooquery';
     env[SolarQueryPublicPathKey] = true;
