@@ -217,7 +217,7 @@ export class SecurityPolicyBuilder {
 	/**
 	 * Apply all properties from another SecurityPolicy.
 	 * 
-	 * @param {SecurityPolicy} [policy] the SecurityPolicy to apply
+	 * @param {SecurityPolicy} policy the SecurityPolicy to apply
 	 * @returns {SecurityPolicyBuilder} this object
 	 */
 	withPolicy(policy) {
@@ -237,7 +237,7 @@ export class SecurityPolicyBuilder {
 	/**
 	 * Merge all properties from another SecurityPolicy.
 	 * 
-	 * @param {SecurityPolicy} [policy] the SecurityPolicy to merge
+	 * @param {SecurityPolicy} policy the SecurityPolicy to merge
 	 * @returns {SecurityPolicyBuilder} this object
 	 */
 	addPolicy(policy) {
