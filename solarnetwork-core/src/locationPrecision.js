@@ -34,6 +34,7 @@ export class LocationPrecision extends ComparableEnum {
 	/**
 	 * Get the {@link LocationPrecisions} values.
 	 * 
+     * @override
 	 * @inheritdoc
 	 */
 	static enumValues() {

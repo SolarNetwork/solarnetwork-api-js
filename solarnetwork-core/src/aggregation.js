@@ -32,6 +32,7 @@ export class Aggregation extends ComparableEnum {
 	/**
 	 * Get the {@link Aggregations} values.
 	 * 
+	 * @override
 	 * @inheritdoc
 	 */
 	static enumValues() {

@@ -10,4 +10,4 @@ extends:
 
 rules:
     no-cond-assign: 0
-
+    valid-jsdoc: 1

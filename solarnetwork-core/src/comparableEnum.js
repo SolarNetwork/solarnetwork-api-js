@@ -6,6 +6,7 @@ import Enum from 'enum';
  * This class is essentially abstract, and must be extended by another
  * class that overrides the inerited {@link Enum.enumValues} method.
  * 
+ * @abstract
  * @extends Enum
  */
 class ComparableEnum extends Enum {

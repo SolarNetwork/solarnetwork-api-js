@@ -6,6 +6,7 @@ import UserUrlHelperMixin from 'net/userUrlHelperMixin'
  * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
  * @mixin
+ * @returns {*} the mixin
  */
 const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
 
@@ -13,6 +14,7 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
      * Generate a URL for listing all available auth tokens.
      * 
 	 * @returns {string} the URL
+     * @memberof UserAuthTokenUrlHelperMixin#
      */
     listAllAuthTokensUrl() {
         return this.baseUrl() + '/user/auth-tokens';
@@ -24,6 +26,8 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
      * The request body accepts a {@link SecurityPolicy} JSON document.
      * 
      * @param {AuthTokenType} type the auth token type to generate
+	 * @returns {string} the URL
+     * @memberof UserAuthTokenUrlHelperMixin#
      */
     generateAuthTokenUrl(type) {
         return this.baseUrl() + '/user/auth-tokens/generate/' +type.name;
@@ -33,6 +37,8 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
      * Generate a URL for accessing an auth token.
      * 
      * @param {string} tokenId the token ID
+     * @memberof UserAuthTokenUrlHelperMixin#
+	 * @returns {string} the URL
      * @private
      */
     authTokenUrl(tokenId) {
@@ -43,6 +49,8 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
      * Generate a URL for deleting an auth token, via a <code>DELETE</code> request.
      * 
      * @param {string} tokenId the token ID to delete
+	 * @returns {string} the URL
+     * @memberof UserAuthTokenUrlHelperMixin#
      */
     deleteAuthTokenUrl(tokenId) {
         return this.authTokenUrl(tokenId);
@@ -55,6 +63,8 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
      * The request body accepts a {@link SecurityPolicy} JSON document.
      * 
      * @param {string} tokenId the ID of the token to update
+	 * @returns {string} the URL
+     * @memberof UserAuthTokenUrlHelperMixin#
      */
     updateAuthTokenSecurityPolicyUrl(tokenId) {
         return this.authTokenUrl(tokenId);
@@ -67,6 +77,8 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
      * The request body accepts a {@link SecurityPolicy} JSON document.
      * 
      * @param {string} tokenId the ID of the token to update
+	 * @returns {string} the URL
+     * @memberof UserAuthTokenUrlHelperMixin#
      */
     replaceAuthTokenSecurityPolicyUrl(tokenId) {
         return this.authTokenUrl(tokenId);
@@ -78,6 +90,8 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
      * 
      * @param {string} tokenId the ID of the token to update
      * @param {AuthTokenStatus} status the status to change to
+	 * @returns {string} the URL
+     * @memberof UserAuthTokenUrlHelperMixin#
      */
     updateAuthTokenStatusUrl(tokenId, status) {
         return this.authTokenUrl(tokenId) + '?status=' +encodeURIComponent(status.name);
@@ -87,7 +101,11 @@ const UserAuthTokenUrlHelperMixin = (superclass) => class extends superclass {
 export default UserAuthTokenUrlHelperMixin;
 
 /**
- * A concrete {@link UrlHelper} with the {@link UserAuthTokenUrlHelperMixin} and {@link UserUrlHelperMixin} mixins.
+ * A concrete {@link UrlHelper} with the {@link UserAuthTokenUrlHelperMixin} and  {@link UserUrlHelperMixin} mixins.
+ * 
+ * @mixes UserAuthTokenUrlHelperMixin
+ * @mixes UserUrlHelperMixin
+ * @extends UrlHelper
  */
 export class UserAuthTokenUrlHelper extends UserAuthTokenUrlHelperMixin(UserUrlHelperMixin(UrlHelper)) {
 

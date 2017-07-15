@@ -5,9 +5,11 @@ import NodeUrlHelperMixin from 'net/nodeUrlHelperMixin';
 import UserUrlHelperMixin from 'net/userUrlHelperMixin'
 
 /**
- * A mixin class that adds SolarNode metadata support to <code>UrlHelper</code>.
+ * A mixin class that adds SolarNode metadata support to {@link UrlHelper}.
  * 
- * @param {UrlHelper} superclass the UrlHelper class to mix onto 
+ * @param {UrlHelper} superclass the UrlHelper class to mix onto
+ * @mixin
+ * @returns {*} the mixin
  */
 const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 
@@ -16,6 +18,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
+	 * @memberof NodeUrlHelperMixin#
 	 */
 	viewNodeMetadataUrl(nodeId) {
 		return (this.baseUrl() +'/nodes/meta/' 
@@ -27,6 +30,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
+	 * @memberof NodeUrlHelperMixin#
 	 */
 	addNodeMetadataUrl(nodeId) {
 		return this.viewNodeMetadataUrl(nodeId);
@@ -37,6 +41,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
+	 * @memberof NodeUrlHelperMixin#
 	 */
 	replaceNodeMetadataUrl(nodeId) {
 		return this.viewNodeMetadataUrl(nodeId);
@@ -47,6 +52,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
+	 * @memberof NodeUrlHelperMixin#
 	 */
 	deleteNodeMetadataUrl(nodeId) {
 		return this.viewNodeMetadataUrl(nodeId);
@@ -62,6 +68,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 * @param {SortDescriptor[]} [sorts] optional sort settings to use
 	 * @param {Pagination} [pagination] optional pagination settings to use
 	 * @returns {string} the URL
+	 * @memberof NodeUrlHelperMixin#
 	 */
 	findNodeMetadataUrl(nodeId, sorts, pagination) {
 		const nodeIds = (Array.isArray(nodeId) ? nodeId : nodeId ? [nodeId] : nodeId !== null ? this.nodeIds : undefined);
@@ -98,10 +105,12 @@ export default NodeMetadataUrlHelperMixin;
 
 /**
  * A concrete {@link UrlHelper} with the {@link NodeMetadataUrlHelperMixin},  {@link UserUrlHelperMixin}, and
- * {@link #NodeUrlHelperMixin} mixins.
+ * {@link NodeUrlHelperMixin} mixins.
  * 
- * @class
- * @preserve
+ * @mixes NodeMetadataUrlHelperMixin
+ * @mixes UserUrlHelperMixin
+ * @mixes NodeUrlHelperMixin
+ * @extends UrlHelper
  */
 export class NodeMetadataUrlHelper extends NodeMetadataUrlHelperMixin(UserUrlHelperMixin(NodeUrlHelperMixin(UrlHelper))) {
 

@@ -3,6 +3,8 @@
  * 
  * This class is essentially abstract, and must be extended by another
  * class that overrides the {@link Enum.enumValues} method.
+ * 
+ * @abstract
  */
 class Enum {
 
@@ -33,6 +35,7 @@ class Enum {
      * This method must be overridden by subclasses to return something meaningful.
      * This implementation returns an empty array.
      * 
+     * @abstract
      * @returns {Enum[]} get all enum values
      */
     static enumValues() {

@@ -6,6 +6,7 @@ import UserUrlHelperMixin from 'net/userUrlHelperMixin'
  * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto 
  * @mixin
+ * @returns {*} the mixin
  */
 const UserMetadataUrlHelperMixin = (superclass) => class extends superclass {
 

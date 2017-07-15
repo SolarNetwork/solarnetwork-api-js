@@ -83,6 +83,7 @@ class UrlHelper {
 	 * This implementation is a stub, meant for subclasses to override. This implementation
      * simply returns {@link UrlHelper#hostUrl}.
 	 * 
+     * @abstract
 	 * @returns {string} the base URL to the REST API
 	 */
 	baseUrl() {

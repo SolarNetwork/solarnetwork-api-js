@@ -18,6 +18,7 @@ export const UserIdsKey = 'userIds';
  * @property {number} userId the first available user ID from the <code>userIds</code> property;
  *                           setting this replaces any existing user IDs with an array of just that value
  * @property {number[]} userIds an array of user IDs, set on the <code>userIds</code> parameter
+ * @returns {*} the mixin
  */
 const UserUrlHelperMixin = (superclass) => class extends superclass {
 
