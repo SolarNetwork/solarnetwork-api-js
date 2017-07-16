@@ -10,7 +10,7 @@ export { default as InstructionStates, InstructionState } from './src/instructio
 export { default as LocationPrecisions, LocationPrecision } from './src/locationPrecision';
 export { default as MultiMap } from './src/multiMap';
 export { default as Pagination } from './src/pagination';
-export { default as SecurityPolicy, SecurityPolicyBuilder } from 'securityPolicy';
+export { default as SecurityPolicy, SecurityPolicyBuilder } from './src/securityPolicy';
 export { default as SortDescriptor } from './src/sortDescriptor';
 export *  from './src/format/date';
 export { default as NetAuthorizationV2Builder } from './src/net/authV2';
