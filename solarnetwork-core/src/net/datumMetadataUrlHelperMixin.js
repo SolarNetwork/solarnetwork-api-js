@@ -47,7 +47,7 @@ const DatumMetadataUrlHelperMixin = (superclass) => class extends superclass {
      *                            if not provided the <code>sourceId</code> property of this class will be used;
      *                            if <code>null</code> then ignore any <code>sourceId</code> property of this class
      * @returns {string} the URL
-	 * @memberof NodeMetadataUrlHelperMixin#
+     * @memberof DatumMetadataUrlHelperMixin#
 	 */
 	viewDatumMetadataUrl(nodeId, sourceId) {
         return this.datumMetadataUrlWithSource(nodeId, sourceId);
@@ -59,7 +59,7 @@ const DatumMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @param {string} [sourceId] a specific source ID to use; if not provided the <code>sourceId</code> property of this class will be used
      * @returns {string} the URL
-	 * @memberof NodeMetadataUrlHelperMixin#
+     * @memberof DatumMetadataUrlHelperMixin#
 	 */
     addDatumMetadataUrl(nodeId, sourceId) {
         return this.datumMetadataUrlWithSource(nodeId, sourceId);
@@ -71,7 +71,7 @@ const DatumMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @param {string} [sourceId] a specific source ID to use; if not provided the <code>sourceId</code> property of this class will be used
      * @returns {string} the URL
-	 * @memberof NodeMetadataUrlHelperMixin#
+     * @memberof DatumMetadataUrlHelperMixin#
 	 */
     replaceDatumMetadataUrl(nodeId, sourceId) {
         return this.datumMetadataUrlWithSource(nodeId, sourceId);
@@ -83,7 +83,7 @@ const DatumMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @param {string} [sourceId] a specific source ID to use; if not provided the <code>sourceId</code> property of this class will be used
      * @returns {string} the URL
-	 * @memberof NodeMetadataUrlHelperMixin#
+     * @memberof DatumMetadataUrlHelperMixin#
 	 */
     deleteDatumMetadataUrl(nodeId, sourceId) {
         return this.datumMetadataUrlWithSource(nodeId, sourceId);
