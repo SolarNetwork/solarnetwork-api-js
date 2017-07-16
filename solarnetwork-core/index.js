@@ -3,6 +3,9 @@ export { default as AuthTokenTypes, AuthTokenType } from './src/authTokenType';
 export { default as Configuration } from './src/configuration';
 export { default as ComparableEnum } from './src/comparableEnum';
 export { default as Enum } from './src/enum';
+export { default as GeneralMetadata,
+    stringMapToObject,
+    objectToStringMap } from './src/generalMetadata';
 export { default as InstructionStates, InstructionState } from './src/instructionState';
 export { default as LocationPrecisions, LocationPrecision } from './src/locationPrecision';
 export { default as MultiMap } from './src/multiMap';
