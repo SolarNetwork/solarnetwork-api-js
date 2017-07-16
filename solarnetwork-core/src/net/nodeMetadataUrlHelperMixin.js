@@ -18,7 +18,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
-	 * @memberof NodeUrlHelperMixin#
+	 * @memberof NodeMetadataUrlHelperMixin#
 	 */
 	viewNodeMetadataUrl(nodeId) {
 		return (this.baseUrl() +'/nodes/meta/' 
@@ -30,7 +30,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
-	 * @memberof NodeUrlHelperMixin#
+	 * @memberof NodeMetadataUrlHelperMixin#
 	 */
 	addNodeMetadataUrl(nodeId) {
 		return this.viewNodeMetadataUrl(nodeId);
@@ -41,7 +41,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
-	 * @memberof NodeUrlHelperMixin#
+	 * @memberof NodeMetadataUrlHelperMixin#
 	 */
 	replaceNodeMetadataUrl(nodeId) {
 		return this.viewNodeMetadataUrl(nodeId);
@@ -52,7 +52,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 *
 	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
 	 * @returns {string} the URL
-	 * @memberof NodeUrlHelperMixin#
+	 * @memberof NodeMetadataUrlHelperMixin#
 	 */
 	deleteNodeMetadataUrl(nodeId) {
 		return this.viewNodeMetadataUrl(nodeId);
@@ -68,7 +68,7 @@ const NodeMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 * @param {SortDescriptor[]} [sorts] optional sort settings to use
 	 * @param {Pagination} [pagination] optional pagination settings to use
 	 * @returns {string} the URL
-	 * @memberof NodeUrlHelperMixin#
+	 * @memberof NodeMetadataUrlHelperMixin#
 	 */
 	findNodeMetadataUrl(nodeId, sorts, pagination) {
 		const nodeIds = (Array.isArray(nodeId) ? nodeId : nodeId ? [nodeId] : nodeId !== null ? this.nodeIds : undefined);

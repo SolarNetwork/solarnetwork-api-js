@@ -528,6 +528,7 @@ class AuthorizationV2Builder {
  * @function stringMatchFn
  * @param {string} e the element to test
  * @returns {boolean} <code>true</code> if the element matches
+ * @private
  */
 
 
