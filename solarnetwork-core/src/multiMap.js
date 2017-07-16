@@ -152,6 +152,7 @@ class MultiMap {
  * @param {*} value the value to add
  * @param {boolean} replace if <code>true</code> then replace all existing values;
  *                          if <code>false</code> append to any existing values
+ * @returns {MultiMap} the passed in <code>map</code>
  * @private
  */
 function addValue(map, key, value, replace) {

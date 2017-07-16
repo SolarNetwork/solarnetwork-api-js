@@ -129,7 +129,7 @@ class UrlHelper {
      * 
      * @param {string} template a URL template
      * @param {Object} params an object whose properties should serve as template variables
-     * @returns {string}
+     * @returns {string} the URL
      */
     static resolveTemplateUrl(template, params) {
         return template.replace(/\{([^}]+)\}/g, function(match, variableName) {
