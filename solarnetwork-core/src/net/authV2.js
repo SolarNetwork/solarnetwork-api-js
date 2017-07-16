@@ -373,7 +373,7 @@ class AuthorizationV2Builder {
 	canonicalContentSHA256() {
 		return (this.contentDigest
 			? Hex.stringify(this.contentDigest)
-			: AuthorizationV2Builder.EMPTY_string_SHA256_HEX);
+			: AuthorizationV2Builder.EMPTY_STRING_SHA256_HEX);
 	}
 
 	/**
@@ -540,7 +540,7 @@ class AuthorizationV2Builder {
  */
 function caseInsensitiveEqualsFn(value) {
 	const valueLc = value.toLowerCase();
-	return e => valueLc === e.tostring().toLowerCase();
+	return e => valueLc === e.toString().toLowerCase();
 }
 
 /**
@@ -561,7 +561,7 @@ function lowercaseSortedArray(items) {
 }
 
 function _hexEscapeChar(c) {
-	return '%' + c.charCodeAt(0).tostring(16);
+	return '%' + c.charCodeAt(0).toString(16);
 }
 
 function _encodeURIComponent(str) {
