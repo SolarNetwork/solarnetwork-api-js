@@ -9,6 +9,12 @@ test('core:multiMap:create', t => {
 	t.truthy(map);
 });
 
+test('core:multiMap:createWithProps', t => {
+	const map = new MultiMap({a:'foo', b:['bar', 'bam']});
+	t.deepEqual(map.value('a'), ['foo']);
+	t.deepEqual(map.value('b'), ['bar', 'bam']);
+});
+
 test('core:multiMap:put', t => {
 	const map = new MultiMap();
 	t.is(map.put('foo', 'bar'), map);

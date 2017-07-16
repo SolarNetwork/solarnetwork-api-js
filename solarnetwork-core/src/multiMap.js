@@ -2,9 +2,18 @@
  * A case-insensitive string key multi-value map object.
  */
 class MultiMap {
-	constructor() {
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param {*} [values] an object who's enumerable properties will be added to this map
+	 */
+	constructor(values) {
 		this.mappings = {}; // map of lower-case header names to {name:X, val:[]} values
 		this.mappingNames = []; // to keep insertion order
+		if ( values ) {
+			this.putAll(values);
+		}
 	}
 
 	/**
