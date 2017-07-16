@@ -4,6 +4,7 @@
 class SortDescriptor {
 
     /**
+     * Constructor.
      * 
      * @param {string} key the property to sort on
      * @param {boolean} [descending] <code>true</code> to sort in descending order, <code>false</code> for ascending
