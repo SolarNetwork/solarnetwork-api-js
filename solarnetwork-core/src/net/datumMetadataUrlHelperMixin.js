@@ -7,6 +7,9 @@ import QueryUrlHelperMixin from 'net/queryUrlHelperMixin'
 /**
  * A mixin class that adds SolarNode datum metadata support to {@link UrlHelper}.
  * 
+ * <p>Datum metadata is metadata associated with a specific node and source, i.e. 
+ * a <code>nodeId</code> and a <code>sourceId</code>.
+ * 
  * @param {UrlHelper} superclass the UrlHelper class to mix onto
  * @mixin
  * @returns {*} the mixin
@@ -48,6 +51,83 @@ const DatumMetadataUrlHelperMixin = (superclass) => class extends superclass {
 	 */
 	viewDatumMetadataUrl(nodeId, sourceId) {
         return this.datumMetadataUrlWithSource(nodeId, sourceId);
+    }
+    
+	/**
+	 * Generate a URL for adding (merging) datum metadata via a <code>POST</code> request.
+     * 
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
+	 * @param {string} [sourceId] a specific source ID to use; if not provided the <code>sourceId</code> property of this class will be used
+     * @returns {string} the URL
+	 * @memberof NodeMetadataUrlHelperMixin#
+	 */
+    addDatumMetadataUrl(nodeId, sourceId) {
+        return this.datumMetadataUrlWithSource(nodeId, sourceId);
+    }
+
+	/**
+	 * Generate a URL for setting datum metadata via a <code>PUT</code> request.
+     * 
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
+	 * @param {string} [sourceId] a specific source ID to use; if not provided the <code>sourceId</code> property of this class will be used
+     * @returns {string} the URL
+	 * @memberof NodeMetadataUrlHelperMixin#
+	 */
+    replaceDatumMetadataUrl(nodeId, sourceId) {
+        return this.datumMetadataUrlWithSource(nodeId, sourceId);
+    }
+
+	/**
+	 * Generate a URL for deleting datum metadata via a <code>DELETE</code> request.
+     * 
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
+	 * @param {string} [sourceId] a specific source ID to use; if not provided the <code>sourceId</code> property of this class will be used
+     * @returns {string} the URL
+	 * @memberof NodeMetadataUrlHelperMixin#
+	 */
+    deleteDatumMetadataUrl(nodeId, sourceId) {
+        return this.datumMetadataUrlWithSource(nodeId, sourceId);
+    }
+
+	/**
+	 * Generate a URL for searching for datum metadata.
+	 * 
+	 * @param {number} [nodeId] a specific node ID to use; if not provided the <code>nodeId</code> property of this class will be used
+	 * @param {string} [sourceId] a specific source ID to use; 
+     *                            if not provided the <code>sourceId</code> property of this class will be used;
+     *                            if <code>null</code> then ignore any <code>sourceId</code> property of this class
+	 * @param {SortDescriptor[]} [sorts] optional sort settings to use
+	 * @param {Pagination} [pagination] optional pagination settings to use
+	 * @returns {string} the URL
+	 * @memberof DatumMetadataUrlHelperMixin#
+	 */
+	findDatumMetadataUrl(nodeId, sourceId, sorts, pagination) {
+        let result = this.baseDatumMetadataUrl(nodeId);
+		let params = '';
+        let source = (sourceId || this.sourceId);
+        if ( sourceId !== null && source ) {
+            params += 'sourceId=' +encodeURIComponent(source);
+        }
+		if ( Array.isArray(sorts) ) {
+			sorts.forEach((sort, i) => {
+				if ( sort instanceof SortDescriptor ) {
+					if ( params.length > 0 ) {
+						params += '&';
+					}
+					params += sort.toUriEncoding(i);
+				}
+			});
+		}
+		if ( pagination instanceof Pagination ) {
+			if ( params.length > 0 ) {
+				params += '&';
+			}
+			params += pagination.toUriEncoding();
+		}
+		if ( params.length > 0 ) {
+			result += '?' + params;
+		}
+		return result;
 	}
 
 };
