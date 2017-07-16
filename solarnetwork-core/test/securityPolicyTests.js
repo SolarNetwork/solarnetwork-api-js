@@ -1,4 +1,4 @@
-import { test, todo } from 'ava';
+import test from 'ava';
 
 import Aggregations from 'aggregation';
 import LocationPrecisions from 'locationPrecision';
