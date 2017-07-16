@@ -38,7 +38,7 @@ class UrlHelper {
      * This is a shortcut for calling {@link Configuration#value} on the
      * <code>environment</code> object.
      * 
-     * @param {String} key the environment parameter name to get
+     * @param {string} key the environment parameter name to get
      * @param {Object} [val] the optional value to set
      * @returns {Object} when called as a getter, the environment parameter value;
      *                   when called as a setter, the environment parameters object
@@ -53,7 +53,7 @@ class UrlHelper {
      * This is a shortcut for calling {@link Configuration#value} on the
      * <code>parameters</code> object.
      * 
-     * @param {String} key the parameter name to get
+     * @param {string} key the parameter name to get
      * @param {Object} [val] the optional value to set
      * @returns {Object} when called as a getter, the parameter value;
      *                   when called as a setter, the parameters object
@@ -65,7 +65,7 @@ class UrlHelper {
     /**
      * Get a URL for just the SolarNet host, without any path.
      *
-     * @returns {String} the URL to the SolarNet host
+     * @returns {string} the URL to the SolarNet host
      */
     hostUrl() {
         const tls = this.environment.useTls();
@@ -97,8 +97,8 @@ class UrlHelper {
      * This method provides a way to resolve an absolute URL based on the configured
      * environment and parameters on this object.
      * 
-     * @param {String} template a URL path template
-     * @returns {String} an absolute URL
+     * @param {string} template a URL path template
+     * @returns {string} an absolute URL
      * @see UrlHelper#resolveTemplateUrl
      */
     resolveTemplatePath(template) {
@@ -113,8 +113,8 @@ class UrlHelper {
      * will be replaced by the value associated with property <code>name</code> in the
      * <code>parameters</code> object. The value will be URI encoded.
      * 
-     * @param {String} template a URL template
-     * @returns {String} the URL with template variables resolved
+     * @param {string} template a URL template
+     * @returns {string} the URL with template variables resolved
      */
    resolveTemplateUrl(template) {
         return UrlHelper.resolveTemplateUrl(template, this._parameters);
@@ -127,8 +127,9 @@ class UrlHelper {
      * will be replaced by the value associated with property <code>name</code> in the
      * provided parameter object. The value will be URI encoded.
      * 
-     * @param {String} template a URL template
-     * @param {Object} params an object whose properties should serve as tempalte variables
+     * @param {string} template a URL template
+     * @param {Object} params an object whose properties should serve as template variables
+     * @returns {string}
      */
     static resolveTemplateUrl(template, params) {
         return template.replace(/\{([^}]+)\}/g, function(match, variableName) {

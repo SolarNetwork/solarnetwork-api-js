@@ -26,3 +26,23 @@ export function dateParser(str) {
 		|| dateTimeParse(str);
 	return date;
 }
+
+/**
+ * Format a date into an ISO 8601 timestamp or date string, in the UTC time zone.
+ * 
+ * @param {Date} date the date to format 
+ * @param {boolean} [includeTime=false] <code>true</code> to format as a timestamp, <code>false</code> as just a date
+ * @returns {string} the formatted date string
+ */
+export function iso8601Date(date, includeTime) {
+	return ''+date.getUTCFullYear()
+			+(date.getUTCMonth() < 9 ? '0' : '') +(date.getUTCMonth()+1)
+			+(date.getUTCDate() < 10 ? '0' : '') + date.getUTCDate()
+			+(includeTime ?
+				'T'
+				+(date.getUTCHours() < 10 ? '0' : '') + date.getUTCHours()
+				+(date.getUTCMinutes() < 10 ? '0' : '') + date.getUTCMinutes()
+				+(date.getUTCSeconds() < 10 ? '0' : '') +date.getUTCSeconds()
+				+'Z'
+				: '');
+}

@@ -13,6 +13,7 @@ export const SourceIdsKey = 'sourceIds';
  * @property {string} sourceId the first available source ID from the <code>sourceIds</code> property;
  *                             setting this replaces any existing node IDs with an array of just that value 
  * @property {string[]} sourceIds an array of source IDs, set on the <code>sourceIds</code> parameter
+ * @returns {*} the mixin
  */
 const NodeUrlHelperMixin = (superclass) => class extends superclass {
 

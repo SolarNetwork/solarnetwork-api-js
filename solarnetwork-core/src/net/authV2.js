@@ -1,11 +1,13 @@
-import MultiMap from 'multiMap';
 import Hex from 'crypto-js/enc-hex';
 import HmacSHA256 from 'crypto-js/hmac-sha256';
 import SHA256 from 'crypto-js/sha256';
+import { parse as uriParse } from 'uri-js';
+
+import MultiMap from 'multiMap';
+import { iso8601Date } from 'format/date';
 import Environment from 'net/environment';
 import { HttpMethod, default as HttpHeaders } from 'net/httpHeaders';
 import { urlQueryParse } from 'net/urlQuery';
-import { parse as uriParse } from 'uri-js';
 
 /**
  * A builder object for the SNWS2 HTTP authorization scheme.
@@ -44,6 +46,13 @@ import { parse as uriParse } from 'uri-js';
  * ```
  */
 class AuthorizationV2Builder {
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param {string} token the auth token to use
+	 * @param {Environment} [environment] the environment to use; if not provided a default environment will be created 
+	 */
 	constructor(token, environment) {
 		this.tokenId = token;
 		this.environment = (environment || new Environment());
@@ -76,7 +85,7 @@ class AuthorizationV2Builder {
 	 * currently configured via {@link AuthorizationV2Builder#date}, which defaults to the
 	 * current time for newly created builder instances.
 	 *
-	 * @param {String} tokenSecret the secret to sign the digest with
+	 * @param {string} tokenSecret the secret to sign the digest with
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	saveSigningKey(tokenSecret) {
@@ -87,7 +96,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set the HTTP method (verb) to use.
 	 *
-	 * @param val {String} the method to use; see the {@link HttpMethod} enum for possible values
+	 * @param {string} val the method to use; see the {@link HttpMethod} enum for possible values
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	method(val) {
@@ -100,7 +109,7 @@ class AuthorizationV2Builder {
 	 *
 	 * This is a shortcut for calling <code>HttpHeaders#put(HttpHeaders.HOST, val)</code>.
 	 *
-	 * @param val {String} the HTTP host value to use
+	 * @param {string} val the HTTP host value to use
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	host(val) {
@@ -111,7 +120,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set the HTTP request path to use.
 	 *
-	 * @param val {String} the request path to use
+	 * @param {string} val the request path to use
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	path(val) {
@@ -140,9 +149,9 @@ class AuthorizationV2Builder {
 	/**
 	 * Set the HTTP content type.
 	 *
-	 * This is a shortcut for calling <code>HttpHeaders#put(HttpHeaders.CONTENT_TYPE, val)</code>.
+	 * This is a shortcut for calling {@link HttpHeaders#put} with the key {@link HttpHeaders#CONTENT_TYPE}.
 	 *
-	 * @param val {String} the HTTP content type value to use
+	 * @param {string} val the HTTP content type value to use
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	contentType(val) {
@@ -153,7 +162,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set the authorization request date.
 	 *
-	 * @param val {Date} the date to use; typically the current time, e.g. <code>new Date()</code>
+	 * @param {Date} val the date to use; typically the current time, e.g. <code>new Date()</code>
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	date(val) {
@@ -162,22 +171,24 @@ class AuthorizationV2Builder {
 	}
 
 	/**
-	 * Get the authorization request date as a HTTP header value.
+	 * The authorization request date as a HTTP header string value.
 	 *
-	 * @returns {string} the request date as a string
+	 * @readonly
+	 * @type {string}
 	 */
 	get requestDateHeaderValue() {
-		return this.requestDate.toUTCString();
+		return this.requestDate.toUTCstring();
 	}
 
 	/**
-	 * Get the preference to use the <code>X-SN-Date</code> HTTP header versus the <code>Date</code> header.
+	 * Control using the <code>X-SN-Date</code> HTTP header versus the <code>Date</code> header.
 	 *
-	 * <p>This will return <code>true</code> if <code>X-SN-Date</code> has been added
-	 * to the <code>signedHeaderNames</code> property or has been added to the <code>httpHeaders</code>
-	 * property.
+	 * <p>Set to <code>true</code> to use the <code>X-SN-Date</code> header, <code>false</code> to use 
+	 * the <code>Date</code> header. This will return <code>true</code> if <code>X-SN-Date</code> has been
+	 * added to the <code>signedHeaderNames</code> property or has been added to the <code>httpHeaders</code>
+	 * property.</p>
 	 *
-	 * @returns {boolean} <code>true</code> to use the <code>X-SN-Date</code> header, <code>false</code> to use <code>Date</code>
+	 * @type {boolean}
 	 */
 	get useSnDate() {
 		let signedHeaders = this.signedHeaderNames;
@@ -187,14 +198,6 @@ class AuthorizationV2Builder {
 		return existingIndex >= 0 || this.httpHeaders.containsKey(HttpHeaders.X_SN_DATE);
 	}
 
-	/**
-	 * Set preference to use the <code>X-SN-Date</code> HTTP header versus the <code>Date</code> header.
-	 *
-	 * This is a shortcut for adding or removing <code>X-SN-Date</code> from the
-	 * <code>signedHeaderNames</code> property.
-	 *
-	 * @param {boolean} enabled <code>true</code> to use the <code>X-SN-Date</code> header, <code>false</code> to use <code>Date</code>
-	 */
 	set useSnDate(enabled) {
 		let signedHeaders = this.signedHeaderNames;
 		let existingIndex = (Array.isArray(signedHeaders)
@@ -230,8 +233,8 @@ class AuthorizationV2Builder {
 	 *
 	 * This is a shortcut for calling <code>HttpHeaders#put(headerName, val)</code>.
 	 *
-	 * @param {String} headerName the header name to set
-	 * @param {String} headerValue the header value to set
+	 * @param {string} headerName the header name to set
+	 * @param {string} headerValue the header value to set
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	header(headerName, headerValue) {
@@ -284,7 +287,7 @@ class AuthorizationV2Builder {
 	/**
 	 * Set the HTTP request body content SHA-256 digest value.
 	 *
-	 * @param {String|WordArray} digest the digest value to use; if a String it is assumed to be Hex encoded
+	 * @param {string|WordArray} digest the digest value to use; if a string it is assumed to be Hex encoded
 	 * @returns {AuthorizationV2Builder} this object
 	 */
 	contentSHA256(digest) {
@@ -298,6 +301,11 @@ class AuthorizationV2Builder {
 		return this;
 	}
 
+	/**
+	 * Compute the canonical query parameters.
+	 * 
+	 * @returns {string} the canonical query parameters string value
+	 */
 	canonicalQueryParameters() {
 		const keys = this.parameters.keySet();
 		if ( keys.length < 1 ) {
@@ -323,6 +331,12 @@ class AuthorizationV2Builder {
 		return result;
 	}
 
+	/**
+	 * Compute the canonical HTTP headers string value.
+	 * 
+	 * @param {string[]} sortedLowercaseHeaderNames the sorted, lower-cased HTTP header names to include
+	 * @returns {string} the canonical headers string value
+	 */
 	canonicalHeaders(sortedLowercaseHeaderNames) {
 		var result = '',
 			headerName,
@@ -331,7 +345,7 @@ class AuthorizationV2Builder {
 		for ( let i = 0; i < len; i += 1 ) {
 			headerName = sortedLowercaseHeaderNames[i];
 			if ( "date" === headerName ||  "x-sn-date" === headerName ) {
-				headerValue = this.requestDate.toUTCString();
+				headerValue = this.requestDate.toUTCstring();
 			} else {
 				headerValue = this.httpHeaders.firstValue(headerName);
 			}
@@ -340,16 +354,33 @@ class AuthorizationV2Builder {
 		return result;
 	}
 
+	/**
+	 * Compute the canonical signed header names value from an array of HTTP header names.
+	 * 
+	 * @param {string[]} sortedLowercaseHeaderNames the sorted, lower-cased HTTP header names to include
+	 * @returns {string} the canonical signed header names string value
+	 * @private
+	 */
 	canonicalSignedHeaderNames(sortedLowercaseHeaderNames) {
 		return sortedLowercaseHeaderNames.join(';');
 	}
 
+	/**
+	 * Get the canonical request content SHA256 digest, hex encoded.
+	 * 
+	 * @returns {string} the hex-encoded SHA256 digest of the request content
+	 */
 	canonicalContentSHA256() {
 		return (this.contentDigest
 			? Hex.stringify(this.contentDigest)
-			: AuthorizationV2Builder.EMPTY_STRING_SHA256_HEX);
+			: AuthorizationV2Builder.EMPTY_string_SHA256_HEX);
 	}
 
+	/**
+	 * Compute the canonical HTTP header names to include in the signature.
+	 * 
+	 * @returns {string[]} the sorted, lower-cased HTTP header names to include
+	 */
 	canonicalHeaderNames() {
 		const httpHeaders = this.httpHeaders;
 		const signedHeaderNames = this.signedHeaderNames;
@@ -378,10 +409,23 @@ class AuthorizationV2Builder {
 		return lowercaseSortedArray(map.keySet());
 	}
 
+	/**
+	 * Compute the canonical request data that will be included in the data to sign with the request.
+	 * 
+	 * @returns {string} the canonical request data
+	 */
 	buildCanonicalRequestData() {
 		return this.computeCanonicalRequestData(this.canonicalHeaderNames());
 	}
 
+	/**
+	 * Compute the canonical request data that will be included in the data to sign with the request,
+	 * using a specific set of HTTP header names to sign.
+	 * 
+	 * @param {string[]} sortedLowercaseHeaderNames the sorted, lower-cased HTTP header names to sign with the request
+	 * @returns {string} the canonical request data
+	 * @private
+	 */
 	computeCanonicalRequestData(sortedLowercaseHeaderNames) {
 		// 1: HTTP verb
 		var result = this.httpMethod +'\n';
@@ -404,12 +448,26 @@ class AuthorizationV2Builder {
 		return result;
 	}
 
+	/**
+	 * Compute the signing key, from a secret key.
+	 * 
+	 * @param {string} secretKey the secret key string 
+	 * @returns {CryptoJS#Hash} the computed key
+	 * @private
+	 */
 	computeSigningKey(secretKey) {
-		const dateString = iso8601Date(this.requestDate);
-		const key = HmacSHA256('snws2_request', HmacSHA256(dateString, 'SNWS2' + secretKey));
+		const datestring = iso8601Date(this.requestDate);
+		const key = HmacSHA256('snws2_request', HmacSHA256(datestring, 'SNWS2' + secretKey));
 		return key;
 	}
 
+	/**
+	 * Compute the data to be signed by the signing key.
+	 * 
+	 * @param {string} canonicalRequestData the request data, returned from {@link AuthorizationV2Builder#buildCanonicalRequestData}
+	 * @returns {string} the data to sign
+	 * @private
+	 */
 	computeSignatureData(canonicalRequestData) {
 		/*- signature data is like:
 
@@ -421,11 +479,19 @@ class AuthorizationV2Builder {
 				+ Hex.stringify(SHA256(canonicalRequestData));
 	}
 
-    buildWithKey(theSigningKey) {
+	/**
+	 * Compute a HTTP <code>Authorization</code> header value from the configured properties
+	 * on the builder, using the provided signing key.
+	 * 
+	 * @param {CryptoJS#Hash} signingKey the key to sign the computed signature data with
+	 * @returns {string} the SNWS2 HTTP Authorization header value
+	 * @private
+	 */
+    buildWithKey(signingKey) {
         const sortedHeaderNames = this.canonicalHeaderNames();
         const canonicalReq = this.computeCanonicalRequestData(sortedHeaderNames);
         const signatureData = this.computeSignatureData(canonicalReq);
-        const signature = Hex.stringify(HmacSHA256(signatureData, theSigningKey));
+        const signature = Hex.stringify(HmacSHA256(signatureData, signingKey));
         let result = 'SNWS2 Credential=' + this.tokenId
             + ',SignedHeaders=' + sortedHeaderNames.join(';')
             + ',Signature=' +signature;
@@ -437,13 +503,13 @@ class AuthorizationV2Builder {
      * properties on the builder, computing a new signing key based on the
 	 * configured {@link AuthorizationV2Builder#date}.
      *
-     * @return {string} the SNWS2 HTTP Authorization header value.
+	 * @param {string} tokenSecret the secret to sign the authorization with
+     * @return {string} the SNWS2 HTTP Authorization header value
      */
 	build(tokenSecret) {
-        const theSigningKey = this.computeSigningKey(tokenSecret);
-        return this.buildWithKey(theSigningKey);
+        const signingKey = this.computeSigningKey(tokenSecret);
+        return this.buildWithKey(signingKey);
 	}
-
 
 	/**
 	 * Compute a HTTP <code>Authorization</code> header value from the configured
@@ -458,36 +524,44 @@ class AuthorizationV2Builder {
 
 }
 
+/**
+ * @function stringMatchFn
+ * @param {string} e the element to test
+ * @returns {boolean} <code>true</code> if the element matches
+ */
+
+
+/**
+ * Create a case-insensitive string matching function.
+ * 
+ * @param {string} value the string to perform the case-insensitive comparison against
+ * @returns {stringMatchFn} a matching function that performs a case-insensitive comparison
+ * @private
+ */
 function caseInsensitiveEqualsFn(value) {
 	const valueLc = value.toLowerCase();
-	return e => valueLc === e.toString().toLowerCase();
+	return e => valueLc === e.tostring().toLowerCase();
 }
 
-function lowercaseSortedArray(headerNames) {
-	const sortedHeaderNames = [];
-	const len = headerNames.length;
+/**
+ * Create a new array of lower-cased and sorted strings from another array.
+ * 
+ * @param {string[]} items the items to lower-case and sort
+ * @returns {string[]} a new array of the lower-cased and sorted items
+ * @private
+ */
+function lowercaseSortedArray(items) {
+	const sortedItems = [];
+	const len = items.length;
 	for ( let i = 0; i < len; i += 1 ) {
-		sortedHeaderNames.push(headerNames[i].toLowerCase());
+		sortedItems.push(items[i].toLowerCase());
 	}
-	sortedHeaderNames.sort();
-	return sortedHeaderNames;
-}
-
-function iso8601Date(date, includeTime) {
-	return ''+date.getUTCFullYear()
-			+(date.getUTCMonth() < 9 ? '0' : '') +(date.getUTCMonth()+1)
-			+(date.getUTCDate() < 10 ? '0' : '') + date.getUTCDate()
-			+(includeTime ?
-				'T'
-				+(date.getUTCHours() < 10 ? '0' : '') + date.getUTCHours()
-				+(date.getUTCMinutes() < 10 ? '0' : '') + date.getUTCMinutes()
-				+(date.getUTCSeconds() < 10 ? '0' : '') +date.getUTCSeconds()
-				+'Z'
-				: '');
+	sortedItems.sort();
+	return sortedItems;
 }
 
 function _hexEscapeChar(c) {
-	return '%' + c.charCodeAt(0).toString(16);
+	return '%' + c.charCodeAt(0).tostring(16);
 }
 
 function _encodeURIComponent(str) {
@@ -505,7 +579,7 @@ Object.defineProperties(AuthorizationV2Builder, {
 	EMPTY_STRING_SHA256_HEX: 	{ value: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
 
 	/**
-	 * The hex-encoded value for an empty SHA256 digest value.
+	 * The SolarNetwork V2 authorization scheme.
 	 * 
 	 * @memberof AuthorizationV2Builder
 	 * @readonly
