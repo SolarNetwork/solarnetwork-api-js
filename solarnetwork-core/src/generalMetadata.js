@@ -62,6 +62,16 @@ class GeneralMetadata {
     }
 }
 
+/**
+ * Convert a <code>Map</code> into a simple object.
+ * 
+ * The keys are assumed to be strings. Values that are themselves <code>Map</code> instances
+ * will be converted to simple objects as well.
+ * 
+ * @param {Map<string, *>} strMap a Map with string keys; nested Map objects are also handled
+ * @returns {Object} a simple object
+ * @see {@link objectToStringMap} for the reverse conversion
+ */
 function stringMapToObject(strMap) {
     const obj = Object.create(null);
     for (const [k,v] of strMap) {
@@ -70,6 +80,16 @@ function stringMapToObject(strMap) {
     return obj;
 }
 
+/**
+ * Convert a simple object into a <code>Map</code> instance.
+ * 
+ * Property values that are themselves objects will be converted into <code>Map</code>
+ * instances as well.
+ * 
+ * @param {Object} obj a simple object
+ * @returns {Map<string, *>} a Map with string keys; nested Map objects are also handled
+ * @see {@link stringMapToObject} for the reverse conversion
+ */
 function objectToStringMap(obj) {
     const strMap = new Map();
     for (const k of Object.keys(obj)) {
@@ -80,3 +100,4 @@ function objectToStringMap(obj) {
 }
 
 export default GeneralMetadata;
+export { stringMapToObject, objectToStringMap };
