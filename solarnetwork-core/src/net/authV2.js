@@ -177,7 +177,7 @@ class AuthorizationV2Builder {
 	 * @type {string}
 	 */
 	get requestDateHeaderValue() {
-		return this.requestDate.toUTCstring();
+		return this.requestDate.toUTCString();
 	}
 
 	/**
@@ -345,7 +345,7 @@ class AuthorizationV2Builder {
 		for ( let i = 0; i < len; i += 1 ) {
 			headerName = sortedLowercaseHeaderNames[i];
 			if ( "date" === headerName ||  "x-sn-date" === headerName ) {
-				headerValue = this.requestDate.toUTCstring();
+				headerValue = this.requestDate.toUTCString();
 			} else {
 				headerValue = this.httpHeaders.firstValue(headerName);
 			}
